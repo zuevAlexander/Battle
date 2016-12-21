@@ -1,0 +1,19 @@
+parameters:
+  core.handler.map.class: CoreBundle\Handler\MapHandler
+  core.entity.map.class: CoreBundle\Entity\Map
+  core.service.map.class: CoreBundle\Service\Map\MapService
+services:
+  core.handler.map:
+    class: '%core.handler.map.class%'
+    arguments:
+      - '@service_container'
+      - '@event_dispatcher'
+      - '@core.service.map'
+  core.service.map:
+    class: '%core.service.map.class%'
+    tags:
+      - { name: kernel.event_subscriber }
+    arguments:
+      - '@service_container'
+      - '%core.entity.map.class%'
+      - '@event_dispatcher'

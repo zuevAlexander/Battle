@@ -1,0 +1,19 @@
+parameters:
+  core.handler.user.class: CoreBundle\Handler\UserHandler
+  core.entity.user.class: CoreBundle\Entity\User
+  core.service.user.class: CoreBundle\Service\User\UserService
+services:
+  core.handler.user:
+    class: '%core.handler.user.class%'
+    arguments:
+      - '@service_container'
+      - '@event_dispatcher'
+      - '@core.service.user'
+  core.service.user:
+    class: '%core.service.user.class%'
+    tags:
+      - { name: kernel.event_subscriber }
+    arguments:
+      - '@service_container'
+      - '%core.entity.user.class%'
+      - '@event_dispatcher'

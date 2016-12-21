@@ -1,0 +1,19 @@
+parameters:
+  core.handler.battle.class: CoreBundle\Handler\BattleHandler
+  core.entity.battle.class: CoreBundle\Entity\Battle
+  core.service.battle.class: CoreBundle\Service\Battle\BattleService
+services:
+  core.handler.battle:
+    class: '%core.handler.battle.class%'
+    arguments:
+      - '@service_container'
+      - '@event_dispatcher'
+      - '@core.service.battle'
+  core.service.battle:
+    class: '%core.service.battle.class%'
+    tags:
+      - { name: kernel.event_subscriber }
+    arguments:
+      - '@service_container'
+      - '%core.entity.battle.class%'
+      - '@event_dispatcher'

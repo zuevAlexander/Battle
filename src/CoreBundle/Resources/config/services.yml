@@ -1,0 +1,34 @@
+imports:
+  -
+    resource: BattleServices.yml
+  -
+    resource: BattleFieldServices.yml
+  -
+    resource: BattleStatusServices.yml
+  -
+    resource: CountShipsServices.yml
+  -
+    resource: MapServices.yml
+  -
+    resource: MapTypeServices.yml
+  -
+    resource: ShipServices.yml
+  -
+    resource: ShipLocationServices.yml
+  -
+    resource: ShipTypeServices.yml
+  -
+    resource: ShotServices.yml
+  -
+    resource: ShotStatusServices.yml
+  -
+    resource: ShotTypeServices.yml
+  -
+    resource: UserServices.yml
+services:
+  core.webservice_user_provider:
+    class: CoreBundle\Security\WebserviceUserProvider
+    arguments:
+      - '@doctrine'
+  core.token_authenticator:
+    class: CoreBundle\Security\TokenAuthenticator

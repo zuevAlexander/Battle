@@ -1,0 +1,19 @@
+parameters:
+  core.handler.battle_status.class: CoreBundle\Handler\BattleStatusHandler
+  core.entity.battle_status.class: CoreBundle\Entity\BattleStatus
+  core.service.battle_status.class: CoreBundle\Service\BattleStatus\BattleStatusService
+services:
+  core.handler.battle_status:
+    class: '%core.handler.battle_status.class%'
+    arguments:
+      - '@service_container'
+      - '@event_dispatcher'
+      - '@core.service.battle_status'
+  core.service.battle_status:
+    class: '%core.service.battle_status.class%'
+    tags:
+      - { name: kernel.event_subscriber }
+    arguments:
+      - '@service_container'
+      - '%core.entity.battle_status.class%'
+      - '@event_dispatcher'

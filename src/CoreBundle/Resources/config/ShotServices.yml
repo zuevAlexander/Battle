@@ -1,0 +1,19 @@
+parameters:
+  core.handler.shot.class: CoreBundle\Handler\ShotHandler
+  core.entity.shot.class: CoreBundle\Entity\Shot
+  core.service.shot.class: CoreBundle\Service\Shot\ShotService
+services:
+  core.handler.shot:
+    class: '%core.handler.shot.class%'
+    arguments:
+      - '@service_container'
+      - '@event_dispatcher'
+      - '@core.service.shot'
+  core.service.shot:
+    class: '%core.service.shot.class%'
+    tags:
+      - { name: kernel.event_subscriber }
+    arguments:
+      - '@service_container'
+      - '%core.entity.shot.class%'
+      - '@event_dispatcher'

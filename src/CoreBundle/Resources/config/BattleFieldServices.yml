@@ -1,0 +1,19 @@
+parameters:
+  core.handler.battle_field.class: CoreBundle\Handler\BattleFieldHandler
+  core.entity.battle_field.class: CoreBundle\Entity\BattleField
+  core.service.battle_field.class: CoreBundle\Service\BattleField\BattleFieldService
+services:
+  core.handler.battle_field:
+    class: '%core.handler.battle_field.class%'
+    arguments:
+      - '@service_container'
+      - '@event_dispatcher'
+      - '@core.service.battle_field'
+  core.service.battle_field:
+    class: '%core.service.battle_field.class%'
+    tags:
+      - { name: kernel.event_subscriber }
+    arguments:
+      - '@service_container'
+      - '%core.entity.battle_field.class%'
+      - '@event_dispatcher'

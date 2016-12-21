@@ -1,0 +1,19 @@
+parameters:
+  core.handler.ship.class: CoreBundle\Handler\ShipHandler
+  core.entity.ship.class: CoreBundle\Entity\Ship
+  core.service.ship.class: CoreBundle\Service\Ship\ShipService
+services:
+  core.handler.ship:
+    class: '%core.handler.ship.class%'
+    arguments:
+      - '@service_container'
+      - '@event_dispatcher'
+      - '@core.service.ship'
+  core.service.ship:
+    class: '%core.service.ship.class%'
+    tags:
+      - { name: kernel.event_subscriber }
+    arguments:
+      - '@service_container'
+      - '%core.entity.ship.class%'
+      - '@event_dispatcher'

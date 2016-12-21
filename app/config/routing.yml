@@ -1,0 +1,13 @@
+logout:
+    path: /logout
+
+api_route:
+    resource: "@ApiBundle/Resources/config/routing.yml"
+
+app:
+    resource: "@ApiBundle/Controller/"
+    type:     annotation
+
+NelmioApiDocBundle:
+    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
+    prefix:   /doc

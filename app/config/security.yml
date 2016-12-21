@@ -1,0 +1,20 @@
+security:
+
+    providers:
+        webservice:
+            id: core.webservice_user_provider
+
+    firewalls:
+        dev:
+            pattern: ^/doc
+            security: false
+
+        main:
+            pattern:    ^/
+            guard:
+                authenticators:
+                    - core.token_authenticator
+
+#    access_control:
+#        # require ROLE_ADMIN for /admin*
+#        - { path: ^/, roles: ROLE_USER }
