@@ -17,7 +17,7 @@ interface BattleAllRequestInterface
     /**
      * @return BattleStatus
      */
-    public function getBattleStatus(): BattleStatus;
+    public function getBattleStatus();
 
     /**
      * @param BattleStatus $battleStatus

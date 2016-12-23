@@ -25,6 +25,7 @@ imports:
     resource: ShotTypeServices.yml
   -
     resource: UserServices.yml
+
 services:
   core.webservice_user_provider:
     class: CoreBundle\Security\WebserviceUserProvider

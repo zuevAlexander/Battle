@@ -14,6 +14,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use CoreBundle\Model\Handler\BattleProcessorInterface;
 use CoreBundle\Service\Battle\BattleService;
+use CoreBundle\Exception\Battle\YouCanCreateOnlyOpenBattleException;
 
 /**
  * Class BattleHandler
@@ -21,6 +22,12 @@ use CoreBundle\Service\Battle\BattleService;
 class BattleHandler implements ContainerAwareInterface, BattleProcessorInterface
 {
     use ContainerAwareTrait;
+
+    const OPEN_BATTLE = 'Open';
+    const PREPARATION_BATTLE = 'Preparation';
+    const PROCESS_BATTLE = 'Process';
+    const FINISHED_BATTLE = 'Finished';
+    const CLOSED_BATTLE = 'Closed';
 
     /**
      * @var EventDispatcherInterface
@@ -62,8 +69,19 @@ class BattleHandler implements ContainerAwareInterface, BattleProcessorInterface
     /**
      * @inheritdoc
      */
+    public function processGetOpen(BattleListRequest $request): array
+    {
+        return $this->battleService->getEntitiesBy(['battleStatus' => $this->battleService->getDefaultBattleStatus()]);
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function processPost(BattleCreateRequest $request): Battle
     {
+        if ($request->getBattleStatus() && $request->getBattleStatus()->getStatusName() != self::OPEN_BATTLE) {
+            throw new YouCanCreateOnlyOpenBattleException();
+        }
         return $this->battleService->updatePost($request);
     }
 

@@ -32,7 +32,7 @@ trait BattleAllRequestTrait
     /**
      * @return BattleStatus
      */
-    public function getBattleStatus(): BattleStatus
+    public function getBattleStatus()
     {
         return $this->battleStatus;
     }

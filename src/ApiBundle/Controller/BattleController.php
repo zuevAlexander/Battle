@@ -47,6 +47,33 @@ class BattleController extends BaseController
         return $this->process($request, BattleListType::class);
     }
 
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Battle",
+     *  description="Get a list of Battle",
+     *  input={
+     *       "class" = "CoreBundle\Form\Battle\Battle",
+     *       "name" = ""
+     *  },
+     *  statusCodes={
+     *      200 = "Ok",
+     *      204 = "Positions not found",
+     *      400 = "Bad format",
+     *      403 = "Forbidden"
+     *  }
+     * )
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function getOpenAction(Request $request) : Response
+    {
+        return $this->process($request, BattleListType::class);
+    }
+
     /**
      * @ApiDoc(
      *  resource=true,

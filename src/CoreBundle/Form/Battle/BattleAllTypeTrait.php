@@ -23,10 +23,10 @@ trait BattleAllTypeTrait
             ->add('name', TextType::class, [
                 'by_reference' => false
             ])
-//            ->add('battleStatus', EntityType::class, [
-//                'class' => BattleStatus::class,
-//                'by_reference' => false
-//            ])
+            ->add('battleStatus', EntityType::class, [
+                'class' => BattleStatus::class,
+                'by_reference' => false
+            ])
             ->add('mapType', EntityType::class, [
                 'class' => MapType::class,
                 'by_reference' => false

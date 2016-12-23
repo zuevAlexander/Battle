@@ -11,6 +11,9 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use NorseDigital\Symfony\RestBundle\Entity\EntityInterface;
+use CoreBundle\Service\BattleField\BattleFieldService;
+use CoreBundle\Security\WebserviceUserProvider;
+use CoreBundle\Exception\Battle\YouAreAlreadyAttachedToThisBattleException;
 
 /** @noinspection PhpHierarchyChecksInspection */
 
@@ -26,25 +29,47 @@ class BattleService extends AbstractService implements EventSubscriberInterface,
 {
     use BattleDefaultValuesTrait;
 
+    const OPEN_BATTLE = 'Open';
+    const PREPARATION_BATTLE = 'Preparation';
+    const PROCESS_BATTLE = 'Process';
+    const FINISHED_BATTLE = 'Finished';
+    const CLOSED_BATTLE = 'Closed';
+
     /**
      * @var EventDispatcherInterface
      */
     private $eventDispatcher;
 
     /**
+     * @var WebserviceUserProvider
+     */
+    private $userProvider;
+
+    /**
+     * @var BattleFieldService
+     */
+    private $battleFieldService;
+
+    /**
      * BattleHandler constructor.
      * @param ContainerInterface $container
      * @param string $entityClass
      * @param EventDispatcherInterface $eventDispatcher
+     * @param BattleFieldService $battleFieldService
+     * @param WebserviceUserProvider $userProvider
      */
     public function __construct(
         ContainerInterface $container,
         string $entityClass,
-        EventDispatcherInterface $eventDispatcher
+        EventDispatcherInterface $eventDispatcher,
+        BattleFieldService $battleFieldService,
+        WebserviceUserProvider $userProvider
     ) {
         parent::__construct($container, $entityClass);
         $this->setContainer($container);
         $this->eventDispatcher = $eventDispatcher;
+        $this->battleFieldService = $battleFieldService;
+        $this->userProvider = $userProvider;
     }
 
     /**
@@ -64,6 +89,13 @@ class BattleService extends AbstractService implements EventSubscriberInterface,
         $battle = $this->createEntity();
         $this->setGeneralFields($request, $battle, true);
         $this->saveEntity($battle);
+
+        $battleField = $this->battleFieldService->createEntity();
+        $battleField->setBattle($battle);
+//        $battleField->setUser($this->userProvider->getCurrentUser());
+        $battleField->setUser($this->container->get('security.token_storage')->getToken()->getUser());
+        $this->battleFieldService->saveEntity($battleField);
+
         return $battle;
     }
 
@@ -87,9 +119,23 @@ class BattleService extends AbstractService implements EventSubscriberInterface,
     {
         $battle = $request->getBattle();
         $this->setGeneralFields($request, $battle);
+
+        if ($request->getBattle()->getBattleStatus()->getStatusName() == self::PREPARATION_BATTLE) {
+
+            $battleFields = $battle->getBattleFields();
+            foreach ($battleFields as $battleField) {
+                if ($battleField->getUser() == $this->container->get('security.token_storage')->getToken()->getUser()) {
+                    throw new YouAreAlreadyAttachedToThisBattleException();
+                }
+            }
+
+            $battleField = $this->battleFieldService->createEntity();
+            $battleField->setBattle($battle);
+            $battleField->setUser($this->container->get('security.token_storage')->getToken()->getUser());
+            $this->battleFieldService->saveEntity($battleField);
+        }
+
         $this->saveEntity($battle);
-        $em = $this->container->get('doctrine')->getEntityManager();
-        $em->getRepository('...')->find($id);
         return $battle;
     }
 

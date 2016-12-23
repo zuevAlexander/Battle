@@ -13,6 +13,7 @@ use NorseDigital\Symfony\RestBundle\Entity\EntityInterface;
 use NorseDigital\Symfony\RestBundle\Entity\EntityTrait;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Class Battle.
@@ -66,6 +67,16 @@ class Battle implements EntityInterface
      * @ORM\JoinColumn(name="map_type_id", referencedColumnName="id", nullable=false)
      */
     private $mapType;
+
+    /**
+     * @var ArrayCollection|BattleField[]
+     *
+     * @JMS\Type("array<CoreBundle\Entity\BattleField>")
+     *
+     * @ORM\OrderBy({"id" = "DESC"})
+     * @ORM\OneToMany(targetEntity="BattleField", mappedBy="battle", cascade={"persist", "remove"})
+     */
+    private $battleFields;
 
     /**
      * @return int|null
@@ -133,5 +144,21 @@ class Battle implements EntityInterface
         $this->mapType = $mapType;
 
         return $this;
+    }
+
+    /**
+     * @return BattleField[]|ArrayCollection
+     */
+    public function getBattleFields()
+    {
+        return $this->battleFields;
+    }
+
+    /**
+     * @param BattleField[]|ArrayCollection $battleFields
+     */
+    public function setBattleFields($battleFields)
+    {
+        $this->battleFields = $battleFields;
     }
 }

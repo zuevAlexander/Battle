@@ -6,7 +6,7 @@ security:
 
     firewalls:
         dev:
-            pattern: ^/doc
+            pattern: ^(/api|/_wdt)
             security: false
 
         main:
@@ -17,4 +17,4 @@ security:
 
 #    access_control:
 #        # require ROLE_ADMIN for /admin*
-#        - { path: ^/, roles: ROLE_USER }
+#        - { path: ^/battles, roles: ROLE_ADMIN }

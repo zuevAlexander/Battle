@@ -17,3 +17,5 @@ services:
       - '@service_container'
       - '%core.entity.battle.class%'
       - '@event_dispatcher'
+      - '@core.service.battle_field'
+      - '@core.webservice_user_provider'

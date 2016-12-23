@@ -11,6 +11,7 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use CoreBundle\Security\WebserviceUserProvider;
+use CoreBundle\Exception\User\UnauthorizedException;
 
 class TokenAuthenticator extends AbstractGuardAuthenticator
 {
@@ -20,9 +21,11 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
      */
     public function getCredentials(Request $request)
     {
+
         if (!$token = $request->headers->get('X-AUTH-TOKEN')) {
             // no token? Return null and no other methods will be called
-            return;
+//             return;
+            throw new UnauthorizedException();
         }
 
         // What you return here will be passed to getUser() as $credentials
@@ -30,7 +33,6 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
             'token' => $token,
         );
     }
-
 
     /**
      * @param mixed $credentials

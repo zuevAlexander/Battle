@@ -6,6 +6,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use CoreBundle\Entity\User;
+use CoreBundle\Exception\User\UnauthorizedException;
 
 class WebserviceUserProvider implements UserProviderInterface
 {
@@ -28,7 +29,11 @@ class WebserviceUserProvider implements UserProviderInterface
 
     public function getUserForApiKey($apiKey)
     {
-        $userData = $this->doctrine->getRepository('CoreBundle:User')->findOneBy(array('token' => $apiKey));
+        try {
+            $userData = $this->doctrine->getRepository('CoreBundle:User')->findOneBy(array('token' => $apiKey));
+        } catch (\Exception $e) {
+            throw new UnauthorizedException();
+        }
 
         if ($userData) {
             $this->currentUser = $userData;
