@@ -37,9 +37,11 @@ class ShipLocation implements EntityInterface
     /**
      * @var Ship
      *
+     * @JMS\Expose
      * @JMS\Type("CoreBundle\Entity\Ship")
+     * @JMS\Exclude()
      *
-     * @ORM\ManyToOne(targetEntity="Ship", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="Ship", fetch="EAGER", cascade={"persist", "remove"}, inversedBy="location")
      * @ORM\JoinColumn(name="ship_id", referencedColumnName="id", nullable=false)
      */
     private $ship;
@@ -49,7 +51,7 @@ class ShipLocation implements EntityInterface
      *
      * @JMS\Type("CoreBundle\Entity\Map")
      *
-     * @ORM\ManyToOne(targetEntity="Map", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="Map", fetch="EAGER", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="map_id", referencedColumnName="id", nullable=false)
      */
     private $map;

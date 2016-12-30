@@ -17,3 +17,8 @@ services:
       - '@service_container'
       - '%core.entity.ship.class%'
       - '@event_dispatcher'
+      - '@core.service.ship_location'
+      - '@core.service.count_ships'
+      - '@core.service.map'
+      - '@core.service.battle'
+      - '@core.service.battle_status'

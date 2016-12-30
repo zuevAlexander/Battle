@@ -45,6 +45,15 @@ class ShipType implements EntityInterface
     private $typeName;
 
     /**
+     * @var integer
+     *
+     * @JMS\Type("integer")
+     *
+     * @ORM\Column(name="deck_count", type="integer")
+     */
+    private $deckCount;
+
+    /**
      * @return int|null
      */
     public function getId()
@@ -70,5 +79,21 @@ class ShipType implements EntityInterface
         $this->typeName = $typeName;
 
         return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDeckCount(): int
+    {
+        return $this->deckCount;
+    }
+
+    /**
+     * @param int $deckCount
+     */
+    public function setDeckCount(int $deckCount)
+    {
+        $this->deckCount = $deckCount;
     }
 }

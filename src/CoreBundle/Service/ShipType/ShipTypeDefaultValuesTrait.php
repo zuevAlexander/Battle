@@ -17,4 +17,12 @@ trait ShipTypeDefaultValuesTrait
     {
         //TODO some default value
     }
+
+    /**
+     * @return int
+     */
+    public function getDefaultDeckCount(): int
+    {
+        //TODO some default value
+    }
 }

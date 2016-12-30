@@ -65,7 +65,7 @@ trait ShipAllRequestTrait
     /**
      * @return ShipLocationCreateRequest[]
      */
-    public function getLocation(): array
+    public function getLocation()
     {
         return $this->location;
     }

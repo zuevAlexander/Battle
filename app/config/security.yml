@@ -6,7 +6,7 @@ security:
 
     firewalls:
         dev:
-            pattern: ^(/api|/_wdt)
+            pattern: ^(/doc|/_wdt)
             security: false
 
         main:

@@ -19,3 +19,4 @@ services:
       - '@event_dispatcher'
       - '@core.service.battle_field'
       - '@core.webservice_user_provider'
+      - '@core.service.battle_status'

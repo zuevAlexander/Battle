@@ -75,6 +75,12 @@ class BattleField implements EntityInterface
      */
     private $shots;
 
+    public function __construct()
+    {
+        $this->ships = new ArrayCollection();
+        $this->shots = new ArrayCollection();
+    }
+
     /**
      * @return int|null
      */

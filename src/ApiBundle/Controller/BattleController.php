@@ -42,7 +42,7 @@ class BattleController extends BaseController
      *
      * @return Response
      */
-    public function cgetAction(Request $request) : Response
+    public function getOwnAction(Request $request) : Response
     {
         return $this->process($request, BattleListType::class);
     }

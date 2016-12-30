@@ -26,6 +26,12 @@ class BattleStatusService extends AbstractService implements EventSubscriberInte
 {
     use BattleStatusDefaultValuesTrait;
 
+    const OPEN_BATTLE = 'Open';
+    const PREPARATION_BATTLE = 'Preparation';
+    const PROCESS_BATTLE = 'Process';
+    const FINISHED_BATTLE = 'Finished';
+    const CLOSED_BATTLE = 'Closed';
+
     /**
      * @var EventDispatcherInterface
      */

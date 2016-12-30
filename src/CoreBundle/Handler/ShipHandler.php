@@ -64,7 +64,8 @@ class ShipHandler implements ContainerAwareInterface, ShipProcessorInterface
      */
     public function processPost(ShipCreateRequest $request): Ship
     {
-        return $this->shipService->updatePost($request);
+//        return $this->shipService->updatePost($request);
+        return $this->shipService->updatePost($request, $this->shipService->createEntity());
     }
 
     /**

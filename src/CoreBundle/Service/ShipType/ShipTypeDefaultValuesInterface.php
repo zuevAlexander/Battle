@@ -14,4 +14,9 @@ interface ShipTypeDefaultValuesInterface
      * @return string
      */
     public function getDefaultTypeName(): string;
+
+    /**
+     * @return int
+     */
+    public function getDefaultDeckCount(): int;
 }

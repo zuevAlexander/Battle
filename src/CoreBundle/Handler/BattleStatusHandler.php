@@ -64,9 +64,9 @@ class BattleStatusHandler implements ContainerAwareInterface, BattleStatusProces
      */
     public function processPost(BattleStatusCreateRequest $request): BattleStatus
     {
-        if ($this->container->get('security.context')->isGranted('ROLE_BRAND')) {
-
-        }
+//        if ($this->container->get('security.context')->isGranted('ROLE_BRAND')) {
+//
+//        }
         return $this->battleStatusService->updatePost($request);
     }
 

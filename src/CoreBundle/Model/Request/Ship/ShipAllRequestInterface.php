@@ -38,7 +38,7 @@ interface ShipAllRequestInterface
     /**
      * @return ShipLocationCreateRequest[]
      */
-    public function getLocation(): array;
+    public function getLocation();
 
     /**
      * @param ShipLocationCreateRequest[] $location

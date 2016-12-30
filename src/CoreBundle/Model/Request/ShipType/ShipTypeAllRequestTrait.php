@@ -15,6 +15,11 @@ trait ShipTypeAllRequestTrait
      */
     protected $typeName;
 
+    /**
+     * @var int
+     */
+    protected $deckCount;
+
     public function __construct()
     {
     }
@@ -33,5 +38,22 @@ trait ShipTypeAllRequestTrait
     public function setTypeName(string $typeName)
     {
         $this->typeName = $typeName;
+    }
+
+
+    /**
+     * @return int
+     */
+    public function getDeckCount(): int
+    {
+        return $this->deckCount;
+    }
+
+    /**
+     * @param int $deckCount
+     */
+    public function setDeckCount(int $deckCount)
+    {
+        $this->deckCount = $deckCount;
     }
 }

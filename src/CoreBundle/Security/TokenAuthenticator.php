@@ -15,6 +15,21 @@ use CoreBundle\Exception\User\UnauthorizedException;
 
 class TokenAuthenticator extends AbstractGuardAuthenticator
 {
+
+    /**
+     * @var string
+     */
+    private $authenticateTokenName;
+
+    /**
+     * TokenAuthenticator constructor.
+     * @param string $authenticateTokenName
+     */
+    public function __construct(string $authenticateTokenName)
+    {
+        $this->authenticateTokenName = $authenticateTokenName;
+    }
+
     /**
      * Called on every request. Return whatever credentials you want,
      * or null to stop authentication.
@@ -22,7 +37,7 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
     public function getCredentials(Request $request)
     {
 
-        if (!$token = $request->headers->get('X-AUTH-TOKEN')) {
+        if (!$token = $request->headers->get($this->authenticateTokenName)) {
             // no token? Return null and no other methods will be called
 //             return;
             throw new UnauthorizedException();

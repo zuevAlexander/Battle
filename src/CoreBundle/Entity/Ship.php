@@ -59,9 +59,9 @@ class Ship implements EntityInterface
      * @var ArrayCollection|ShipLocation[]
      *
      * @JMS\Type("array<CoreBundle\Entity\ShipLocation>")
+     * @JMS\Exclude()
      *
-     * @ORM\OrderBy({"id" = "DESC"})
-     * @ORM\OneToMany(targetEntity="ShipLocation", mappedBy="ship", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="ShipLocation", mappedBy="ship", cascade={"all"})
      */
     private $location;
 

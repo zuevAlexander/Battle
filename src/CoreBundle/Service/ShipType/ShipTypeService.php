@@ -26,6 +26,11 @@ class ShipTypeService extends AbstractService implements EventSubscriberInterfac
 {
     use ShipTypeDefaultValuesTrait;
 
+    const SINGLE_TIER = 1;
+    const TWO_TIER = 2;
+    const THREE_TIER = 3;
+    const FOUR_TIER = 4;
+
     /**
      * @var EventDispatcherInterface
      */
@@ -104,6 +109,13 @@ class ShipTypeService extends AbstractService implements EventSubscriberInterfac
         } elseif ($fullUpdate) {
             $shipType->setTypeName($this->getDefaultTypeName());
         }
+
+        if ($request->hasTypeName()) {
+            $shipType->setDeckCount($request->getDeckCount());
+        } elseif ($fullUpdate) {
+            $shipType->setDeckCount($this->getDefaultDeckCount());
+        }
+
         return $shipType;
     }
 }

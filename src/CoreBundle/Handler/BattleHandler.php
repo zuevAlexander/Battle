@@ -24,10 +24,6 @@ class BattleHandler implements ContainerAwareInterface, BattleProcessorInterface
     use ContainerAwareTrait;
 
     const OPEN_BATTLE = 'Open';
-    const PREPARATION_BATTLE = 'Preparation';
-    const PROCESS_BATTLE = 'Process';
-    const FINISHED_BATTLE = 'Finished';
-    const CLOSED_BATTLE = 'Closed';
 
     /**
      * @var EventDispatcherInterface
@@ -58,12 +54,9 @@ class BattleHandler implements ContainerAwareInterface, BattleProcessorInterface
     /**
      * @inheritdoc
      */
-    public function processGetC(BattleListRequest $request): array
+    public function processGetOwn(BattleListRequest $request): array
     {
-        return $this->battleService->getEntitiesByWithListRequestAndTotal(
-            [],
-            $request
-        );
+        return $this->battleService->getOwnBattles();
     }
 
     /**
@@ -71,7 +64,7 @@ class BattleHandler implements ContainerAwareInterface, BattleProcessorInterface
      */
     public function processGetOpen(BattleListRequest $request): array
     {
-        return $this->battleService->getEntitiesBy(['battleStatus' => $this->battleService->getDefaultBattleStatus()]);
+        return $this->battleService->getOpenBattles();
     }
 
     /**
@@ -90,7 +83,7 @@ class BattleHandler implements ContainerAwareInterface, BattleProcessorInterface
      */
     public function processGet(BattleReadRequest $request): Battle
     {
-        return $request->getBattle();
+        return $this->battleService->getBattle($request);
     }
 
     /**

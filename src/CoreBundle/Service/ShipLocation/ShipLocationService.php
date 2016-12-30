@@ -3,6 +3,7 @@
 namespace CoreBundle\Service\ShipLocation;
 
 use CoreBundle\Entity\ShipLocation;
+use CoreBundle\Model\Request\Ship\ShipAllRequestInterface;
 use CoreBundle\Model\Request\ShipLocation\ShipLocationAllRequestInterface;
 use CoreBundle\Model\Request\ShipLocation\ShipLocationCreateRequest;
 use CoreBundle\Model\Request\ShipLocation\ShipLocationUpdateRequest;
@@ -112,4 +113,5 @@ class ShipLocationService extends AbstractService implements EventSubscriberInte
         }
         return $shipLocation;
     }
+
 }

@@ -33,3 +33,5 @@ services:
       - '@doctrine'
   core.token_authenticator:
     class: CoreBundle\Security\TokenAuthenticator
+    arguments:
+      - '%authenticate_token_name%'
