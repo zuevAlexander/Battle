@@ -126,14 +126,15 @@ class ShipService extends AbstractService implements EventSubscriberInterface, S
      * @param ShipCreateRequest $request
      * @return Ship
      */
-    public function updatePost(ShipCreateRequest $request): Ship
+    public function createShip(ShipCreateRequest $request): Ship
     {
         if($request->getBattleField()->getUser() !=  $this->currentUser) {
             throw new YouAreNotOwnerOfThisBattleField();
         }
 
         $battleStatus = $request->getBattleField()->getBattle()->getBattleStatus()->getStatusName();
-        if ($battleStatus != BattleStatusService::OPEN_BATTLE || $battleStatus != BattleStatusService::PREPARATION_BATTLE) {
+        if ($battleStatus != BattleStatusService::OPEN_BATTLE && $battleStatus != BattleStatusService::PREPARATION_BATTLE) {
+            var_dump($battleStatus != BattleStatusService::PREPARATION_BATTLE);
             throw new BattleIsNotInOpenOrPreparationStatusException();
         }
 
@@ -254,9 +255,10 @@ class ShipService extends AbstractService implements EventSubscriberInterface, S
     private function isCorrectShipLocation(ShipAllRequestInterface $request)
     {
         $map = [];
+
+        /** @var Map[] $cells */
         $cells = $this->mapService->getEntities();
         foreach ($cells as $cell) {
-            /** @var Map $cell */
             $map[$cell->getLatitude()][$cell->getLongitude()] = $cell;
         }
 
@@ -266,8 +268,6 @@ class ShipService extends AbstractService implements EventSubscriberInterface, S
         $maxDistance = $request->getShipType()->getDeckCount();
 
         foreach ($shipLocations as $shipLocation) {
-
-            /** @var shipLocation $shipLocation */
             $x = $shipLocation->getMap()->getLatitude();
             $y = $shipLocation->getMap()->getLongitude();
 
@@ -335,6 +335,7 @@ class ShipService extends AbstractService implements EventSubscriberInterface, S
     private function checkEmptyCellsForShipLocation(ShipAllRequestInterface $request)
     {
         try {
+            /** @var Ship[] $allOwnShips */
             $allOwnShips = $this->getEntitiesBy([
                 'battleField' => $request->getBattleField()
             ]);
@@ -343,9 +344,10 @@ class ShipService extends AbstractService implements EventSubscriberInterface, S
         }
 
         $map = [];
+
+        /** @var Map[] $cells */
         $cells = $this->mapService->getEntities();
         foreach ($cells as $cell) {
-            /** @var Map $cell */
             $map[$cell->getLatitude()][$cell->getLongitude()] = $cell;
         }
 
@@ -354,7 +356,6 @@ class ShipService extends AbstractService implements EventSubscriberInterface, S
         foreach ($allOwnShips as $ownShip) {
             $shipLocations = $ownShip->getLocation();
             foreach ($shipLocations as $shipLocation) {
-                /** @var shipLocation $shipLocation */
                 $x = $shipLocation->getMap()->getLatitude();
                 $y = $shipLocation->getMap()->getLongitude();
                 $occupiedMap[] = $map[$x][$y];
@@ -405,6 +406,7 @@ class ShipService extends AbstractService implements EventSubscriberInterface, S
     private function isBattleFieldReady(BattleField $battleField, $creationShip = false)
     {
         try {
+            /** @var Ship[] $allOwnShips */
             $allOwnShips = $this->getEntitiesBy([
                 'battleField' => $battleField
             ]);
@@ -412,13 +414,13 @@ class ShipService extends AbstractService implements EventSubscriberInterface, S
             $allOwnShips = [];
         }
 
+        /** @var CountShips[] $allCountShips */
         $allCountShips = $this->countShipsService->getEntitiesBy([
             'mapType' => $battleField->getBattle()->getMapType()
         ]);
 
         $maxCount = 0;
         foreach ($allCountShips as $countShips) {
-            /** @var CountShips $countShips */
             $maxCount += $countShips->getCount();
         }
 

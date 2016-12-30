@@ -17,7 +17,7 @@ trait ShotDefaultValuesTrait
      */
     public function getDefaultUser(): User
     {
-        //TODO some default value
+        return $this->currentUser;
     }
 
     /**

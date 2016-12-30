@@ -30,7 +30,7 @@ interface ShotAllRequestInterface
     /**
      * @return Map
      */
-    public function getMap(): Map;
+    public function getMap();
 
     /**
      * @param Map $map
@@ -50,7 +50,7 @@ interface ShotAllRequestInterface
     /**
      * @return BattleField
      */
-    public function getBattleField(): BattleField;
+    public function getBattleField();
 
     /**
      * @param BattleField $battleField

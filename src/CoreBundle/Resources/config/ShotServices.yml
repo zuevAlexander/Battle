@@ -17,3 +17,7 @@ services:
       - '@service_container'
       - '%core.entity.shot.class%'
       - '@event_dispatcher'
+      - '@core.service.ship'
+      - '@core.service.shot_status'
+      - '@core.service.battle'
+      - '@core.service.battle_status'

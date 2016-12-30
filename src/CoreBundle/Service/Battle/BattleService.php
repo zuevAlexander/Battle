@@ -4,6 +4,7 @@ namespace CoreBundle\Service\Battle;
 
 use CoreBundle\Entity\Battle;
 use CoreBundle\Entity\BattleField;
+use CoreBundle\Entity\BattleStatus;
 use CoreBundle\Model\Request\Battle\BattleAllRequestInterface;
 use CoreBundle\Model\Request\Battle\BattleCreateRequest;
 use CoreBundle\Model\Request\Battle\BattleUpdateRequest;
@@ -119,10 +120,12 @@ class BattleService extends AbstractService implements EventSubscriberInterface,
     {
         $battles = [];
 
+        /** @var BattleStatus $openBattleStatus */
         $openBattleStatus = $this->battleStatusService->getEntityBy(['statusName' => BattleStatusService::OPEN_BATTLE]);
+
+        /** @var Battle[] $parentBattles */
         $parentBattles = $this->getEntitiesBy(['battleStatus' => $openBattleStatus]);
-        foreach ($parentBattles as $key=>$battle) {
-            /** @var Battle $battle */
+        foreach ($parentBattles as $battle) {
             $battles[] = $this->prepareBattleToResponse($battle);
         }
 

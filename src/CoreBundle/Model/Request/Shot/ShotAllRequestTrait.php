@@ -55,7 +55,7 @@ trait ShotAllRequestTrait
     /**
      * @return Map
      */
-    public function getMap(): Map
+    public function getMap()
     {
         return $this->map;
     }
@@ -87,7 +87,7 @@ trait ShotAllRequestTrait
     /**
      * @return BattleField
      */
-    public function getBattleField(): BattleField
+    public function getBattleField()
     {
         return $this->battleField;
     }

@@ -26,6 +26,10 @@ class ShotStatusService extends AbstractService implements EventSubscriberInterf
 {
     use ShotStatusDefaultValuesTrait;
 
+    const SHOT_PASS = 'Pass';
+    const SHOT_HIT = 'Hit';
+    const SHOT_DESTROY = 'Destroy';
+
     /**
      * @var EventDispatcherInterface
      */

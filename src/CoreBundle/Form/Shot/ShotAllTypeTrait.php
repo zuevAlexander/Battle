@@ -21,16 +21,8 @@ trait ShotAllTypeTrait
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('user', EntityType::class, [
-                'class' => User::class,
-                'by_reference' => false
-            ])
             ->add('map', EntityType::class, [
                 'class' => Map::class,
-                'by_reference' => false
-            ])
-            ->add('shotStatus', EntityType::class, [
-                'class' => ShotStatus::class,
                 'by_reference' => false
             ])
             ->add('battleField', EntityType::class, [

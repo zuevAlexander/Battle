@@ -64,7 +64,7 @@ class ShotHandler implements ContainerAwareInterface, ShotProcessorInterface
      */
     public function processPost(ShotCreateRequest $request): Shot
     {
-        return $this->shotService->updatePost($request);
+        return $this->shotService->createShot($request);
     }
 
     /**
