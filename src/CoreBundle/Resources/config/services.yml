@@ -27,11 +27,19 @@ imports:
     resource: UserServices.yml
 
 services:
+
   core.webservice_user_provider:
     class: CoreBundle\Security\WebserviceUserProvider
     arguments:
       - '@doctrine'
+
   core.token_authenticator:
     class: CoreBundle\Security\TokenAuthenticator
     arguments:
       - '%authenticate_token_name%'
+
+  core.password_authenticator:
+    class: CoreBundle\Security\PasswordAuthenticator
+    arguments:
+      - "@security.password_encoder"
+      - "@router"

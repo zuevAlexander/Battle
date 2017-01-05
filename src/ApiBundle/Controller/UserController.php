@@ -2,187 +2,119 @@
 
 namespace ApiBundle\Controller;
 
-use CoreBundle\Form\User\UserListType;
-use CoreBundle\Form\User\UserCreateType;
-use CoreBundle\Form\User\UserReadType;
-use CoreBundle\Form\User\UserUpdateType;
-use CoreBundle\Form\User\UserDeleteType;
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use CoreBundle\Entity\User;
+use CoreBundle\Form\User\UserLoginType;
+use CoreBundle\Form\User\UserRegisterType;
+use FOS\RestBundle\Controller\FOSRestController;
 use NorseDigital\Symfony\RestBundle\Controller\BaseController;
 use NorseDigital\Symfony\RestBundle\Handler\ProcessorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use FOS\RestBundle\Controller\Annotations;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use FOS\RestBundle\Controller\Annotations\RouteResource;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * Class UserController
+ * Class UserController.
  *
  * @RouteResource("User")
  */
-class UserController extends BaseController
+//class UserController extends BaseController
+class UserController extends FOSRestController
 {
     /**
      * @ApiDoc(
      *  resource=true,
-     *  section="User",
-     *  description="Get a list of User",
+     *  section="Login",
+     *  description="Login user",
      *  input={
-     *       "class" = "CoreBundle\Form\User\User",
+     *       "class" = "CoreBundle\Form\User\UserLoginType",
      *       "name" = ""
      *  },
      *  statusCodes={
      *      200 = "Ok",
-     *      204 = "Positions not found",
      *      400 = "Bad format",
-     *      403 = "Forbidden"
+     *      403 = "Access denied"
      *  }
-     * )
+     *)
+     * @Annotations\Post("/login")
      *
      * @param Request $request
      *
      * @return Response
+     *
+     * @throws \Exception
      */
-    public function cgetAction(Request $request) : Response
+    public function postLoginAction(Request $request) : Response
     {
-        return $this->process($request, UserListType::class);
+        $user = $this->getUser();
+        if ($user instanceof UserInterface) {
+            return $this->get('security.token_storage')->getToken()->getUser();
+        }
+
+        /** @var AuthenticationException $exception */
+        $exception = $this->get('security.authentication_utils')
+            ->getLastAuthenticationError();
+
+        $view = $this->view($exception->getMessage(), 403);
+        return $this->handleView($view);
+
+//        return $this->process($request, UserLoginType::class);
     }
 
     /**
      * @ApiDoc(
      *  resource=true,
-     *  section="User",
-     *  description="Create new User",
+     *  section="Registration",
+     *  description="Register user",
      *  input={
-     *       "class" = "CoreBundle\Form\User\UserCreateType",
+     *       "class" = "CoreBundle\Form\User\UserRegisterType",
      *       "name" = ""
      *  },
      *  statusCodes={
      *      200 = "Ok",
-     *      204 = "Positions not found",
-     *      400 = "Bad format",
-     *      403 = "Forbidden"
+     *      400 = "Bad format"
      *  }
      *)
+     * @Annotations\Post("/register")
      *
      * @param Request $request
      *
      * @return Response
+     *
+     * @throws \Exception
      */
-    public function postAction(Request $request) : Response
+    public function postRegisterAction(Request $request) : Response
     {
-        return $this->process($request, UserCreateType::class, Response::HTTP_CREATED);
+        $user = new User();
+        $form =  $this->createForm('CoreBundle\Form\User\UserRegisterType', $user);
+        $form->submit($request->request->all());
+
+        if (!$form->get('password')->isValid()) {
+            $view = $this->view($form->get('password')->getErrors('first')->getChildren()->getMessage(), 403);
+            return $this->handleView($view);
+        }
+
+        try {
+            $this->get('core.handler.user')->createUser($user);
+        }
+        catch(\Exception $e) {
+            $view = $this->view($e->getMessage(), 403);
+            return $this->handleView($view);
+        }
+
+        $view = $this->view($user, 200);
+
+        return $this->handleView($view);
+
+//        return $this->process($request, UserRegisterType::class, Response::HTTP_CREATED);
     }
 
     /**
-     * @ApiDoc(
-     *  resource=true,
-     *  section="User",
-     *  description="Get User",
-     *  input={
-     *       "class" = "CoreBundle\Form\User\UserReadType",
-     *       "name" = ""
-     *  },
-     *  statusCodes={
-     *      200 = "Ok",
-     *      204 = "Positions not found",
-     *      400 = "Bad format",
-     *      403 = "Forbidden"
-     *  }
-     *)
-     *
-     * @param Request $request
-     * @param int $user
-     *
-     * @return Response
-     */
-    public function getAction(Request $request, int $user) : Response
-    {
-        return $this->process($request, UserReadType::class);
-    }
-
-    /**
-     * @ApiDoc(
-     *  resource=true,
-     *  section="User",
-     *  description="Update all fields in User",
-     *  input={
-     *       "class" = "CoreBundle\Form\User\UserUpdateType",
-     *       "name" = ""
-     *  },
-     *  statusCodes={
-     *      200 = "Ok",
-     *      204 = "Positions not found",
-     *      400 = "Bad format",
-     *      403 = "Forbidden"
-     *  }
-     *)
-     *
-     * @param Request $request
-     * @param int $user
-     *
-     * @return Response
-     */
-    public function putAction(Request $request, int $user) : Response
-    {
-        return $this->process($request, UserUpdateType::class);
-    }
-
-    /**
-     * @ApiDoc(
-     *  resource=true,
-     *  section="User",
-     *  description="Update certain fields in User",
-     *  input={
-     *       "class" = "CoreBundle\Form\User\UserUpdateType",
-     *       "name" = ""
-     *  },
-     *  statusCodes={
-     *      200 = "Ok",
-     *      204 = "Positions not found",
-     *      400 = "Bad format",
-     *      403 = "Forbidden"
-     *  }
-     *)
-     *
-     * @param Request $request
-     * @param int $user
-     *
-     * @return Response
-     */
-    public function patchAction(Request $request, int $user) : Response
-    {
-        return $this->process($request, UserUpdateType::class);
-    }
-
-    /**
-     * @ApiDoc(
-     *  resource=true,
-     *  section="User",
-     *  description="Delete User",
-     *  input={
-     *       "class" = "CoreBundle\Form\User\UserDeleteType",
-     *       "name" = ""
-     *  },
-     *  statusCodes={
-     *      200 = "Ok",
-     *      204 = "Positions not found",
-     *      400 = "Bad format",
-     *      403 = "Forbidden"
-     *  }
-     *)
-     *
-     * @param Request $request
-     * @param int $user
-     *
-     * @return Response
-     */
-    public function deleteAction(Request $request, int $user) : Response
-    {
-        return $this->process($request, UserDeleteType::class);
-    }
-
-    /**
-     * {@inheritdoc}
+     * @return ProcessorInterface
      */
     protected function getProcessor() : ProcessorInterface
     {

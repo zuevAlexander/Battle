@@ -98,4 +98,12 @@ class UserHandler implements ContainerAwareInterface, UserProcessorInterface
     {
         return $this->userService->deleteEntity($request->getUser());
     }
+
+    /**
+     * @inheritdoc
+     */
+    public function createUser(User $user): User
+    {
+        return $this->userService->saveUser($user);
+    }
 }

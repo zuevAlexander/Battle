@@ -23,10 +23,5 @@ interface UserDefaultValuesInterface
     /**
      * @return string
      */
-    public function getDefaultToken(): string;
-
-    /**
-     * @return string
-     */
     public function getDefaultApiKey(): string;
 }

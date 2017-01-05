@@ -4,72 +4,21 @@ api_battle:
   prefix: /
   defaults:
     _format: json
-api_battle_field:
-  resource: '@ApiBundle/Controller/BattleFieldController.php'
-  type: rest
-  prefix: /
-  defaults:
-    _format: json
-api_battle_status:
-  resource: '@ApiBundle/Controller/BattleStatusController.php'
-  type: rest
-  prefix: /
-  defaults:
-    _format: json
-api_count_ships:
-  resource: '@ApiBundle/Controller/CountShipsController.php'
-  type: rest
-  prefix: /
-  defaults:
-    _format: json
-api_map:
-  resource: '@ApiBundle/Controller/MapController.php'
-  type: rest
-  prefix: /
-  defaults:
-    _format: json
-api_map_type:
-  resource: '@ApiBundle/Controller/MapTypeController.php'
-  type: rest
-  prefix: /
-  defaults:
-    _format: json
+
 api_ship:
   resource: '@ApiBundle/Controller/ShipController.php'
   type: rest
   prefix: /
   defaults:
     _format: json
-api_ship_location:
-  resource: '@ApiBundle/Controller/ShipLocationController.php'
-  type: rest
-  prefix: /
-  defaults:
-    _format: json
-api_ship_type:
-  resource: '@ApiBundle/Controller/ShipTypeController.php'
-  type: rest
-  prefix: /
-  defaults:
-    _format: json
+
 api_shot:
   resource: '@ApiBundle/Controller/ShotController.php'
   type: rest
   prefix: /
   defaults:
     _format: json
-api_shot_status:
-  resource: '@ApiBundle/Controller/ShotStatusController.php'
-  type: rest
-  prefix: /
-  defaults:
-    _format: json
-api_shot_type:
-  resource: '@ApiBundle/Controller/ShotTypeController.php'
-  type: rest
-  prefix: /
-  defaults:
-    _format: json
+
 api_user:
   resource: '@ApiBundle/Controller/UserController.php'
   type: rest

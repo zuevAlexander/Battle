@@ -38,16 +38,6 @@ interface UserAllRequestInterface
     /**
      * @return string
      */
-    public function getToken(): string;
-
-    /**
-     * @param string $token
-     */
-    public function setToken(string $token);
-
-    /**
-     * @return string
-     */
     public function getApiKey(): string;
 
     /**

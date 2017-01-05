@@ -69,22 +69,6 @@ trait UserAllRequestTrait
     /**
      * @return string
      */
-    public function getToken(): string
-    {
-        return $this->token;
-    }
-
-    /**
-     * @param string $token
-     */
-    public function setToken(string $token)
-    {
-        $this->token = $token;
-    }
-
-    /**
-     * @return string
-     */
     public function getApiKey(): string
     {
         return $this->apiKey;

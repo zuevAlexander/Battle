@@ -7,10 +7,14 @@ use CoreBundle\Model\Request\User\UserAllRequestInterface;
 use CoreBundle\Model\Request\User\UserCreateRequest;
 use CoreBundle\Model\Request\User\UserUpdateRequest;
 use NorseDigital\Symfony\RestBundle\Service\AbstractService;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use NorseDigital\Symfony\RestBundle\Entity\EntityInterface;
+use CoreBundle\Exception\User\UserAlreadyExistsException;
+use Doctrine\ORM\EntityNotFoundException;
+use CoreBundle\Exception\User\EmptyUsernameException;
 
 /** @noinspection PhpHierarchyChecksInspection */
 
@@ -111,17 +115,44 @@ class UserService extends AbstractService implements EventSubscriberInterface, U
             $user->setPassword($this->getDefaultPassword());
         }
 
-        if ($request->hasToken()) {
-            $user->setToken($request->getToken());
-        } elseif ($fullUpdate) {
-            $user->setToken($this->getDefaultToken());
-        }
-
         if ($request->hasApiKey()) {
             $user->setApiKey($request->getApiKey());
         } elseif ($fullUpdate) {
             $user->setApiKey($this->getDefaultApiKey());
         }
+        return $user;
+    }
+
+    /**
+     * @param User $user
+     * @return User
+     */
+    public function saveUser(User $user): User
+    {
+        try {
+            $this->getEntityBy(['username' => $user->getUsername()]);
+            throw new UserAlreadyExistsException();
+        } catch (EntityNotFoundException $e) {
+            // we haven't found user - that's ok
+        }
+
+        // TODO: make this validation in entity
+        if (!$user->getUsername()) {
+            throw new EmptyUsernameException();
+        }
+
+        $user->setApiKey(
+            sha1(
+                md5(microtime().mt_rand(0, 9999999))
+            )
+        );
+
+        $password = $this->container->get('security.password_encoder')
+            ->encodePassword($user, $user->getPassword());
+        $user->setPassword($password);
+
+        $this->saveEntity($user);
+
         return $user;
     }
 }

@@ -47,10 +47,14 @@ class WebserviceUserProvider implements UserProviderInterface
 
     public function loadUserByUsername($username)
     {
-        $userData = $this->doctrine->getRepository('CoreBundle:User')->findBy(array('username' => $username));
+        try {
+            $userData = $this->doctrine->getRepository('CoreBundle:User')->findOneBy(array('username' => $username));
+        } catch (\Exception $e) {
+            throw new UnauthorizedException();
+        }
 
         if ($userData) {
-            $this->currentUser = $userData[0];
+            $this->currentUser = $userData;
             return $this->currentUser;
         }
 

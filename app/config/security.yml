@@ -1,16 +1,37 @@
 security:
 
+    encoders:
+        CoreBundle\Entity\User:
+            algorithm: bcrypt
+            cost: 12
+
     providers:
         webservice:
             id: core.webservice_user_provider
 
     firewalls:
         dev:
-            pattern: ^(/doc|/_wdt)
+            pattern: ^/_wdt
             security: false
 
+        api_doc:
+            pattern: ^/doc
+            security: false
+
+        register:
+            pattern: ^/register
+            security: false
+
+        login:
+            pattern: ^/login
+            stateless: true
+            guard:
+                authenticators:
+                    - core.password_authenticator
+
         main:
-            pattern:    ^/
+            pattern: ^/
+            stateless: true
             guard:
                 authenticators:
                     - core.token_authenticator

@@ -16,6 +16,7 @@ use NorseDigital\Symfony\RestBundle\User\UserInterface as NDUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Authentication\AuthenticationProviderManager;
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Class User.
  *
@@ -40,19 +41,30 @@ class User implements  UserInterface, NDUserInterface
     /**
      * @var string
      *
-     * @JMS\Type("string")
-     * @JMS\SerializedName("name")
+     * @Assert\Length(
+     *     min="4",
+     *     max="255"
+     * )
+     * @Assert\NotBlank()
      *
-     * @ORM\Column(name="name", type="string")
+     * @JMS\Exclude()
+     *
+     * @ORM\Column(name="name", type="string", unique=true)
      */
     private $username;
 
     /**
      * @var string
      *
+     * @Assert\Length(
+     *     min="4",
+     *     max="255"
+     * )
+     * @Assert\NotBlank()
+     *
      * @JMS\Exclude()
      *
-     * @ORM\Column(name="password", type="string", nullable=true)
+     * @ORM\Column(name="password", type="string")
      */
     private $password;
 
@@ -62,11 +74,6 @@ class User implements  UserInterface, NDUserInterface
      * @JMS\Type("string")
      * @JMS\Groups({"post_user_login", "post_user_register"})
      *
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private $token;
-
-    /**
      * @ORM\Column(type="string", unique=true)
      */
     private $apiKey;
@@ -98,7 +105,7 @@ class User implements  UserInterface, NDUserInterface
     /**
      * @return string
      */
-    public function getUsername(): string
+    public function getUsername()
     {
         return $this->username;
     }
@@ -118,7 +125,7 @@ class User implements  UserInterface, NDUserInterface
     /**
      * @return string
      */
-    public function getPassword(): string
+    public function getPassword()
     {
         return $this->password;
     }
@@ -131,26 +138,6 @@ class User implements  UserInterface, NDUserInterface
     public function setPassword(string $password): self
     {
         $this->password = $password;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getToken(): string
-    {
-        return $this->token;
-    }
-
-    /**
-     * @param string $token
-     *
-     * @return User
-     */
-    public function setToken(string $token): User
-    {
-        $this->token = $token;
 
         return $this;
     }

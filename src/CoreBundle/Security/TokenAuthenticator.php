@@ -39,8 +39,8 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
 
         if (!$token = $request->headers->get($this->authenticateTokenName)) {
             // no token? Return null and no other methods will be called
-//             return;
-            throw new UnauthorizedException();
+             return;
+//            throw new UnauthorizedException();
         }
 
         // What you return here will be passed to getUser() as $credentials
