@@ -42,4 +42,3 @@ services:
     class: CoreBundle\Security\PasswordAuthenticator
     arguments:
       - "@security.password_encoder"
-      - "@router"

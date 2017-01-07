@@ -140,16 +140,28 @@ class UserService extends AbstractService implements EventSubscriberInterface, U
         if (!$user->getUsername()) {
             throw new EmptyUsernameException();
         }
-
-        $user->setApiKey(
-            sha1(
-                md5(microtime().mt_rand(0, 9999999))
-            )
-        );
-
+        
         $password = $this->container->get('security.password_encoder')
             ->encodePassword($user, $user->getPassword());
         $user->setPassword($password);
+        
+        $this->generateApiKey($user);
+
+        return $user;
+    }
+
+    /**
+     * @param User $user
+     *
+     * @return User
+     */
+    public function generateApiKey(User $user) : User
+    {
+        $user->setApiKey(sha1(
+            md5(
+                microtime().mt_rand(0, 9999999)
+            )
+        ));
 
         $this->saveEntity($user);
 

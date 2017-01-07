@@ -1,14 +1,11 @@
 <?php
 namespace CoreBundle\Security;
 
-use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
-use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
-use Symfony\Component\Security\Core\Security;
-use Symfony\Component\Security\Core\User\InMemoryUserProvider;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -16,13 +13,8 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-class FormAuthenticator extends AbstractGuardAuthenticator
+class PasswordAuthenticator extends AbstractGuardAuthenticator
 {
-
-    /**
-     * @var \Symfony\Component\Routing\RouterInterface
-     */
-    private $router;
 
     private $encoder;
 
@@ -36,9 +28,8 @@ class FormAuthenticator extends AbstractGuardAuthenticator
     /**
      * Creates a new instance of FormAuthenticator
      */
-    public function __construct(UserPasswordEncoderInterface $encoder, RouterInterface $router) {
+    public function __construct(UserPasswordEncoderInterface $encoder) {
         $this->encoder = $encoder;
-        $this->router = $router;
     }
 
     /**
@@ -57,20 +48,17 @@ class FormAuthenticator extends AbstractGuardAuthenticator
     }
 
     /**
-     * {@inheritdoc}
+     * @param mixed $credentials
+     * @param UserProviderInterface|WebserviceUserProvider $userProvider
+     * @return mixed
      */
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
-        if (!$userProvider instanceof InMemoryUserProvider) {
-            return;
-        }
+        $username = $credentials['username'];
 
-        try {
-            return $userProvider->loadUserByUsername($credentials['username']);
-        }
-        catch (UsernameNotFoundException $e) {
-            throw new CustomUserMessageAuthenticationException($this->failMessage);
-        }
+        // if null, authentication will fail
+        // if a User object, checkCredentials() is called
+        return $userProvider->loadUserByUsername($username);
     }
 
     /**
@@ -78,7 +66,11 @@ class FormAuthenticator extends AbstractGuardAuthenticator
      */
     public function checkCredentials($credentials, UserInterface $user)
     {
-        if ($user->getPassword() === $credentials['password']) {
+        $validPassword = $this->encoder->isPasswordValid(
+            $user,
+            $credentials['password']      // the submitted password
+        );
+        if ($validPassword) {
             return true;
         }
         throw new CustomUserMessageAuthenticationException($this->failMessage);
@@ -89,27 +81,32 @@ class FormAuthenticator extends AbstractGuardAuthenticator
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
-        $url = $this->router->generate('homepage');
-        return new RedirectResponse($url);
+        return null;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
-        $request->getSession()->set(Security::AUTHENTICATION_ERROR, $exception);
-        $url = $this->router->generate('login');
-        return new RedirectResponse($url);
+        $data = array(
+            'message' => strtr($exception->getMessageKey(), $exception->getMessageData())
+
+            // or to translate this message
+            // $this->translator->trans($exception->getMessageKey(), $exception->getMessageData())
+        );
+
+        return new JsonResponse($data, Response::HTTP_FORBIDDEN);
     }
 
     /**
-     * {@inheritdoc}
+     * Called when authentication is needed, but it's not sent
      */
     public function start(Request $request, AuthenticationException $authException = null)
     {
-        $url = $this->router->generate('login');
-        return new RedirectResponse($url);
+        $data = array(
+            // you might translate this message
+            'message' => 'Authentication Required'
+        );
+
+        return new JsonResponse($data, Response::HTTP_UNAUTHORIZED);
     }
 
     /**

@@ -50,16 +50,9 @@ class UserController extends FOSRestController
      */
     public function postLoginAction(Request $request) : Response
     {
-        $user = $this->getUser();
-        if ($user instanceof UserInterface) {
-            return $this->get('security.token_storage')->getToken()->getUser();
-        }
-
-        /** @var AuthenticationException $exception */
-        $exception = $this->get('security.authentication_utils')
-            ->getLastAuthenticationError();
-
-        $view = $this->view($exception->getMessage(), 403);
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $this->get('core.service.user')->generateApiKey($user);
+        $view = $this->view($user, 200);
         return $this->handleView($view);
 
 //        return $this->process($request, UserLoginType::class);
