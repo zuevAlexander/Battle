@@ -25,7 +25,7 @@ trait UserValidationTrait
      * )
      * @Assert\NotBlank()
      */
-    protected $name = '';
+    protected $username = '';
 
     /**
      * @var string
@@ -34,7 +34,6 @@ trait UserValidationTrait
      *     min="4",
      *     max="255"
      * )
-     * @Assert\NotBlank()
      */
     protected $password = '';
 

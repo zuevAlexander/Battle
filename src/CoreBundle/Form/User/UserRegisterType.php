@@ -7,19 +7,16 @@
  */
 namespace CoreBundle\Form\User;
 
-use CoreBundle\Entity\User;
-//use CoreBundle\Entity\UserType;
 use CoreBundle\Model\Request\User\UserRegisterRequest;
 use NorseDigital\Symfony\RestBundle\Form\AbstractFormType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-class UserRegisterType extends AbstractType
+class UserRegisterType extends AbstractFormType
 {
+    const DATA_CLASS = UserRegisterRequest::class;
 
     /**
      * @param FormBuilderInterface $builder
@@ -27,14 +24,16 @@ class UserRegisterType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('username', TextType::class, [
-            'required' => true,
-        ])->add('password', RepeatedType::class, array(
-            'type' => PasswordType::class,
-            'invalid_message' => 'The password fields must match',
-            'required' => true,
-            'first_options'  => array('label' => 'Password'),
-            'second_options' => array('label' => 'Repeat Password')
-        ));
+        $builder
+            ->add('username', TextType::class, [
+                'required' => true,
+            ])
+            ->add('password', RepeatedType::class, array(
+                'type' => PasswordType::class,
+                'invalid_message' => 'The password fields must match',
+                'required' => true,
+                'first_options' => array('label' => 'Password'),
+                'second_options' => array('label' => 'Repeat Password')
+            ));
     }
 }

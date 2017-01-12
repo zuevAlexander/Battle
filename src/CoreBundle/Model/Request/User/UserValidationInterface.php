@@ -13,7 +13,7 @@ interface UserValidationInterface
     /**
      * @return string
      */
-    public function getName(): string;
+    public function getUsername(): string;
 
     /**
      * @return string

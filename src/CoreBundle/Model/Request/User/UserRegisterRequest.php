@@ -7,7 +7,6 @@
  */
 namespace CoreBundle\Model\Request\User;
 
-//use CoreBundle\Entity\UserType;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -18,27 +17,20 @@ class UserRegisterRequest implements UserValidationInterface
 
     use UserValidationTrait;
 
-
-    /**
-     * @var string
-     *
-     */
-    private $passwordRepeat = '';
-
     /**
      * @return string
      */
-    public function getName(): string
+    public function getUsername(): string
     {
-        return $this->name;
+        return $this->username;
     }
 
     /**
-     * @param string $name
+     * @param string $username
      */
-    public function setName($name)
+    public function setUsername($username)
     {
-        $this->name = $name;
+        $this->username = $username;
     }
 
     /**

@@ -8,8 +8,6 @@ namespace CoreBundle\Model\Request\User;
  */
 trait UserAllRequestTrait
 {
-    
-
     /**
      * @var string
      */
@@ -19,11 +17,6 @@ trait UserAllRequestTrait
      * @var string
      */
     protected $password;
-
-    /**
-     * @var string
-     */
-    protected $token;
 
     /**
      * @var string

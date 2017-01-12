@@ -2,8 +2,11 @@
 
 namespace CoreBundle\Form\Battle;
 
+use CoreBundle\Entity\MapType;
 use CoreBundle\Model\Request\Battle\BattleCreateRequest;
 use NorseDigital\Symfony\RestBundle\Form\AbstractFormType;
+use NorseDigital\Symfony\RestBundle\Form\TextType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
@@ -11,10 +14,6 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 class BattleCreateType extends AbstractFormType
 {
-    use BattleAllTypeTrait {
-        BattleAllTypeTrait::buildForm as private buildFormTraitBattleAllType;
-    }
-
     const DATA_CLASS = BattleCreateRequest::class;
 
     /**
@@ -23,7 +22,14 @@ class BattleCreateType extends AbstractFormType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $this->buildFormTraitBattleAllType($builder, $options);
+        $builder
+            ->add('name', TextType::class, [
+                'by_reference' => false
+            ])
+            ->add('mapType', EntityType::class, [
+                'class' => MapType::class,
+                'by_reference' => false
+            ]);
         $this->registerPreSubmitEventListener($builder);
     }
 }

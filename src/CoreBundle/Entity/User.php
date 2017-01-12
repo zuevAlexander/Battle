@@ -10,12 +10,8 @@ namespace CoreBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 use NorseDigital\Symfony\RestBundle\Entity\EntityTrait;
-use NorseDigital\Symfony\RestBundle\Oauth\UserOauthInterface;
-use NorseDigital\Symfony\RestBundle\Oauth\UserOauthTrait;
 use NorseDigital\Symfony\RestBundle\User\UserInterface as NDUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
-use Symfony\Component\Security\Core\Authentication\AuthenticationProviderManager;
 use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Class User.
@@ -77,6 +73,15 @@ class User implements  UserInterface, NDUserInterface
      * @ORM\Column(type="string", unique=true)
      */
     private $apiKey;
+
+    /**
+     * @var array
+     *
+     * @JMS\Exclude()
+     *
+     * @ORM\Column(name="roles", type="array")
+     */
+    protected $roles;
 
     /**
      * @return mixed
@@ -142,9 +147,22 @@ class User implements  UserInterface, NDUserInterface
         return $this;
     }
 
-    public function getRoles()
+    /**
+     * @return array
+     */
+    public function getRoles(): array
     {
-        return array('ROLE_USER');
+        return $this->roles;
+    }
+
+    /**
+     * @param array $roles
+     * @return User
+     */
+    public function setRoles(array $roles): User
+    {
+        $this->roles = $roles;
+        return $this;
     }
 
     public function getSalt()

@@ -1,122 +1,70 @@
 <?php
 namespace CoreBundle\Security;
 
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
-use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
-use Symfony\Component\Security\Core\Security;
-use Symfony\Component\Security\Core\User\InMemoryUserProvider;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 
-class FormAuthenticator extends AbstractGuardAuthenticator
+class PasswordAuthenticator extends AbstractBaseAuthenticator
 {
-
     /**
-     * @var \Symfony\Component\Routing\RouterInterface
+     * @var UserPasswordEncoderInterface
      */
-    private $router;
-
     private $encoder;
 
     /**
-     * Default message for authentication failure.
-     *
-     * @var string
+     * PasswordAuthenticator constructor.
+     * @param TranslatorInterface $translator
+     * @param UserPasswordEncoderInterface $encoder
      */
-    private $failMessage = 'Invalid credentials';
-
-    /**
-     * Creates a new instance of FormAuthenticator
-     */
-    public function __construct(UserPasswordEncoderInterface $encoder, RouterInterface $router) {
+    public function __construct(TranslatorInterface $translator, UserPasswordEncoderInterface $encoder) {
+        parent::__construct($translator);
         $this->encoder = $encoder;
-        $this->router = $router;
     }
 
     /**
-     * {@inheritdoc}
+     * @param Request $request
+     * @return array|null
      */
     public function getCredentials(Request $request)
     {
         if ($request->getPathInfo() != '/login' || !$request->isMethod('POST')) {
-            return;
+            return null;
         }
-
-        return array(
+        return [
             'username' => $request->request->get('username'),
             'password' => $request->request->get('password'),
-        );
+        ];
     }
 
     /**
-     * {@inheritdoc}
+     * @param mixed $credentials
+     * @param UserProviderInterface $userProvider
+     * @return UserInterface
      */
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
-        if (!$userProvider instanceof InMemoryUserProvider) {
-            return;
-        }
-
-        try {
-            return $userProvider->loadUserByUsername($credentials['username']);
-        }
-        catch (UsernameNotFoundException $e) {
-            throw new CustomUserMessageAuthenticationException($this->failMessage);
-        }
+        $username = $credentials['username'];
+        return $userProvider->loadUserByUsername($username);
     }
 
     /**
-     * {@inheritdoc}
+     * @param mixed $credentials
+     * @param UserInterface $user
+     * @return bool
      */
     public function checkCredentials($credentials, UserInterface $user)
     {
-        if ($user->getPassword() === $credentials['password']) {
-            return true;
+        $validPassword = $this->encoder->isPasswordValid(
+            $user,
+            $credentials['password']      // the submitted password
+        );
+        if (!$validPassword) {
+            throw new CustomUserMessageAuthenticationException($this->failMessage);
         }
-        throw new CustomUserMessageAuthenticationException($this->failMessage);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
-    {
-        $url = $this->router->generate('homepage');
-        return new RedirectResponse($url);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
-    {
-        $request->getSession()->set(Security::AUTHENTICATION_ERROR, $exception);
-        $url = $this->router->generate('login');
-        return new RedirectResponse($url);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function start(Request $request, AuthenticationException $authException = null)
-    {
-        $url = $this->router->generate('login');
-        return new RedirectResponse($url);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function supportsRememberMe()
-    {
-        return false;
+        return true;
     }
 }

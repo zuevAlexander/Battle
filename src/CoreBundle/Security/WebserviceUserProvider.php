@@ -1,12 +1,12 @@
 <?php
 namespace CoreBundle\Security;
 
+use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use CoreBundle\Entity\User;
-use CoreBundle\Exception\User\UnauthorizedException;
 
 class WebserviceUserProvider implements UserProviderInterface
 {
@@ -14,10 +14,8 @@ class WebserviceUserProvider implements UserProviderInterface
      * @var \Symfony\Bridge\Doctrine\RegistryInterface
      */
     protected $doctrine;
-    /**
-     * @var \CoreBundle\Entity\User
-     */
-    private $currentUser;
+
+
     /**
      * WebserviceUserProvider constructor.
      * @param \Symfony\Bridge\Doctrine\RegistryInterface $doctrine
@@ -27,46 +25,40 @@ class WebserviceUserProvider implements UserProviderInterface
         $this->doctrine = $doctrine;
     }
 
+    /**
+     * @param $apiKey
+     * @return User
+     */
     public function getUserForApiKey($apiKey)
     {
         try {
-            $userData = $this->doctrine->getRepository('CoreBundle:User')->findOneBy(array('token' => $apiKey));
+            $userData = $this->doctrine->getRepository('CoreBundle:User')->findOneBy(array('apiKey' => $apiKey));
         } catch (\Exception $e) {
-            throw new UnauthorizedException();
+            throw new TokenNotFoundException();
         }
 
-        if ($userData) {
-            $this->currentUser = $userData;
-            return $this->currentUser;
-        }
-
-        throw new UsernameNotFoundException(
-            sprintf('ApiKey "%s" does not exist.', $apiKey)
-        );
+        return $userData;
     }
 
+    /**
+     * @param string $username
+     * @return User
+     */
     public function loadUserByUsername($username)
     {
         try {
             $userData = $this->doctrine->getRepository('CoreBundle:User')->findOneBy(array('username' => $username));
         } catch (\Exception $e) {
-            throw new UnauthorizedException();
+            throw new UsernameNotFoundException();
         }
 
-        if ($userData) {
-            $this->currentUser = $userData;
-            return $this->currentUser;
-        }
-
-        throw new UsernameNotFoundException(
-            sprintf('UserName "%s" does not exist.', $username)
-        );
+        return $userData;
     }
 
-    public function getCurrentUser() {
-        return $this->currentUser;
-    }
-
+    /**
+     * @param UserInterface $user
+     * @return User
+     */
     public function refreshUser(UserInterface $user)
     {
         if (!$user instanceof User) {
@@ -74,10 +66,13 @@ class WebserviceUserProvider implements UserProviderInterface
                 sprintf('Instances of "%s" are not supported.', get_class($user))
             );
         }
-
         return $this->loadUserByUsername($user->getUsername());
     }
 
+    /**
+     * @param string $class
+     * @return bool
+     */
     public function supportsClass($class)
     {
         return User::class === $class;

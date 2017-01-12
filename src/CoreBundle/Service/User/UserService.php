@@ -1,10 +1,8 @@
 <?php
-
 namespace CoreBundle\Service\User;
-
 use CoreBundle\Entity\User;
 use CoreBundle\Model\Request\User\UserAllRequestInterface;
-use CoreBundle\Model\Request\User\UserCreateRequest;
+use CoreBundle\Model\Request\User\UserRegisterRequest;
 use CoreBundle\Model\Request\User\UserUpdateRequest;
 use NorseDigital\Symfony\RestBundle\Service\AbstractService;
 use Symfony\Component\Config\Definition\Exception\Exception;
@@ -15,9 +13,9 @@ use NorseDigital\Symfony\RestBundle\Entity\EntityInterface;
 use CoreBundle\Exception\User\UserAlreadyExistsException;
 use Doctrine\ORM\EntityNotFoundException;
 use CoreBundle\Exception\User\EmptyUsernameException;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /** @noinspection PhpHierarchyChecksInspection */
-
 /**
  * Class UserService
  *
@@ -31,6 +29,11 @@ class UserService extends AbstractService implements EventSubscriberInterface, U
     use UserDefaultValuesTrait;
 
     /**
+     * @var UserPasswordEncoderInterface
+     */
+    private $encoder;
+
+    /**
      * @var EventDispatcherInterface
      */
     private $eventDispatcher;
@@ -40,15 +43,18 @@ class UserService extends AbstractService implements EventSubscriberInterface, U
      * @param ContainerInterface $container
      * @param string $entityClass
      * @param EventDispatcherInterface $eventDispatcher
+     * @param UserPasswordEncoderInterface $encoder
      */
     public function __construct(
         ContainerInterface $container,
         string $entityClass,
-        EventDispatcherInterface $eventDispatcher
+        EventDispatcherInterface $eventDispatcher,
+        UserPasswordEncoderInterface $encoder
     ) {
         parent::__construct($container, $entityClass);
         $this->setContainer($container);
         $this->eventDispatcher = $eventDispatcher;
+        $this->encoder = $encoder;
     }
 
     /**
@@ -60,99 +66,36 @@ class UserService extends AbstractService implements EventSubscriberInterface, U
     }
 
     /**
-     * @param UserCreateRequest $request
+     * @param UserRegisterRequest $request
      * @return User
      */
-    public function updatePost(UserCreateRequest $request): User
-    {
-        $user = $this->createEntity();
-        $this->setGeneralFields($request, $user, true);
-        $this->saveEntity($user);
-        return $user;
-    }
-
-    /**
-     * @param UserUpdateRequest $request
-     * @return User
-     */
-    public function updatePut(UserUpdateRequest $request): User
-    {
-        $user = $request->getUser();
-        $this->setGeneralFields($request, $user, true);
-        $this->saveEntity($user);
-        return $user;
-    }
-
-    /**
-     * @param UserUpdateRequest $request
-     * @return User
-     */
-    public function updatePatch(UserUpdateRequest $request): User
-    {
-        $user = $request->getUser();
-        $this->setGeneralFields($request, $user);
-        $this->saveEntity($user);
-        return $user;
-    }
-
-    /**
-     * @param UserAllRequestInterface $request
-     * @param User $user
-     * @param bool $fullUpdate
-     * @return User
-     */
-    public function setGeneralFields(UserAllRequestInterface $request, User $user, $fullUpdate = false)
-    {
-        if ($request->hasUsername()) {
-            $user->setUsername($request->getUsername());
-        } elseif ($fullUpdate) {
-            $user->setUsername($this->getDefaultUsername());
-        }
-
-        if ($request->hasPassword()) {
-            $user->setPassword($request->getPassword());
-        } elseif ($fullUpdate) {
-            $user->setPassword($this->getDefaultPassword());
-        }
-
-        if ($request->hasApiKey()) {
-            $user->setApiKey($request->getApiKey());
-        } elseif ($fullUpdate) {
-            $user->setApiKey($this->getDefaultApiKey());
-        }
-        return $user;
-    }
-
-    /**
-     * @param User $user
-     * @return User
-     */
-    public function saveUser(User $user): User
+    public function createUser(UserRegisterRequest $request): User
     {
         try {
-            $this->getEntityBy(['username' => $user->getUsername()]);
+            $this->getEntityBy(['username' => $request->getUsername()]);
             throw new UserAlreadyExistsException();
         } catch (EntityNotFoundException $e) {
             // we haven't found user - that's ok
         }
 
-        // TODO: make this validation in entity
-        if (!$user->getUsername()) {
-            throw new EmptyUsernameException();
-        }
+        $user = $this->createEntity();
+        $user->setUsername($request->getUsername());
+        $user->setPassword($this->encoder->encodePassword($user, $request->getPassword()));
+        $user->setRoles(array('ROLE_USER'));
+        $this->generateApiKey($user);
 
-        $user->setApiKey(
-            sha1(
-                md5(microtime().mt_rand(0, 9999999))
-            )
-        );
+        return $user;
+    }
 
-        $password = $this->container->get('security.password_encoder')
-            ->encodePassword($user, $user->getPassword());
-        $user->setPassword($password);
-
+    /**
+     * @param User $user
+     *
+     * @return User
+     */
+    public function generateApiKey(User $user) : User
+    {
+        $user->setApiKey(bin2hex(random_bytes(20)));
         $this->saveEntity($user);
-
         return $user;
     }
 }

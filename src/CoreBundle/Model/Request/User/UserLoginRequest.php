@@ -2,7 +2,6 @@
 
 namespace CoreBundle\Model\Request\User;
 
-use CoreBundle\Entity\UserType;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -14,7 +13,7 @@ class UserLoginRequest
      * @var string
      *
      */
-    private $name = '';
+    private $username = '';
 
     /**
      * @var string
@@ -25,17 +24,17 @@ class UserLoginRequest
     /**
      * @return string
      */
-    public function getName(): string
+    public function getUsername(): string
     {
-        return (string)$this->name;
+        return (string)$this->username;
     }
 
     /**
-     * @param string $name
+     * @param string $username
      */
-    public function setName($name)
+    public function setUsername($username)
     {
-        $this->name = $name;
+        $this->username = $username;
     }
 
     /**

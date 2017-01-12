@@ -17,3 +17,4 @@ services:
       - '@service_container'
       - '%core.entity.user.class%'
       - '@event_dispatcher'
+      - "@security.password_encoder"

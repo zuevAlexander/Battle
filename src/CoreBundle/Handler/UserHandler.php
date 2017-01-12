@@ -4,10 +4,8 @@ namespace CoreBundle\Handler;
 
 use CoreBundle\Entity\User;
 use CoreBundle\Model\Request\User\UserListRequest;
-use CoreBundle\Model\Request\User\UserCreateRequest;
-use CoreBundle\Model\Request\User\UserReadRequest;
-use CoreBundle\Model\Request\User\UserUpdateRequest;
-use CoreBundle\Model\Request\User\UserDeleteRequest;
+use CoreBundle\Model\Request\User\UserLoginRequest;
+use CoreBundle\Model\Request\User\UserRegisterRequest;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -49,7 +47,8 @@ class UserHandler implements ContainerAwareInterface, UserProcessorInterface
     }
 
     /**
-     * @inheritdoc
+     * @param UserListRequest $request
+     * @return array
      */
     public function processGetC(UserListRequest $request): array
     {
@@ -60,50 +59,23 @@ class UserHandler implements ContainerAwareInterface, UserProcessorInterface
     }
 
     /**
-     * @inheritdoc
+     * @param UserLoginRequest $request
+     * @return User
      */
-    public function processPost(UserCreateRequest $request): User
+    public function processPostLogin(UserLoginRequest $request) : User
     {
-        return $this->userService->updatePost($request);
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $this->userService->generateApiKey($user);
+
+        return $user;
     }
 
     /**
-     * @inheritdoc
+     * @param UserRegisterRequest $request
+     * @return User
      */
-    public function processGet(UserReadRequest $request): User
+    public function processPostRegister(UserRegisterRequest $request) : User
     {
-        return $request->getUser();
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function processPut(UserUpdateRequest $request): User
-    {
-        return $this->userService->updatePut($request);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function processPatch(UserUpdateRequest $request): User
-    {
-        return $this->userService->updatePatch($request);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function processDelete(UserDeleteRequest $request): User
-    {
-        return $this->userService->deleteEntity($request->getUser());
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function createUser(User $user): User
-    {
-        return $this->userService->saveUser($user);
+        return $this->userService->createUser($request);
     }
 }
