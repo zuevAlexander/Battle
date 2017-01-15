@@ -49,6 +49,7 @@ class BattleField implements EntityInterface
      * @var Battle
      *
      * @JMS\Type("CoreBundle\Entity\Battle")
+     * @JMS\Exclude()
      *
      * @ORM\ManyToOne(targetEntity="Battle", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="battle_id", referencedColumnName="id", nullable=false)
@@ -74,6 +75,16 @@ class BattleField implements EntityInterface
      * @ORM\OneToMany(targetEntity="Shot", mappedBy="battleField", cascade={"persist", "remove"})
      */
     private $shots;
+
+    /**
+     * @var BattleFieldStatus
+     *
+     * @JMS\Type("CoreBundle\Entity\BattleFieldStatus")
+     *
+     * @ORM\ManyToOne(targetEntity="BattleFieldStatus", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="battle_field_status_id", referencedColumnName="id", nullable=false)
+     */
+    private $battleFieldStatus;
 
     public function __construct()
     {
@@ -165,6 +176,25 @@ class BattleField implements EntityInterface
     public function setShots($shots): self
     {
         $this->shots = $shots;
+
+        return $this;
+    }
+
+    /**
+     * @return BattleFieldStatus
+     */
+    public function getBattleFieldStatus()
+    {
+        return $this->battleFieldStatus;
+    }
+
+    /**
+     * @param BattleFieldStatus $battleFieldStatus
+     * @return $this
+     */
+    public function setBattleFieldStatus(BattleFieldStatus $battleFieldStatus)
+    {
+        $this->battleFieldStatus = $battleFieldStatus;
 
         return $this;
     }

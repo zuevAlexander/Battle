@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: stas
- * Date: 04.10.16
- * Time: 23:42.
- */
+
 namespace CoreBundle\Model\Request\User;
 
 use Symfony\Component\Validator\Constraints as Assert;

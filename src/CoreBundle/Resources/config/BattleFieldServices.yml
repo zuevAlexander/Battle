@@ -7,7 +7,6 @@ services:
     class: '%core.handler.battle_field.class%'
     arguments:
       - '@service_container'
-      - '@event_dispatcher'
       - '@core.service.battle_field'
   core.service.battle_field:
     class: '%core.service.battle_field.class%'
@@ -17,3 +16,4 @@ services:
       - '@service_container'
       - '%core.entity.battle_field.class%'
       - '@event_dispatcher'
+      - '@security.token_storage'

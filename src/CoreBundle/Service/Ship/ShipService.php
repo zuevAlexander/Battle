@@ -2,6 +2,9 @@
 
 namespace CoreBundle\Service\Ship;
 
+use CoreBundle\Model\Request\Ship\ShipDeleteRequest;
+use CoreBundle\Model\Request\Ship\ShipReadRequest;
+use CoreBundle\Service\BattleField\BattleFieldService;
 use NorseDigital\Symfony\RestBundle\Service\AbstractService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -30,8 +33,9 @@ use CoreBundle\Exception\Ship\ExhaustedLimitOfThisTypeOfShips;
 use CoreBundle\Exception\Ship\ShipLocatedOnOccupiedCellsException;
 use CoreBundle\Exception\Ship\IncorrectShipLocationException;
 use CoreBundle\Exception\Ship\YourBattleFieldIsReadyException;
-use CoreBundle\Exception\BattleField\YouAreNotOwnerOfThisBattleField;
+use CoreBundle\Exception\BattleField\YouAreNotOwnerOfThisBattleFieldException;
 use \CoreBundle\Exception\Battle\BattleIsNotInOpenOrPreparationStatusException;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 /** @noinspection PhpHierarchyChecksInspection */
 
@@ -43,10 +47,8 @@ use \CoreBundle\Exception\Battle\BattleIsNotInOpenOrPreparationStatusException;
  * @method Ship getEntityBy(array $criteria)
  * @method Ship deleteEntity(EntityInterface $entity, bool $flush = true)
  */
-class ShipService extends AbstractService implements EventSubscriberInterface, ShipDefaultValuesInterface
+class ShipService extends AbstractService implements EventSubscriberInterface
 {
-    use ShipDefaultValuesTrait;
-
     /**
      * @var EventDispatcherInterface
      */
@@ -78,9 +80,14 @@ class ShipService extends AbstractService implements EventSubscriberInterface, S
     private $battleStatusService;
 
     /**
-     * @var User
+     * @var BattleFieldService
      */
-    private $currentUser;
+    private $battleFieldService;
+
+    /**
+     * @var TokenStorage
+     */
+    private $tokenStorage;
 
     /**
      * ShipHandler constructor.
@@ -92,6 +99,8 @@ class ShipService extends AbstractService implements EventSubscriberInterface, S
      * @param MapService $mapService
      * @param BattleService $battleService
      * @param BattleStatusService $battleStatusService
+     * @param BattleFieldService $battleFieldService
+     * @param TokenStorage $tokenStorage
      */
     public function __construct(
         ContainerInterface $container,
@@ -101,7 +110,9 @@ class ShipService extends AbstractService implements EventSubscriberInterface, S
         CountShipsService $countShipsService,
         MapService $mapService,
         BattleService $battleService,
-        BattleStatusService $battleStatusService
+        BattleStatusService $battleStatusService,
+        BattleFieldService $battleFieldService,
+        TokenStorage $tokenStorage
     ) {
         parent::__construct($container, $entityClass);
         $this->setContainer($container);
@@ -111,7 +122,8 @@ class ShipService extends AbstractService implements EventSubscriberInterface, S
         $this->mapService = $mapService;
         $this->battleService = $battleService;
         $this->battleStatusService = $battleStatusService;
-        $this->currentUser = $this->container->get('security.token_storage')->getToken()->getUser();
+        $this->battleFieldService = $battleFieldService;
+        $this->tokenStorage = $tokenStorage;
     }
 
     /**
@@ -128,15 +140,9 @@ class ShipService extends AbstractService implements EventSubscriberInterface, S
      */
     public function createShip(ShipCreateRequest $request): Ship
     {
-        if($request->getBattleField()->getUser() !=  $this->currentUser) {
-            throw new YouAreNotOwnerOfThisBattleField();
-        }
+        $this->battleFieldService->isUserOwnerOfBattleField($request->getBattleField());
 
-        $battleStatus = $request->getBattleField()->getBattle()->getBattleStatus()->getStatusName();
-        if ($battleStatus != BattleStatusService::OPEN_BATTLE && $battleStatus != BattleStatusService::PREPARATION_BATTLE) {
-            var_dump($battleStatus != BattleStatusService::PREPARATION_BATTLE);
-            throw new BattleIsNotInOpenOrPreparationStatusException();
-        }
+        $this->battleService->isBattleAccessibleToChange($request->getBattleField()->getBattle());
 
         $ownBattleFieldReady = $this->isBattleFieldReady($request->getBattleField(), true);
 
@@ -152,19 +158,39 @@ class ShipService extends AbstractService implements EventSubscriberInterface, S
 
         $ship = $this->createEntity();
 
-        $shipLocations = $request->getLocation();
-        foreach ($shipLocations as $shipLocation) {
+        foreach ($request->getLocation() as $shipLocation) {
             $this->addLocationToShip($shipLocation->getMap(), $ship);
         }
 
-        $this->setGeneralFields($request, $ship, true);
+        $this->setGeneralFields($request, $ship);
         $this->saveEntity($ship);
 
-        if ($ownBattleFieldReady && $battleStatus == BattleStatusService::PREPARATION_BATTLE) {
+        if ($ownBattleFieldReady &&
+            $request->getBattleField()->getBattle()->getBattleStatus()->getStatusName() == BattleStatusService::PREPARATION_BATTLE) {
             $this->isBattleReady($request->getBattleField()->getBattle());
         }
 
         return $ship;
+    }
+
+    /**
+     * @param ShipReadRequest $request
+     * @return Ship
+     */
+    public function getShip(ShipReadRequest $request): Ship
+    {
+        $this->battleFieldService->isUserOwnerOfBattleField($request->getShip()->getBattleField());
+        return $request->getShip();
+    }
+
+    /**
+     * @param ShipDeleteRequest $request
+     * @return Ship
+     */
+    public function deleteShip(ShipDeleteRequest $request): Ship
+    {
+        $this->battleFieldService->isUserOwnerOfBattleField($request->getShip()->getBattleField());
+        return $this->deleteEntity($request->getShip());
     }
 
     /**
@@ -173,8 +199,11 @@ class ShipService extends AbstractService implements EventSubscriberInterface, S
      */
     public function updatePut(ShipUpdateRequest $request): Ship
     {
+        $this->battleFieldService->isUserOwnerOfBattleField($request->getBattleField());
+        $this->battleService->isBattleAccessibleToChange($request->getBattleField()->getBattle());
+
         $ship = $request->getShip();
-        $this->setGeneralFields($request, $ship, true);
+        $this->setGeneralFields($request, $ship);
         $this->saveEntity($ship);
         return $ship;
     }
@@ -185,6 +214,9 @@ class ShipService extends AbstractService implements EventSubscriberInterface, S
      */
     public function updatePatch(ShipUpdateRequest $request): Ship
     {
+        $this->battleFieldService->isUserOwnerOfBattleField($request->getBattleField());
+        $this->battleService->isBattleAccessibleToChange($request->getBattleField()->getBattle());
+
         $ship = $request->getShip();
         $this->setGeneralFields($request, $ship);
         $this->saveEntity($ship);
@@ -194,29 +226,16 @@ class ShipService extends AbstractService implements EventSubscriberInterface, S
     /**
      * @param ShipAllRequestInterface $request
      * @param Ship $ship
-     * @param bool $fullUpdate
      * @return Ship
      */
-    public function setGeneralFields(ShipAllRequestInterface $request, Ship $ship, $fullUpdate = false)
+    public function setGeneralFields(ShipAllRequestInterface $request, Ship $ship)
     {
         if ($request->hasShipType()) {
             $ship->setShipType($request->getShipType());
-        } elseif ($fullUpdate) {
-            $ship->setShipType($this->getDefaultShipType());
         }
-
         if ($request->hasBattleField()) {
             $ship->setBattleField($request->getBattleField());
-        } elseif ($fullUpdate) {
-            $ship->setBattleField($this->getDefaultBattleField());
         }
-
-        //TODO: list of requests - $request->getLocation()
-        //if ($request->hasLocation()) {
-        //    $ship->setLocation(new ArrayCollection());
-        //} elseif ($fullUpdate) {
-        //    $ship->setLocation($this->getDefaultLocation());
-        //}
         return $ship;
     }
 

@@ -6,8 +6,6 @@ services:
   core.handler.shot:
     class: '%core.handler.shot.class%'
     arguments:
-      - '@service_container'
-      - '@event_dispatcher'
       - '@core.service.shot'
   core.service.shot:
     class: '%core.service.shot.class%'
@@ -16,8 +14,6 @@ services:
     arguments:
       - '@service_container'
       - '%core.entity.shot.class%'
-      - '@event_dispatcher'
-      - '@core.service.ship'
       - '@core.service.shot_status'
       - '@core.service.battle'
-      - '@core.service.battle_status'
+      - '@security.token_storage'

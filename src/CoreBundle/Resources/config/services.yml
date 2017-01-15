@@ -2,9 +2,9 @@ imports:
   -
     resource: BattleServices.yml
   -
-    resource: BattleFieldServices.yml
-  -
     resource: BattleStatusServices.yml
+  -
+    resource: BattleFieldStatusServices.yml
   -
     resource: CountShipsServices.yml
   -
@@ -22,25 +22,21 @@ imports:
   -
     resource: ShotStatusServices.yml
   -
-    resource: ShotTypeServices.yml
-  -
     resource: UserServices.yml
-
+  -
+    resource: BattleFieldServices.yml
 services:
-
   core.webservice_user_provider:
     class: CoreBundle\Security\WebserviceUserProvider
     arguments:
       - '@doctrine'
-
   core.token_authenticator:
     class: CoreBundle\Security\TokenAuthenticator
     arguments:
       - '@translator'
       - '%authenticate_token_name%'
-
   core.password_authenticator:
     class: CoreBundle\Security\PasswordAuthenticator
     arguments:
       - '@translator'
-      - "@security.password_encoder"
+      - '@security.password_encoder'

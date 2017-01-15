@@ -35,16 +35,6 @@ class Shot implements EntityInterface
     private $id;
 
     /**
-     * @var User
-     *
-     * @JMS\Type("CoreBundle\Entity\User")
-     *
-     * @ORM\ManyToOne(targetEntity="User", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
-     */
-    private $user;
-
-    /**
      * @var Map
      *
      * @JMS\Type("CoreBundle\Entity\Map")
@@ -68,6 +58,7 @@ class Shot implements EntityInterface
      * @var BattleField
      *
      * @JMS\Type("CoreBundle\Entity\BattleField")
+     * @JMS\Exclude()
      *
      * @ORM\ManyToOne(targetEntity="BattleField", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="battle_field_id", referencedColumnName="id", nullable=false)
@@ -80,26 +71,6 @@ class Shot implements EntityInterface
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * @return User
-     */
-    public function getUser(): User
-    {
-        return $this->user;
-    }
-
-    /**
-     * @param User $user
-     *
-     * @return Shot
-     */
-    public function setUser(User $user): self
-    {
-        $this->user = $user;
-
-        return $this;
     }
 
     /**

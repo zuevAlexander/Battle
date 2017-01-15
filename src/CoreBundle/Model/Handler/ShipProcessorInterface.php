@@ -16,12 +16,6 @@ use NorseDigital\Symfony\RestBundle\Handler\ProcessorInterface;
 interface ShipProcessorInterface extends ProcessorInterface
 {
     /**
-     * @param ShipListRequest $request
-     * @return array
-     */
-    public function processGetC(ShipListRequest $request): array;
-
-    /**
      * @param ShipCreateRequest $request
      * @return Ship
      */

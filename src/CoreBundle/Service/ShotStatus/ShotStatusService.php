@@ -2,10 +2,10 @@
 
 namespace CoreBundle\Service\ShotStatus;
 
+use CoreBundle\Entity\BattleField;
+use CoreBundle\Entity\Map;
 use CoreBundle\Entity\ShotStatus;
-use CoreBundle\Model\Request\ShotStatus\ShotStatusAllRequestInterface;
-use CoreBundle\Model\Request\ShotStatus\ShotStatusCreateRequest;
-use CoreBundle\Model\Request\ShotStatus\ShotStatusUpdateRequest;
+use CoreBundle\Service\ShipType\ShipTypeService;
 use NorseDigital\Symfony\RestBundle\Service\AbstractService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -22,10 +22,8 @@ use NorseDigital\Symfony\RestBundle\Entity\EntityInterface;
  * @method ShotStatus getEntityBy(array $criteria)
  * @method ShotStatus deleteEntity(EntityInterface $entity, bool $flush = true)
  */
-class ShotStatusService extends AbstractService implements EventSubscriberInterface, ShotStatusDefaultValuesInterface
+class ShotStatusService extends AbstractService implements EventSubscriberInterface
 {
-    use ShotStatusDefaultValuesTrait;
-
     const SHOT_PASS = 'Pass';
     const SHOT_HIT = 'Hit';
     const SHOT_DESTROY = 'Destroy';
@@ -60,54 +58,35 @@ class ShotStatusService extends AbstractService implements EventSubscriberInterf
     }
 
     /**
-     * @param ShotStatusCreateRequest $request
+     * @param BattleField $battleField
+     * @param Map $shotMap
+     * @param array $shotsMap
      * @return ShotStatus
      */
-    public function updatePost(ShotStatusCreateRequest $request): ShotStatus
+    public function checkShotStatus(BattleField $battleField, Map $shotMap, array $shotsMap)
     {
-        $shotStatus = $this->createEntity();
-        $this->setGeneralFields($request, $shotStatus, true);
-        $this->saveEntity($shotStatus);
-        return $shotStatus;
-    }
+        $shotStatusName =  self::SHOT_PASS;
 
-    /**
-     * @param ShotStatusUpdateRequest $request
-     * @return ShotStatus
-     */
-    public function updatePut(ShotStatusUpdateRequest $request): ShotStatus
-    {
-        $shotStatus = $request->getShotStatus();
-        $this->setGeneralFields($request, $shotStatus, true);
-        $this->saveEntity($shotStatus);
-        return $shotStatus;
-    }
+        $rivalShips = $battleField->getShips();
 
-    /**
-     * @param ShotStatusUpdateRequest $request
-     * @return ShotStatus
-     */
-    public function updatePatch(ShotStatusUpdateRequest $request): ShotStatus
-    {
-        $shotStatus = $request->getShotStatus();
-        $this->setGeneralFields($request, $shotStatus);
-        $this->saveEntity($shotStatus);
-        return $shotStatus;
-    }
-
-    /**
-     * @param ShotStatusAllRequestInterface $request
-     * @param ShotStatus $shotStatus
-     * @param bool $fullUpdate
-     * @return ShotStatus
-     */
-    public function setGeneralFields(ShotStatusAllRequestInterface $request, ShotStatus $shotStatus, $fullUpdate = false)
-    {
-        if ($request->hasStatusName()) {
-            $shotStatus->setStatusName($request->getStatusName());
-        } elseif ($fullUpdate) {
-            $shotStatus->setStatusName($this->getDefaultStatusName());
+        foreach ($rivalShips as $rivalShip) {
+            foreach ($rivalShip->getLocation() as $location) {
+                if ($shotMap == $location->getMap()) {
+                    $shotStatusName = ShotStatusService::SHOT_DESTROY;
+                    if ($rivalShip->getShipType()->getTypeName() != ShipTypeService::SINGLE_TIER) {
+                        foreach ($rivalShip->getLocation() as $shipLocation) {
+                            if (!in_array($shipLocation->getMap(), $shotsMap) && $shipLocation->getMap() != $shotMap) {
+                                $shotStatusName = ShotStatusService::SHOT_HIT;
+                            }
+                        }
+                    }
+                    break 2;
+                }
+            }
         }
+
+        $shotStatus = $this->getEntityBy(['statusName' => $shotStatusName]);
+
         return $shotStatus;
     }
 }

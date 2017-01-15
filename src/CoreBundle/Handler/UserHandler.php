@@ -3,75 +3,53 @@
 namespace CoreBundle\Handler;
 
 use CoreBundle\Entity\User;
-use CoreBundle\Model\Request\User\UserListRequest;
 use CoreBundle\Model\Request\User\UserLoginRequest;
 use CoreBundle\Model\Request\User\UserRegisterRequest;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerAwareTrait;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use CoreBundle\Model\Handler\UserProcessorInterface;
 use CoreBundle\Service\User\UserService;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 /**
  * Class UserHandler
  */
-class UserHandler implements ContainerAwareInterface, UserProcessorInterface
+class UserHandler implements UserProcessorInterface
 {
-    use ContainerAwareTrait;
-
-    /**
-     * @var EventDispatcherInterface
-     */
-    private $eventDispatcher;
-
     /**
      * @var UserService
      */
     private $userService;
 
     /**
-     * UserHandler constructor.
-     * @param ContainerInterface $container
-     * @param EventDispatcherInterface $eventDispatcher
-     * @param UserService $userService
+     * @var TokenStorage
      */
-    public function __construct(
-        ContainerInterface $container,
-        EventDispatcherInterface $eventDispatcher,
-        UserService $userService
-    ) {
-        $this->setContainer($container);
-        $this->eventDispatcher = $eventDispatcher;
-        $this->userService = $userService;
-    }
+    private $tokenStorage;
 
     /**
-     * @param UserListRequest $request
-     * @return array
+     * UserHandler constructor.
+     * @param UserService $userService
+     * @param TokenStorage $tokenStorage
      */
-    public function processGetC(UserListRequest $request): array
-    {
-        return $this->userService->getEntitiesByWithListRequestAndTotal(
-            [],
-            $request
-        );
+    public function __construct(
+        UserService $userService,
+        TokenStorage $tokenStorage
+    ) {
+        $this->userService = $userService;
+        $this->tokenStorage = $tokenStorage;
     }
 
     /**
      * @param UserLoginRequest $request
+     *
      * @return User
      */
     public function processPostLogin(UserLoginRequest $request) : User
     {
-        $user = $this->container->get('security.token_storage')->getToken()->getUser();
-        $this->userService->generateApiKey($user);
-
-        return $user;
+        return $this->userService->generateApiKey($this->tokenStorage->getToken()->getUser());
     }
 
     /**
      * @param UserRegisterRequest $request
+     *
      * @return User
      */
     public function processPostRegister(UserRegisterRequest $request) : User

@@ -4,22 +4,28 @@ namespace CoreBundle\Service\Battle;
 
 use CoreBundle\Entity\Battle;
 use CoreBundle\Entity\BattleField;
-use CoreBundle\Entity\BattleStatus;
-use CoreBundle\Model\Request\Battle\BattleAllRequestInterface;
+use CoreBundle\Exception\Battle\BattleIsNotInOpenOrPreparationStatusException;
+use CoreBundle\Exception\Battle\ThisBattleIsNotInProcessStatusException;
+use CoreBundle\Exception\Battle\YouAreNotOwnerOfThisBattleException;
+use CoreBundle\Exception\Battle\YouCanDelereOnlyOpenOrClosedBattleException;
 use CoreBundle\Model\Request\Battle\BattleCreateRequest;
+use CoreBundle\Model\Request\Battle\BattleDeleteRequest;
+use CoreBundle\Model\Request\Battle\BattleListRequest;
 use CoreBundle\Model\Request\Battle\BattleUpdateRequest;
+use CoreBundle\Service\BattleFieldStatus\BattleFieldStatusService;
 use CoreBundle\Service\BattleStatus\BattleStatusService;
+use CoreBundle\Service\ShotStatus\ShotStatusService;
+use Doctrine\Common\Collections\ArrayCollection;
 use NorseDigital\Symfony\RestBundle\Service\AbstractService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use NorseDigital\Symfony\RestBundle\Entity\EntityInterface;
 use CoreBundle\Service\BattleField\BattleFieldService;
-use CoreBundle\Security\WebserviceUserProvider;
 use CoreBundle\Exception\Battle\YouAreAlreadyAttachedToThisBattleException;
+use CoreBundle\Exception\BattleStatus\ThisBattleStatusIsDeniedException;
 use CoreBundle\Model\Request\Battle\BattleReadRequest;
-use CoreBundle\Entity\User;
 use CoreBundle\Exception\Battle\YouAreNotParticipantInThisBattleException;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 /** @noinspection PhpHierarchyChecksInspection */
 
@@ -31,29 +37,22 @@ use CoreBundle\Exception\Battle\YouAreNotParticipantInThisBattleException;
  * @method Battle getEntityBy(array $criteria)
  * @method Battle deleteEntity(EntityInterface $entity, bool $flush = true)
  */
-class BattleService extends AbstractService implements EventSubscriberInterface, BattleDefaultValuesInterface
+class BattleService extends AbstractService implements EventSubscriberInterface
 {
-    use BattleDefaultValuesTrait;
-
     /**
-     * @var EventDispatcherInterface
+     * @var TokenStorage
      */
-    private $eventDispatcher;
-
-    /**
-     * @var WebserviceUserProvider
-     */
-    private $userProvider;
-
-    /**
-     * @var User
-     */
-    private $currentUser;
+    private $tokenStorage;
 
     /**
      * @var BattleFieldService
      */
     private $battleFieldService;
+
+    /**
+     * @var BattleFieldStatusService
+     */
+    private $battleFieldStatusService;
 
     /**
      * @var BattleStatusService
@@ -64,26 +63,26 @@ class BattleService extends AbstractService implements EventSubscriberInterface,
      * BattleHandler constructor.
      * @param ContainerInterface $container
      * @param string $entityClass
-     * @param EventDispatcherInterface $eventDispatcher
      * @param BattleFieldService $battleFieldService
-     * @param WebserviceUserProvider $userProvider
      * @param BattleStatusService $battleStatusService
+     * @param BattleFieldStatusService $battleFieldStatusService
+     * @param TokenStorage $tokenStorage
      */
     public function __construct(
         ContainerInterface $container,
         string $entityClass,
-        EventDispatcherInterface $eventDispatcher,
         BattleFieldService $battleFieldService,
-        WebserviceUserProvider $userProvider,
-        BattleStatusService $battleStatusService
-    ) {
+        BattleStatusService $battleStatusService,
+        BattleFieldStatusService $battleFieldStatusService,
+        TokenStorage $tokenStorage
+    )
+    {
         parent::__construct($container, $entityClass);
         $this->setContainer($container);
-        $this->eventDispatcher = $eventDispatcher;
         $this->battleFieldService = $battleFieldService;
-        $this->userProvider = $userProvider;
         $this->battleStatusService = $battleStatusService;
-        $this->currentUser = $this->container->get('security.token_storage')->getToken()->getUser();
+        $this->battleFieldStatusService = $battleFieldStatusService;
+        $this->tokenStorage = $tokenStorage;
     }
 
     /**
@@ -102,30 +101,49 @@ class BattleService extends AbstractService implements EventSubscriberInterface,
     {
         $battleFields = $request->getBattle()->getBattleFields();
         foreach ($battleFields as $battleField) {
-            if ($this->ownBattle($battleField->getBattle())) {
-
+            if ($this->ownBattle($battleField->getBattle()) ||
+                $request->getBattle()->getBattleStatus()->getStatusName() == BattleStatusService::OPEN_BATTLE
+            ) {
                 $battle = $request->getBattle();
 
                 return $this->prepareBattleToResponse($battle);
             }
         }
-
         throw new YouAreNotParticipantInThisBattleException();
     }
 
     /**
+     * @param BattleDeleteRequest $request
+     * @return Battle
+     */
+    public function deleteBattle(BattleDeleteRequest $request): Battle
+    {
+        if (!$this->ownBattle($request->getBattle())) {
+            throw new YouAreNotOwnerOfThisBattleException();
+        }
+        if ($request->getBattle()->getBattleStatus()->getStatusName() != BattleStatusService::OPEN_BATTLE &&
+            $request->getBattle()->getBattleStatus()->getStatusName() != BattleStatusService::CLOSED_BATTLE
+        ) {
+            throw new YouCanDelereOnlyOpenOrClosedBattleException();
+        }
+        return $this->deleteEntity($request->getBattle());
+    }
+
+    /**
+     * @param BattleListRequest $request
      * @return array
      */
-    public function getOpenBattles(): array
+    public function getOpenBattles(BattleListRequest $request): array
     {
-        $battles = [];
-
-        /** @var BattleStatus $openBattleStatus */
         $openBattleStatus = $this->battleStatusService->getEntityBy(['statusName' => BattleStatusService::OPEN_BATTLE]);
 
-        /** @var Battle[] $parentBattles */
-        $parentBattles = $this->getEntitiesBy(['battleStatus' => $openBattleStatus]);
-        foreach ($parentBattles as $battle) {
+        $originalBattles = $this->getEntitiesByWithListRequestAndTotal(
+            ['battleStatus' => $openBattleStatus],
+            $request
+        );
+
+        $battles = [];
+        foreach ($originalBattles['items'] as $battle) {
             $battles[] = $this->prepareBattleToResponse($battle);
         }
 
@@ -139,9 +157,10 @@ class BattleService extends AbstractService implements EventSubscriberInterface,
     {
         $battles = [];
 
-        if ($battleFields = $this->battleFieldService->getEntitiesBy(['user' => $this->currentUser])) {
+        /** @var BattleField[] $battleFields */
+        $battleFields = $this->battleFieldService->getEntitiesBy(['user' => $this->tokenStorage->getToken()->getUser()]);
+        if ($battleFields) {
             foreach ($battleFields as $battleField) {
-                /** @var BattleField $battleField */
                 $battles[] = $this->prepareBattleToResponse($battleField->getBattle());
             }
         }
@@ -156,26 +175,23 @@ class BattleService extends AbstractService implements EventSubscriberInterface,
     public function updatePost(BattleCreateRequest $request): Battle
     {
         $battle = $this->createEntity();
-        $this->setGeneralFields($request, $battle, true);
-        $this->saveEntity($battle);
+        $battleStatus = $this->battleStatusService->getEntityBy(['statusName' => BattleStatusService::OPEN_BATTLE]);
+
+        $battle->setBattleStatus($battleStatus);
+        $battle->setMapType($request->getMapType());
+        $battle->setName($request->getName());
 
         $battleField = $this->battleFieldService->createEntity();
         $battleField->setBattle($battle);
-        $battleField->setUser($this->currentUser);
+        $battleField->setUser($this->tokenStorage->getToken()->getUser());
+
+        $battleFieldStatus = $this->battleFieldStatusService->getEntityBy(['statusName' => BattleFieldStatusService::BATTLE_FIELD_BLOCKED]);
+        $battleField->setBattleFieldStatus($battleFieldStatus);
         $this->battleFieldService->saveEntity($battleField);
 
-        return $battle;
-    }
-
-    /**
-     * @param BattleUpdateRequest $request
-     * @return Battle
-     */
-    public function updatePut(BattleUpdateRequest $request): Battle
-    {
-        $battle = $request->getBattle();
-        $this->setGeneralFields($request, $battle, true);
-        $this->saveEntity($battle);
+        $battleFields = new ArrayCollection();
+        $battleFields->add($battleField);
+        $battle->setBattleFields($battleFields);
         return $battle;
     }
 
@@ -186,7 +202,15 @@ class BattleService extends AbstractService implements EventSubscriberInterface,
     public function updatePatch(BattleUpdateRequest $request): Battle
     {
         $battle = $request->getBattle();
-        $this->setGeneralFields($request, $battle);
+        if ($request->hasBattleStatus()) {
+            $battle->setBattleStatus($request->getBattleStatus());
+        }
+        if ($request->hasName()) {
+            $battle->setName($request->getName());
+        }
+        if ($request->hasMapType()) {
+            $battle->setMapType($request->getMapType());
+        }
 
         if ($request->getBattle()->getBattleStatus()->getStatusName() == BattleStatusService::PREPARATION_BATTLE) {
 
@@ -199,39 +223,14 @@ class BattleService extends AbstractService implements EventSubscriberInterface,
 
             $battleField = $this->battleFieldService->createEntity();
             $battleField->setBattle($battle);
-            $battleField->setUser($this->container->get('security.token_storage')->getToken()->getUser());
+            $battleField->setUser($this->tokenStorage->getToken()->getUser());
+
+            $battleFieldStatus = $this->battleFieldStatusService->getEntityBy(['statusName' => BattleFieldStatusService::BATTLE_FIELD_BLOCKED]);
+            $battleField->setBattleFieldStatus($battleFieldStatus);
             $this->battleFieldService->saveEntity($battleField);
         }
 
         $this->saveEntity($battle);
-        return $battle;
-    }
-
-    /**
-     * @param BattleAllRequestInterface $request
-     * @param Battle $battle
-     * @param bool $fullUpdate
-     * @return Battle
-     */
-    public function setGeneralFields(BattleAllRequestInterface $request, Battle $battle, $fullUpdate = false)
-    {
-        if ($request->hasBattleStatus()) {
-            $battle->setBattleStatus($request->getBattleStatus());
-        } elseif ($fullUpdate) {
-            $battle->setBattleStatus($this->getDefaultBattleStatus());
-        }
-
-        if ($request->hasMapType()) {
-            $battle->setMapType($request->getMapType());
-        } elseif ($fullUpdate) {
-            $battle->setMapType($this->getDefaultMapType());
-        }
-
-        if ($request->hasName()) {
-            $battle->setName($request->getName());
-        } elseif ($fullUpdate) {
-            $battle->setName($this->getDefaultName());
-        }
         return $battle;
     }
 
@@ -243,8 +242,8 @@ class BattleService extends AbstractService implements EventSubscriberInterface,
     {
         $battleFields = $battle->getBattleFields();
 
-        foreach ($battleFields as $key=>$battleField) {
-            if ($battleField->getUser() != $this->currentUser) {
+        foreach ($battleFields as $key => $battleField) {
+            if ($battleField->getUser() != $this->tokenStorage->getToken()->getUser()) {
                 $battleFields[$key] = $battleField->setShips([]);
             }
         }
@@ -261,10 +260,82 @@ class BattleService extends AbstractService implements EventSubscriberInterface,
     {
         $battleFields = $battle->getBattleFields();
         foreach ($battleFields as $battleField) {
-            if ($battleField->getUser() == $this->currentUser) {
+            if ($battleField->getUser() == $this->tokenStorage->getToken()->getUser()) {
                 return true;
             }
         }
         return false;
+    }
+
+    /**
+     * @param Battle $battle
+     *
+     * @throws ThisBattleIsNotInProcessStatusException
+     */
+    public function isBattleInProcessStatus(Battle $battle)
+    {
+        if ($battle->getBattleStatus()->getStatusName() != BattleStatusService::PROCESS_BATTLE) {
+            throw new ThisBattleIsNotInProcessStatusException();
+        }
+    }
+
+    /**
+     * @param Battle $battle
+     *
+     * @throws BattleIsNotInOpenOrPreparationStatusException
+     */
+    public function isBattleAccessibleToChange(Battle $battle)
+    {
+        if ($battle->getBattleStatus()->getStatusName() != BattleStatusService::OPEN_BATTLE &&
+            $battle->getBattleStatus()->getStatusName() != BattleStatusService::PREPARATION_BATTLE
+        ) {
+            throw new BattleIsNotInOpenOrPreparationStatusException();
+        }
+    }
+
+    /**
+     * @param Battle $battle
+     *
+     * @throws YouAreNotParticipantInThisBattleException
+     */
+    public function isUserParticipantInBattle(Battle $battle)
+    {
+        $partyBattle = false;
+        $battleFields = $battle->getBattleFields();
+        foreach ($battleFields as $battleField) {
+            if ($battleField->getUser() == $this->tokenStorage->getToken()->getUser()) {
+                $partyBattle = true;
+                break;
+            }
+        }
+
+        if (!$partyBattle) {
+            throw new YouAreNotParticipantInThisBattleException();
+        }
+    }
+
+    /**
+     * @param BattleField $battleField
+     *
+     */
+    public function isBattleFinished(BattleField $battleField)
+    {
+        $countAllShips = count($battleField->getShips());
+
+        $destroyShots = [];
+        $shots = $battleField->getShots();
+        foreach ($shots as $shot) {
+            if ($shot->getShotStatus()->getStatusName() == ShotStatusService::SHOT_DESTROY) {
+                $destroyShots[] = $shot;
+            }
+        }
+        $countAlldestroyShots = count($destroyShots);
+
+        if ($countAllShips == $countAlldestroyShots + 1) {
+            $battleStatus = $this->battleStatusService->getEntityBy(['statusName' => BattleStatusService::FINISHED_BATTLE]);
+            $battle = $battleField->getBattle();
+            $battle->setBattleStatus($battleStatus);
+            $this->saveEntity($battle);
+        }
     }
 }

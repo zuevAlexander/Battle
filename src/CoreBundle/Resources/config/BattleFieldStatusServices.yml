@@ -1,0 +1,12 @@
+parameters:
+  core.entity.battle_field_status.class: CoreBundle\Entity\BattleFieldStatus
+  core.service.battle_field_status.class: CoreBundle\Service\BattleFieldStatus\BattleFieldStatusService
+services:
+  core.service.battle_field_status:
+    class: '%core.service.battle_field_status.class%'
+    tags:
+      - { name: kernel.event_subscriber }
+    arguments:
+      - '@service_container'
+      - '%core.entity.battle_field_status.class%'
+      - '@event_dispatcher'

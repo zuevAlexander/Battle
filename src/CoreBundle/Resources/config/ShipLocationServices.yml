@@ -1,14 +1,7 @@
 parameters:
-  core.handler.ship_location.class: CoreBundle\Handler\ShipLocationHandler
   core.entity.ship_location.class: CoreBundle\Entity\ShipLocation
   core.service.ship_location.class: CoreBundle\Service\ShipLocation\ShipLocationService
 services:
-  core.handler.ship_location:
-    class: '%core.handler.ship_location.class%'
-    arguments:
-      - '@service_container'
-      - '@event_dispatcher'
-      - '@core.service.ship_location'
   core.service.ship_location:
     class: '%core.service.ship_location.class%'
     tags:

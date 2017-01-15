@@ -19,7 +19,7 @@ interface BattleProcessorInterface extends ProcessorInterface
      * @param BattleListRequest $request
      * @return array
      */
-    public function processGetOwn(BattleListRequest $request): array;
+    public function processGetCOwn(BattleListRequest $request): array;
 
     /**
      * @param BattleCreateRequest $request
@@ -34,10 +34,10 @@ interface BattleProcessorInterface extends ProcessorInterface
     public function processGet(BattleReadRequest $request): Battle;
 
     /**
-     * @param BattleUpdateRequest $request
-     * @return Battle
+     * @param BattleListRequest $request
+     * @return array
      */
-    public function processPut(BattleUpdateRequest $request): Battle;
+    public function processGetCOpen(BattleListRequest $request): array;
 
     /**
      * @param BattleUpdateRequest $request

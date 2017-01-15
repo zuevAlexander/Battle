@@ -2,7 +2,6 @@
 
 namespace CoreBundle\Model\Request\Shot;
 
-use CoreBundle\Entity\User;
 use CoreBundle\Entity\Map;
 use CoreBundle\Entity\ShotStatus;
 use CoreBundle\Entity\BattleField;
@@ -17,16 +16,6 @@ use CoreBundle\Entity\BattleField;
  */
 interface ShotAllRequestInterface
 {
-    /**
-     * @return User
-     */
-    public function getUser(): User;
-
-    /**
-     * @param User $user
-     */
-    public function setUser(User $user);
-
     /**
      * @return Map
      */

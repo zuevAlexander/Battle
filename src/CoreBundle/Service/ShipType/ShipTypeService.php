@@ -3,9 +3,6 @@
 namespace CoreBundle\Service\ShipType;
 
 use CoreBundle\Entity\ShipType;
-use CoreBundle\Model\Request\ShipType\ShipTypeAllRequestInterface;
-use CoreBundle\Model\Request\ShipType\ShipTypeCreateRequest;
-use CoreBundle\Model\Request\ShipType\ShipTypeUpdateRequest;
 use NorseDigital\Symfony\RestBundle\Service\AbstractService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -22,10 +19,8 @@ use NorseDigital\Symfony\RestBundle\Entity\EntityInterface;
  * @method ShipType getEntityBy(array $criteria)
  * @method ShipType deleteEntity(EntityInterface $entity, bool $flush = true)
  */
-class ShipTypeService extends AbstractService implements EventSubscriberInterface, ShipTypeDefaultValuesInterface
+class ShipTypeService extends AbstractService implements EventSubscriberInterface
 {
-    use ShipTypeDefaultValuesTrait;
-
     const SINGLE_TIER = 1;
     const TWO_TIER = 2;
     const THREE_TIER = 3;
@@ -58,64 +53,5 @@ class ShipTypeService extends AbstractService implements EventSubscriberInterfac
     public static function getSubscribedEvents()
     {
         return [];
-    }
-
-    /**
-     * @param ShipTypeCreateRequest $request
-     * @return ShipType
-     */
-    public function updatePost(ShipTypeCreateRequest $request): ShipType
-    {
-        $shipType = $this->createEntity();
-        $this->setGeneralFields($request, $shipType, true);
-        $this->saveEntity($shipType);
-        return $shipType;
-    }
-
-    /**
-     * @param ShipTypeUpdateRequest $request
-     * @return ShipType
-     */
-    public function updatePut(ShipTypeUpdateRequest $request): ShipType
-    {
-        $shipType = $request->getShipType();
-        $this->setGeneralFields($request, $shipType, true);
-        $this->saveEntity($shipType);
-        return $shipType;
-    }
-
-    /**
-     * @param ShipTypeUpdateRequest $request
-     * @return ShipType
-     */
-    public function updatePatch(ShipTypeUpdateRequest $request): ShipType
-    {
-        $shipType = $request->getShipType();
-        $this->setGeneralFields($request, $shipType);
-        $this->saveEntity($shipType);
-        return $shipType;
-    }
-
-    /**
-     * @param ShipTypeAllRequestInterface $request
-     * @param ShipType $shipType
-     * @param bool $fullUpdate
-     * @return ShipType
-     */
-    public function setGeneralFields(ShipTypeAllRequestInterface $request, ShipType $shipType, $fullUpdate = false)
-    {
-        if ($request->hasTypeName()) {
-            $shipType->setTypeName($request->getTypeName());
-        } elseif ($fullUpdate) {
-            $shipType->setTypeName($this->getDefaultTypeName());
-        }
-
-        if ($request->hasTypeName()) {
-            $shipType->setDeckCount($request->getDeckCount());
-        } elseif ($fullUpdate) {
-            $shipType->setDeckCount($this->getDefaultDeckCount());
-        }
-
-        return $shipType;
     }
 }

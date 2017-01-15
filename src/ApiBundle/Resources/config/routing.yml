@@ -4,23 +4,26 @@ api_battle:
   prefix: /
   defaults:
     _format: json
-
 api_ship:
   resource: '@ApiBundle/Controller/ShipController.php'
   type: rest
   prefix: /
   defaults:
     _format: json
-
 api_shot:
   resource: '@ApiBundle/Controller/ShotController.php'
   type: rest
   prefix: /
   defaults:
     _format: json
-
 api_user:
   resource: '@ApiBundle/Controller/UserController.php'
+  type: rest
+  prefix: /
+  defaults:
+    _format: json
+api_battle_field:
+  resource: '@ApiBundle/Controller/BattleFieldController.php'
   type: rest
   prefix: /
   defaults:

@@ -3,9 +3,6 @@
 namespace CoreBundle\Service\BattleStatus;
 
 use CoreBundle\Entity\BattleStatus;
-use CoreBundle\Model\Request\BattleStatus\BattleStatusAllRequestInterface;
-use CoreBundle\Model\Request\BattleStatus\BattleStatusCreateRequest;
-use CoreBundle\Model\Request\BattleStatus\BattleStatusUpdateRequest;
 use NorseDigital\Symfony\RestBundle\Service\AbstractService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -22,9 +19,8 @@ use NorseDigital\Symfony\RestBundle\Entity\EntityInterface;
  * @method BattleStatus getEntityBy(array $criteria)
  * @method BattleStatus deleteEntity(EntityInterface $entity, bool $flush = true)
  */
-class BattleStatusService extends AbstractService implements EventSubscriberInterface, BattleStatusDefaultValuesInterface
+class BattleStatusService extends AbstractService implements EventSubscriberInterface
 {
-    use BattleStatusDefaultValuesTrait;
 
     const OPEN_BATTLE = 'Open';
     const PREPARATION_BATTLE = 'Preparation';
@@ -61,55 +57,5 @@ class BattleStatusService extends AbstractService implements EventSubscriberInte
         return [];
     }
 
-    /**
-     * @param BattleStatusCreateRequest $request
-     * @return BattleStatus
-     */
-    public function updatePost(BattleStatusCreateRequest $request): BattleStatus
-    {
-        $battleStatus = $this->createEntity();
-        $this->setGeneralFields($request, $battleStatus, true);
-        $this->saveEntity($battleStatus);
-        return $battleStatus;
-    }
 
-    /**
-     * @param BattleStatusUpdateRequest $request
-     * @return BattleStatus
-     */
-    public function updatePut(BattleStatusUpdateRequest $request): BattleStatus
-    {
-        $battleStatus = $request->getBattleStatus();
-        $this->setGeneralFields($request, $battleStatus, true);
-        $this->saveEntity($battleStatus);
-        return $battleStatus;
-    }
-
-    /**
-     * @param BattleStatusUpdateRequest $request
-     * @return BattleStatus
-     */
-    public function updatePatch(BattleStatusUpdateRequest $request): BattleStatus
-    {
-        $battleStatus = $request->getBattleStatus();
-        $this->setGeneralFields($request, $battleStatus);
-        $this->saveEntity($battleStatus);
-        return $battleStatus;
-    }
-
-    /**
-     * @param BattleStatusAllRequestInterface $request
-     * @param BattleStatus $battleStatus
-     * @param bool $fullUpdate
-     * @return BattleStatus
-     */
-    public function setGeneralFields(BattleStatusAllRequestInterface $request, BattleStatus $battleStatus, $fullUpdate = false)
-    {
-        if ($request->hasStatusName()) {
-            $battleStatus->setStatusName($request->getStatusName());
-        } elseif ($fullUpdate) {
-            $battleStatus->setStatusName($this->getDefaultStatusName());
-        }
-        return $battleStatus;
-    }
 }

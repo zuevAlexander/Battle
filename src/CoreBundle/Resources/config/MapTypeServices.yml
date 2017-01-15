@@ -1,14 +1,7 @@
 parameters:
-  core.handler.map_type.class: CoreBundle\Handler\MapTypeHandler
   core.entity.map_type.class: CoreBundle\Entity\MapType
   core.service.map_type.class: CoreBundle\Service\MapType\MapTypeService
 services:
-  core.handler.map_type:
-    class: '%core.handler.map_type.class%'
-    arguments:
-      - '@service_container'
-      - '@event_dispatcher'
-      - '@core.service.map_type'
   core.service.map_type:
     class: '%core.service.map_type.class%'
     tags:

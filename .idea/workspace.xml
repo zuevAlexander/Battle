@@ -2,33 +2,295 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="31d07b88-8c6d-4f17-bb8b-1af0165b87be" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/DoctrineMigrations/Version20170112151117.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/DoctrineMigrations/Version20170112152828.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/Resources/translations/messages.no.yml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/CoreBundle/Security/AbstractBaseAuthenticator.php" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/ApiBundle/Controller/DefaultController.php" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/DoctrineMigrations/Version20170113014801.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/DoctrineMigrations/Version20170113014935.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/DoctrineMigrations/Version20170114002900.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ApiBundle/Controller/BattleFieldController.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/CoreBundle/DataFixtures/BattleFixtures.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/CoreBundle/DataFixtures/ORM/_data/prod/BattleStatusFixtures.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/CoreBundle/Entity/BattleFieldStatus.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/CoreBundle/Exception/Battle/ThisBattleIsNotInProcessStatusException.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/CoreBundle/Exception/Battle/YouAreNotOwnerOfThisBattleException.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/CoreBundle/Exception/Battle/YouCanChangeOnlyOpenBattleException.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/CoreBundle/Exception/Battle/YouCanDelereOnlyOpenOrClosedBattleException.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/CoreBundle/Exception/BattleField/NowIsNotYourTurnToMakeShotException.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/CoreBundle/Resources/config/BattleFieldStatusServices.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/CoreBundle/Service/BattleFieldStatus/BattleFieldStatusService.php" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/Resources/views/base.html.twig" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/Resources/views/default/index.html.twig" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/ApiBundle/Controller/ShotTypeController.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/ApiBundle/Resources/views/Default/index.html.twig" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/AppBundle/AppBundle.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/AppBundle/Controller/DefaultController.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Controller/DefaultController.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Entity/ShotType.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/BattleField/BattleFieldAllTypeTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/BattleField/BattleFieldCreateType.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/BattleField/BattleFieldDeleteType.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/BattleField/BattleFieldListType.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/BattleField/BattleFieldUpdateType.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/BattleStatus/BattleStatusAllTypeTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/BattleStatus/BattleStatusCreateType.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/BattleStatus/BattleStatusDeleteType.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/BattleStatus/BattleStatusListType.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/BattleStatus/BattleStatusReadType.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/BattleStatus/BattleStatusSingleTypeTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/BattleStatus/BattleStatusUpdateType.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/CountShips/CountShipsAllTypeTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/CountShips/CountShipsCreateType.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/CountShips/CountShipsDeleteType.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/CountShips/CountShipsListType.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/CountShips/CountShipsReadType.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/CountShips/CountShipsSingleTypeTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/CountShips/CountShipsUpdateType.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/Map/MapAllTypeTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/Map/MapCreateType.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/Map/MapDeleteType.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/Map/MapListType.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/Map/MapReadType.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/Map/MapSingleTypeTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/Map/MapUpdateType.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/MapType/MapTypeAllTypeTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/MapType/MapTypeCreateType.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/MapType/MapTypeDeleteType.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/MapType/MapTypeListType.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/MapType/MapTypeReadType.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/MapType/MapTypeSingleTypeTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/MapType/MapTypeUpdateType.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/ShipLocation/ShipLocationDeleteType.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/ShipLocation/ShipLocationListType.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/ShipLocation/ShipLocationReadType.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/ShipLocation/ShipLocationSingleTypeTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/ShipLocation/ShipLocationUpdateType.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/ShipType/ShipTypeAllTypeTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/ShipType/ShipTypeCreateType.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/ShipType/ShipTypeDeleteType.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/ShipType/ShipTypeListType.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/ShipType/ShipTypeReadType.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/ShipType/ShipTypeSingleTypeTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/ShipType/ShipTypeUpdateType.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/Shot/ShotDeleteType.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/Shot/ShotListType.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/Shot/ShotReadType.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/Shot/ShotSingleTypeTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/Shot/ShotUpdateType.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/ShotStatus/ShotStatusAllTypeTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/ShotStatus/ShotStatusCreateType.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/ShotStatus/ShotStatusDeleteType.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/ShotStatus/ShotStatusListType.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/ShotStatus/ShotStatusReadType.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/ShotStatus/ShotStatusSingleTypeTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/ShotStatus/ShotStatusUpdateType.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/ShotType/ShotTypeAllTypeTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/ShotType/ShotTypeCreateType.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/ShotType/ShotTypeDeleteType.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/ShotType/ShotTypeListType.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/ShotType/ShotTypeReadType.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/ShotType/ShotTypeSingleTypeTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/ShotType/ShotTypeUpdateType.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Handler/BattleStatusHandler.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Handler/CountShipsHandler.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Handler/MapHandler.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Handler/MapTypeHandler.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Handler/ShipLocationHandler.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Handler/ShipTypeHandler.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Handler/ShotStatusHandler.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Handler/ShotTypeHandler.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Handler/BattleStatusProcessorInterface.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Handler/CountShipsProcessorInterface.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Handler/MapProcessorInterface.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Handler/MapTypeProcessorInterface.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Handler/ShipLocationProcessorInterface.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Handler/ShipTypeProcessorInterface.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Handler/ShotStatusProcessorInterface.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Handler/ShotTypeProcessorInterface.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/BattleField/BattleFieldAllRequestInterface.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/BattleField/BattleFieldAllRequestTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/BattleField/BattleFieldCreateRequest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/BattleField/BattleFieldDeleteRequest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/BattleField/BattleFieldListRequest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/BattleField/BattleFieldUpdateRequest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/BattleStatus/BattleStatusAllRequestInterface.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/BattleStatus/BattleStatusAllRequestTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/BattleStatus/BattleStatusCreateRequest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/BattleStatus/BattleStatusDeleteRequest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/BattleStatus/BattleStatusListRequest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/BattleStatus/BattleStatusReadRequest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/BattleStatus/BattleStatusSingleRequestInterface.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/BattleStatus/BattleStatusSingleRequestTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/BattleStatus/BattleStatusUpdateRequest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/CountShips/CountShipsAllRequestInterface.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/CountShips/CountShipsAllRequestTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/CountShips/CountShipsCreateRequest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/CountShips/CountShipsDeleteRequest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/CountShips/CountShipsListRequest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/CountShips/CountShipsReadRequest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/CountShips/CountShipsSingleRequestInterface.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/CountShips/CountShipsSingleRequestTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/CountShips/CountShipsUpdateRequest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/Map/MapAllRequestInterface.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/Map/MapAllRequestTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/Map/MapCreateRequest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/Map/MapDeleteRequest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/Map/MapListRequest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/Map/MapReadRequest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/Map/MapSingleRequestInterface.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/Map/MapSingleRequestTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/Map/MapUpdateRequest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/MapType/MapTypeAllRequestInterface.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/MapType/MapTypeAllRequestTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/MapType/MapTypeCreateRequest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/MapType/MapTypeDeleteRequest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/MapType/MapTypeListRequest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/MapType/MapTypeReadRequest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/MapType/MapTypeSingleRequestInterface.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/MapType/MapTypeSingleRequestTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/MapType/MapTypeUpdateRequest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/ShipLocation/ShipLocationDeleteRequest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/ShipLocation/ShipLocationListRequest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/ShipLocation/ShipLocationReadRequest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/ShipLocation/ShipLocationSingleRequestInterface.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/ShipLocation/ShipLocationSingleRequestTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/ShipLocation/ShipLocationUpdateRequest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/ShipType/ShipTypeAllRequestInterface.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/ShipType/ShipTypeAllRequestTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/ShipType/ShipTypeCreateRequest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/ShipType/ShipTypeDeleteRequest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/ShipType/ShipTypeListRequest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/ShipType/ShipTypeReadRequest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/ShipType/ShipTypeSingleRequestInterface.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/ShipType/ShipTypeSingleRequestTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/ShipType/ShipTypeUpdateRequest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/Shot/ShotDeleteRequest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/Shot/ShotListRequest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/Shot/ShotReadRequest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/Shot/ShotSingleRequestInterface.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/Shot/ShotSingleRequestTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/Shot/ShotUpdateRequest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/ShotStatus/ShotStatusAllRequestInterface.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/ShotStatus/ShotStatusAllRequestTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/ShotStatus/ShotStatusCreateRequest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/ShotStatus/ShotStatusDeleteRequest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/ShotStatus/ShotStatusListRequest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/ShotStatus/ShotStatusReadRequest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/ShotStatus/ShotStatusSingleRequestInterface.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/ShotStatus/ShotStatusSingleRequestTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/ShotStatus/ShotStatusUpdateRequest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/ShotType/ShotTypeAllRequestInterface.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/ShotType/ShotTypeAllRequestTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/ShotType/ShotTypeCreateRequest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/ShotType/ShotTypeDeleteRequest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/ShotType/ShotTypeListRequest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/ShotType/ShotTypeReadRequest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/ShotType/ShotTypeSingleRequestInterface.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/ShotType/ShotTypeSingleRequestTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/ShotType/ShotTypeUpdateRequest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/User/UserAllRequestInterface.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/User/UserAllRequestTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/User/UserCreateRequest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/User/UserDeleteRequest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/User/UserListRequest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/User/UserReadRequest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/User/UserSingleRequestInterface.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/User/UserSingleRequestTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/User/UserUpdateRequest.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Resources/config/ShotTypeServices.yml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Resources/views/Default/index.html.twig" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Service/Battle/BattleDefaultValuesInterface.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Service/Battle/BattleDefaultValuesTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Service/BattleField/BattleFieldDefaultValuesInterface.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Service/BattleField/BattleFieldDefaultValuesTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Service/BattleStatus/BattleStatusDefaultValuesInterface.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Service/BattleStatus/BattleStatusDefaultValuesTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Service/CountShips/CountShipsDefaultValuesInterface.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Service/CountShips/CountShipsDefaultValuesTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Service/Map/MapDefaultValuesInterface.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Service/Map/MapDefaultValuesTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Service/MapType/MapTypeDefaultValuesInterface.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Service/MapType/MapTypeDefaultValuesTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Service/Ship/ShipDefaultValuesInterface.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Service/Ship/ShipDefaultValuesTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Service/ShipLocation/ShipLocationDefaultValuesInterface.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Service/ShipLocation/ShipLocationDefaultValuesTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Service/ShipType/ShipTypeDefaultValuesInterface.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Service/ShipType/ShipTypeDefaultValuesTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Service/Shot/ShotDefaultValuesInterface.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Service/Shot/ShotDefaultValuesTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Service/ShotStatus/ShotStatusDefaultValuesInterface.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Service/ShotStatus/ShotStatusDefaultValuesTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Service/ShotType/ShotTypeDefaultValuesInterface.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Service/ShotType/ShotTypeDefaultValuesTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Service/ShotType/ShotTypeService.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Service/User/UserDefaultValuesInterface.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/CoreBundle/Service/User/UserDefaultValuesTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/var/cache/.gitkeep" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/CoreBundle/Exception/Battle/YouCanCreateOnlyOpenBattleException.php" afterPath="$PROJECT_DIR$/src/CoreBundle/Exception/BattleStatus/ThisBattleStatusIsDeniedException.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/CoreBundle/Exception/BattleField/YouAreNotOwnerOfThisBattleField.php" afterPath="$PROJECT_DIR$/src/CoreBundle/Exception/BattleField/YouAreNotOwnerOfThisBattleFieldException.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/var/logs/.gitkeep" afterPath="$PROJECT_DIR$/var/logs/.gitkeep" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/var/sessions/.gitkeep" afterPath="$PROJECT_DIR$/var/sessions/.gitkeep" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/config.yml" afterPath="$PROJECT_DIR$/app/config/config.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/security.yml" afterPath="$PROJECT_DIR$/app/config/security.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ApiBundle/Controller/UserController.php" afterPath="$PROJECT_DIR$/src/ApiBundle/Controller/UserController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Entity/User.php" afterPath="$PROJECT_DIR$/src/CoreBundle/Entity/User.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/Battle/BattleCreateType.php" afterPath="$PROJECT_DIR$/src/CoreBundle/Form/Battle/BattleCreateType.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/User/UserLoginType.php" afterPath="$PROJECT_DIR$/src/CoreBundle/Form/User/UserLoginType.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/AppKernel.php" afterPath="$PROJECT_DIR$/app/AppKernel.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/routing.yml" afterPath="$PROJECT_DIR$/app/config/routing.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/composer.lock" afterPath="$PROJECT_DIR$/composer.lock" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ApiBundle/Controller/BattleController.php" afterPath="$PROJECT_DIR$/src/ApiBundle/Controller/BattleController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ApiBundle/Controller/ShipController.php" afterPath="$PROJECT_DIR$/src/ApiBundle/Controller/ShipController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ApiBundle/Controller/ShotController.php" afterPath="$PROJECT_DIR$/src/ApiBundle/Controller/ShotController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ApiBundle/Resources/config/routing.yml" afterPath="$PROJECT_DIR$/src/ApiBundle/Resources/config/routing.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Entity/BattleField.php" afterPath="$PROJECT_DIR$/src/CoreBundle/Entity/BattleField.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Entity/Ship.php" afterPath="$PROJECT_DIR$/src/CoreBundle/Entity/Ship.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Entity/Shot.php" afterPath="$PROJECT_DIR$/src/CoreBundle/Entity/Shot.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Exception/Battle/BattleIsNotInOpenOrPreparationStatusException.php" afterPath="$PROJECT_DIR$/src/CoreBundle/Exception/Battle/BattleIsNotInOpenOrPreparationStatusException.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Exception/User/UserAlreadyExistsException.php" afterPath="$PROJECT_DIR$/src/CoreBundle/Exception/User/UserAlreadyExistsException.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/ShipLocation/ShipLocationAllTypeTrait.php" afterPath="$PROJECT_DIR$/src/CoreBundle/Form/ShipLocation/ShipLocationAllTypeTrait.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/ShipLocation/ShipLocationCreateType.php" afterPath="$PROJECT_DIR$/src/CoreBundle/Form/ShipLocation/ShipLocationCreateType.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/Shot/ShotAllTypeTrait.php" afterPath="$PROJECT_DIR$/src/CoreBundle/Form/Shot/ShotAllTypeTrait.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Form/User/UserRegisterType.php" afterPath="$PROJECT_DIR$/src/CoreBundle/Form/User/UserRegisterType.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Handler/BattleFieldHandler.php" afterPath="$PROJECT_DIR$/src/CoreBundle/Handler/BattleFieldHandler.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Handler/BattleHandler.php" afterPath="$PROJECT_DIR$/src/CoreBundle/Handler/BattleHandler.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Handler/ShipHandler.php" afterPath="$PROJECT_DIR$/src/CoreBundle/Handler/ShipHandler.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Handler/ShotHandler.php" afterPath="$PROJECT_DIR$/src/CoreBundle/Handler/ShotHandler.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Handler/UserHandler.php" afterPath="$PROJECT_DIR$/src/CoreBundle/Handler/UserHandler.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Handler/BattleFieldProcessorInterface.php" afterPath="$PROJECT_DIR$/src/CoreBundle/Model/Handler/BattleFieldProcessorInterface.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Handler/BattleProcessorInterface.php" afterPath="$PROJECT_DIR$/src/CoreBundle/Model/Handler/BattleProcessorInterface.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Handler/ShipProcessorInterface.php" afterPath="$PROJECT_DIR$/src/CoreBundle/Model/Handler/ShipProcessorInterface.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Handler/ShotProcessorInterface.php" afterPath="$PROJECT_DIR$/src/CoreBundle/Model/Handler/ShotProcessorInterface.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Handler/UserProcessorInterface.php" afterPath="$PROJECT_DIR$/src/CoreBundle/Model/Handler/UserProcessorInterface.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/User/UserAllRequestTrait.php" afterPath="$PROJECT_DIR$/src/CoreBundle/Model/Request/User/UserAllRequestTrait.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/User/UserLoginRequest.php" afterPath="$PROJECT_DIR$/src/CoreBundle/Model/Request/User/UserLoginRequest.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/ShipLocation/ShipLocationAllRequestInterface.php" afterPath="$PROJECT_DIR$/src/CoreBundle/Model/Request/ShipLocation/ShipLocationAllRequestInterface.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/ShipLocation/ShipLocationAllRequestTrait.php" afterPath="$PROJECT_DIR$/src/CoreBundle/Model/Request/ShipLocation/ShipLocationAllRequestTrait.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/ShipLocation/ShipLocationCreateRequest.php" afterPath="$PROJECT_DIR$/src/CoreBundle/Model/Request/ShipLocation/ShipLocationCreateRequest.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/Shot/ShotAllRequestInterface.php" afterPath="$PROJECT_DIR$/src/CoreBundle/Model/Request/Shot/ShotAllRequestInterface.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/Shot/ShotAllRequestTrait.php" afterPath="$PROJECT_DIR$/src/CoreBundle/Model/Request/Shot/ShotAllRequestTrait.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/User/UserRegisterRequest.php" afterPath="$PROJECT_DIR$/src/CoreBundle/Model/Request/User/UserRegisterRequest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/User/UserValidationInterface.php" afterPath="$PROJECT_DIR$/src/CoreBundle/Model/Request/User/UserValidationInterface.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Model/Request/User/UserValidationTrait.php" afterPath="$PROJECT_DIR$/src/CoreBundle/Model/Request/User/UserValidationTrait.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Repository/UserRepository.php" afterPath="$PROJECT_DIR$/src/CoreBundle/Repository/UserRepository.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Resources/config/BattleFieldServices.yml" afterPath="$PROJECT_DIR$/src/CoreBundle/Resources/config/BattleFieldServices.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Resources/config/BattleServices.yml" afterPath="$PROJECT_DIR$/src/CoreBundle/Resources/config/BattleServices.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Resources/config/BattleStatusServices.yml" afterPath="$PROJECT_DIR$/src/CoreBundle/Resources/config/BattleStatusServices.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Resources/config/CountShipsServices.yml" afterPath="$PROJECT_DIR$/src/CoreBundle/Resources/config/CountShipsServices.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Resources/config/MapServices.yml" afterPath="$PROJECT_DIR$/src/CoreBundle/Resources/config/MapServices.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Resources/config/MapTypeServices.yml" afterPath="$PROJECT_DIR$/src/CoreBundle/Resources/config/MapTypeServices.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Resources/config/ShipLocationServices.yml" afterPath="$PROJECT_DIR$/src/CoreBundle/Resources/config/ShipLocationServices.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Resources/config/ShipServices.yml" afterPath="$PROJECT_DIR$/src/CoreBundle/Resources/config/ShipServices.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Resources/config/ShipTypeServices.yml" afterPath="$PROJECT_DIR$/src/CoreBundle/Resources/config/ShipTypeServices.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Resources/config/ShotServices.yml" afterPath="$PROJECT_DIR$/src/CoreBundle/Resources/config/ShotServices.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Resources/config/ShotStatusServices.yml" afterPath="$PROJECT_DIR$/src/CoreBundle/Resources/config/ShotStatusServices.yml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Resources/config/UserServices.yml" afterPath="$PROJECT_DIR$/src/CoreBundle/Resources/config/UserServices.yml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Resources/config/services.yml" afterPath="$PROJECT_DIR$/src/CoreBundle/Resources/config/services.yml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Security/PasswordAuthenticator.php" afterPath="$PROJECT_DIR$/src/CoreBundle/Security/PasswordAuthenticator.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Security/TokenAuthenticator.php" afterPath="$PROJECT_DIR$/src/CoreBundle/Security/TokenAuthenticator.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Security/WebserviceUserProvider.php" afterPath="$PROJECT_DIR$/src/CoreBundle/Security/WebserviceUserProvider.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Service/Battle/BattleService.php" afterPath="$PROJECT_DIR$/src/CoreBundle/Service/Battle/BattleService.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Service/BattleField/BattleFieldService.php" afterPath="$PROJECT_DIR$/src/CoreBundle/Service/BattleField/BattleFieldService.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Service/BattleStatus/BattleStatusService.php" afterPath="$PROJECT_DIR$/src/CoreBundle/Service/BattleStatus/BattleStatusService.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Service/CountShips/CountShipsService.php" afterPath="$PROJECT_DIR$/src/CoreBundle/Service/CountShips/CountShipsService.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Service/Map/MapService.php" afterPath="$PROJECT_DIR$/src/CoreBundle/Service/Map/MapService.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Service/MapType/MapTypeService.php" afterPath="$PROJECT_DIR$/src/CoreBundle/Service/MapType/MapTypeService.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Service/Ship/ShipService.php" afterPath="$PROJECT_DIR$/src/CoreBundle/Service/Ship/ShipService.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Service/ShipLocation/ShipLocationService.php" afterPath="$PROJECT_DIR$/src/CoreBundle/Service/ShipLocation/ShipLocationService.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Service/ShipType/ShipTypeService.php" afterPath="$PROJECT_DIR$/src/CoreBundle/Service/ShipType/ShipTypeService.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Service/Shot/ShotService.php" afterPath="$PROJECT_DIR$/src/CoreBundle/Service/Shot/ShotService.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Service/ShotStatus/ShotStatusService.php" afterPath="$PROJECT_DIR$/src/CoreBundle/Service/ShotStatus/ShotStatusService.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CoreBundle/Service/User/UserService.php" afterPath="$PROJECT_DIR$/src/CoreBundle/Service/User/UserService.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/var/SymfonyRequirements.php" afterPath="$PROJECT_DIR$/var/SymfonyRequirements.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/app_dev.php" afterPath="$PROJECT_DIR$/web/app_dev.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/config.php" afterPath="$PROJECT_DIR$/web/config.php" />
     </list>
     <ignored path="battle.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -60,25 +322,37 @@
         <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
       </PATH_ELEMENT>
     </PATH>
+    <PATH>
+      <PATH_ELEMENT>
+        <option name="myItemId" />
+        <option name="myItemType" value="com.intellij.database.view.DatabaseStructure$Root" />
+      </PATH_ELEMENT>
+    </PATH>
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
-    <favorites_list name="battle" />
+    <favorites_list name="battle">
+      <favorite_root url="file://$PROJECT_DIR$/src/CoreBundle/Service/Shot" module="battle" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+        <favorite_root url="file://$PROJECT_DIR$/src/CoreBundle/Service/Shot/ShotService.php" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+        <favorite_root url="file://$PROJECT_DIR$/src/CoreBundle/Service/Shot/ShotDefaultValuesTrait.php" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+        <favorite_root url="file://$PROJECT_DIR$/src/CoreBundle/Service/Shot/ShotDefaultValuesInterface.php" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+      </favorite_root>
+    </favorites_list>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="security.yml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/config/security.yml">
+      <file leaf-file-name="ShipHandler.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/CoreBundle/Handler/ShipHandler.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="28" column="31" selection-start-line="28" selection-start-column="31" selection-end-line="28" selection-end-column="31" />
+            <state relative-caret-position="651">
+              <caret line="87" column="7" selection-start-line="87" selection-start-column="7" selection-end-line="87" selection-end-column="7" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="battle.map_type" pinned="false" current-in-tab="false">
-        <entry file="dbDummy://dbtable:/bf2daca7/cbef89db-3269-4e1f-bd62-ac37a4d68c62/battle.map_type">
+      <file leaf-file-name="battle.user" pinned="false" current-in-tab="false">
+        <entry file="dbDummy://dbtable:/bf2daca7/cbef89db-3269-4e1f-bd62-ac37a4d68c62/battle.user">
           <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
             <state>
               <filtering enabled="true" />
@@ -92,8 +366,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="battle.map" pinned="false" current-in-tab="false">
-        <entry file="dbDummy://dbtable:/bf2daca7/cbef89db-3269-4e1f-bd62-ac37a4d68c62/battle.map">
+      <file leaf-file-name="ShipService.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/CoreBundle/Service/Ship/ShipService.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="64">
+              <caret line="142" column="44" selection-start-line="142" selection-start-column="44" selection-end-line="142" selection-end-column="44" />
+              <folding>
+                <element signature="e#43#95#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="battle.ship" pinned="false" current-in-tab="false">
+        <entry file="dbDummy://dbtable:/bf2daca7/cbef89db-3269-4e1f-bd62-ac37a4d68c62/battle.ship">
           <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
             <state>
               <filtering enabled="true" />
@@ -107,8 +393,8 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="battle.count_ships" pinned="false" current-in-tab="false">
-        <entry file="dbDummy://dbtable:/bf2daca7/cbef89db-3269-4e1f-bd62-ac37a4d68c62/battle.count_ships">
+      <file leaf-file-name="battle.ship_location" pinned="false" current-in-tab="false">
+        <entry file="dbDummy://dbtable:/bf2daca7/cbef89db-3269-4e1f-bd62-ac37a4d68c62/battle.ship_location">
           <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
             <state>
               <filtering enabled="true" />
@@ -122,8 +408,8 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="battle.battle_status" pinned="false" current-in-tab="false">
-        <entry file="dbDummy://dbtable:/bf2daca7/cbef89db-3269-4e1f-bd62-ac37a4d68c62/battle.battle_status">
+      <file leaf-file-name="battle.battle" pinned="false" current-in-tab="true">
+        <entry file="dbDummy://dbtable:/bf2daca7/cbef89db-3269-4e1f-bd62-ac37a4d68c62/battle.battle">
           <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
             <state>
               <filtering enabled="true" />
@@ -132,6 +418,31 @@
           <provider editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="battle.shot" pinned="false" current-in-tab="false">
+        <entry file="dbDummy://dbtable:/bf2daca7/cbef89db-3269-4e1f-bd62-ac37a4d68c62/battle.shot">
+          <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+            <state>
+              <filtering enabled="true" />
+            </state>
+          </provider>
+          <provider editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BattleHandler.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/CoreBundle/Handler/BattleHandler.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="4" column="29" selection-start-line="4" selection-start-column="29" selection-end-line="4" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -140,29 +451,11 @@
       <file leaf-file-name="BattleService.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/CoreBundle/Service/Battle/BattleService.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="765">
-              <caret line="170" column="39" selection-start-line="170" selection-start-column="39" selection-end-line="170" selection-end-column="39" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SymfonyRequirements.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/var/SymfonyRequirements.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="22" column="40" selection-start-line="22" selection-start-column="40" selection-end-line="22" selection-end-column="40" />
-              <folding />
+            <state relative-caret-position="506">
+              <caret line="209" column="9" selection-start-line="209" selection-start-column="9" selection-end-line="209" selection-end-column="9" />
+              <folding>
+                <element signature="e#45#74#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -182,50 +475,35 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="battle.battle" pinned="false" current-in-tab="false">
-        <entry file="dbDummy://dbtable:/bf2daca7/cbef89db-3269-4e1f-bd62-ac37a4d68c62/battle.battle">
-          <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-            <state>
-              <filtering enabled="true" />
-            </state>
-          </provider>
-          <provider editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FrameworkCommandLineHistory">
     <commandsHistory>
-      <command text="s doctrine:migrations:migrate " />
-      <command text="s doctrine:migrations:migrate --help " />
-      <command text="s doctrine:migrations:migrate --version=20161227124809" />
-      <command text="s doctrine:migrations:migrate " />
-      <command text="s doctrine:migrations:diff" />
-      <command text="s doctrine:migrations:migrate " />
-      <command text="s doctrine:migrations:diff" />
-      <command text="s doctrine:migrations:migrate " />
-      <command text="s doctrine:migrations:migrate --version=20170103155507" />
-      <command text="s doctrine:migrations:migrate " />
-      <command text="s doctrine:migrations:diff" />
-      <command text="s doctrine:migrations:migrate " />
-      <command text="s server:run " />
-      <command text="s doctrine:migrations:diff" />
-      <command text="s doctrine:migrations:migrate " />
-      <command text="s cache:clear" />
-      <command text="s doctrine:migrations:diff" />
-      <command text="s doctrine:migrations:migrate " />
-      <command text="s server:run " />
-      <command text="s cache:clear" />
-      <command text="s doctrine:migrations:diff" />
-      <command text="s doctrine:migrations:migrate " />
       <command text="s doctrine:migrations:diff" />
       <command text="s cache:clear" />
       <command text="s doctrine:migrations:migrate " />
+      <command text="ca" />
+      <command text="s cache:clear" />
+      <command text="s doctrine:migrations:diff" />
+      <command text="s cache:clear" />
+      <command text="s doctrine:migrations:migrate " />
+      <command text="s doctrine:migrations:diff" />
+      <command text="s doctrine:migrations:migrate " />
+      <command text="s doctrine:migrations:diff" />
+      <command text="s doctrine:migrations:migrate " />
+      <command text="s nd:symfony:command:crud:generate --help " />
+      <command text="nd:symfony:command:generate:crud  --entity=BattleFieldStatus " />
+      <command text="s nd:symfony:command:generate:crud  --entity=BattleFieldStatus " />
+      <command text="s nd:symfony:command:generate:crud  --entity=CoreBandle:BattleFieldStatus " />
+      <command text="s nd:symfony:command:generate:crud  --entity=CoreBundle:BattleFieldStatus " />
+      <command text="s cache:clear" />
+      <command text="s nd:symfony:doctrine:fixtures:load --purge-with-truncate " />
+      <command text="s doctrine:migrations:diff" />
+      <command text="s doctrine:migrations:migrate " />
+      <command text="s cache:clear" />
+      <command text="s nd:symfony:command:crud:generate --help " />
+      <command text="s nd:symfony:command:crud:generate --entity=CoreBundle:BattleField  -o" />
+      <command text="s cache:clear" />
     </commandsHistory>
   </component>
   <component name="Git.Settings">
@@ -237,57 +515,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/CoreBundle/Service/Shot/ShotDefaultValuesTrait.php" />
-        <option value="$PROJECT_DIR$/src/CoreBundle/Exception/Shot/YouHaveAlreadyShotOnThisMapException.php" />
-        <option value="$PROJECT_DIR$/src/CoreBundle/Service/Ship/ShipService.php" />
-        <option value="$PROJECT_DIR$/src/CoreBundle/Service/Battle/BattleService.php" />
-        <option value="$PROJECT_DIR$/src/CoreBundle/Service/ShotStatus/ShotStatusService.php" />
-        <option value="$PROJECT_DIR$/src/CoreBundle/Exception/Shot/YouDidNotSpecifyBattleFieldException.php" />
-        <option value="$PROJECT_DIR$/src/CoreBundle/Exception/Shot/YouDidNotSpecifyLocationForShotException.php" />
-        <option value="$PROJECT_DIR$/src/CoreBundle/Model/Request/Shot/ShotAllRequestInterface.php" />
-        <option value="$PROJECT_DIR$/src/CoreBundle/Model/Request/Shot/ShotAllRequestTrait.php" />
-        <option value="$PROJECT_DIR$/src/CoreBundle/Resources/config/ShotServices.yml" />
-        <option value="$PROJECT_DIR$/src/CoreBundle/Service/Shot/ShotService.php" />
-        <option value="$PROJECT_DIR$/src/ApiBundle/Controller/BattleFieldController.php" />
-        <option value="$PROJECT_DIR$/src/ApiBundle/Controller/BattleStatusController.php" />
-        <option value="$PROJECT_DIR$/src/ApiBundle/Controller/CountShipsController.php" />
-        <option value="$PROJECT_DIR$/src/ApiBundle/Controller/MapController.php" />
-        <option value="$PROJECT_DIR$/src/ApiBundle/Resources/config/routing.yml" />
-        <option value="$PROJECT_DIR$/src/CoreBundle/Exception/User/UnauthorizedException.php" />
-        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/cbef89db-3269-4e1f-bd62-ac37a4d68c62/console.sql" />
-        <option value="$PROJECT_DIR$/app/DoctrineMigrations/Version20170103155507.php" />
-        <option value="$PROJECT_DIR$/src/CoreBundle/Model/Request/User/UserAllRequestInterface.php" />
-        <option value="$PROJECT_DIR$/src/CoreBundle/Service/User/UserDefaultValuesInterface.php" />
-        <option value="$PROJECT_DIR$/src/CoreBundle/Service/User/UserDefaultValuesTrait.php" />
-        <option value="$PROJECT_DIR$/src/CoreBundle/Exception/User/EmptyUsernameException.php" />
-        <option value="$PROJECT_DIR$/var/logs/dev.log" />
-        <option value="$PROJECT_DIR$/src/CoreBundle/Model/Request/User/UserValidationInterface.php" />
-        <option value="$PROJECT_DIR$/src/CoreBundle/Model/Request/User/UserLoginRequest.php" />
-        <option value="$PROJECT_DIR$/src/CoreBundle/Model/Request/User/UserAllRequestTrait.php" />
-        <option value="$PROJECT_DIR$/src/CoreBundle/Model/Request/User/UserCreateRequest.php" />
+        <option value="$PROJECT_DIR$/src/CoreBundle/Exception/BattleStatus/ThisBattleStatusIsDeniedException.php" />
+        <option value="$PROJECT_DIR$/src/ApiBundle/Controller/BattleController.php" />
+        <option value="$PROJECT_DIR$/src/CoreBundle/Resources/config/ShotStatusServices.yml" />
+        <option value="$PROJECT_DIR$/src/CoreBundle/Form/Battle/BattleAllTypeTrait.php" />
+        <option value="$PROJECT_DIR$/src/CoreBundle/Form/User/UserRegisterType.php" />
+        <option value="$PROJECT_DIR$/src/CoreBundle/Exception/User/UserAlreadyExistsException.php" />
         <option value="$PROJECT_DIR$/src/CoreBundle/Model/Request/User/UserRegisterRequest.php" />
         <option value="$PROJECT_DIR$/src/CoreBundle/Resources/config/UserServices.yml" />
-        <option value="$PROJECT_DIR$/src/CoreBundle/Model/Request/User/UserValidationTrait.php" />
-        <option value="$PROJECT_DIR$/src/CoreBundle/Form/User/UserRegisterType.php" />
-        <option value="$PROJECT_DIR$/src/CoreBundle/Form/User/UserLoginType.php" />
-        <option value="$PROJECT_DIR$/vendor/nd-symfony/rest-bundle/src/Controller/BaseController.php" />
-        <option value="$PROJECT_DIR$/app/Resources/translations/messages.no.yml" />
-        <option value="$PROJECT_DIR$/src/CoreBundle/Resources/config/services.yml" />
-        <option value="$PROJECT_DIR$/src/CoreBundle/Security/AbstractBaseAuthenticator.php" />
-        <option value="$PROJECT_DIR$/src/CoreBundle/Security/TokenAuthenticator.php" />
-        <option value="$PROJECT_DIR$/app/config/config.yml" />
-        <option value="$PROJECT_DIR$/src/CoreBundle/Security/PasswordAuthenticator.php" />
-        <option value="$PROJECT_DIR$/src/ApiBundle/Controller/DefaultController.php" />
-        <option value="$PROJECT_DIR$/src/ApiBundle/Controller/UserController.php" />
         <option value="$PROJECT_DIR$/src/CoreBundle/Handler/UserHandler.php" />
-        <option value="$PROJECT_DIR$/src/CoreBundle/Model/Handler/UserProcessorInterface.php" />
-        <option value="$PROJECT_DIR$/src/CoreBundle/Entity/User.php" />
-        <option value="$PROJECT_DIR$/src/CoreBundle/Security/WebserviceUserProvider.php" />
+        <option value="$PROJECT_DIR$/src/CoreBundle/Service/BattleStatus/BattleStatusService.php" />
+        <option value="$PROJECT_DIR$/src/CoreBundle/Service/CountShips/CountShipsService.php" />
+        <option value="$PROJECT_DIR$/src/CoreBundle/Service/Map/MapService.php" />
+        <option value="$PROJECT_DIR$/src/CoreBundle/Service/MapType/MapTypeService.php" />
+        <option value="$PROJECT_DIR$/src/CoreBundle/Service/ShipLocation/ShipLocationService.php" />
+        <option value="$PROJECT_DIR$/src/CoreBundle/Service/ShipType/ShipTypeService.php" />
+        <option value="$PROJECT_DIR$/src/CoreBundle/Service/ShotStatus/ShotStatusService.php" />
         <option value="$PROJECT_DIR$/src/CoreBundle/Service/User/UserService.php" />
-        <option value="$PROJECT_DIR$/src/CoreBundle/Form/Battle/BattleCreateType.php" />
-        <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/var/SymfonyRequirements.php" />
-        <option value="$PROJECT_DIR$/app/config/security.yml" />
+        <option value="$PROJECT_DIR$/src/CoreBundle/Form/BattleField/BattleFieldReadType.php" />
+        <option value="$PROJECT_DIR$/src/CoreBundle/Model/Request/BattleField/BattleFieldReadRequest.php" />
+        <option value="$PROJECT_DIR$/src/CoreBundle/Form/BattleField/BattleFieldSingleTypeTrait.php" />
+        <option value="$PROJECT_DIR$/vendor/nd-symfony/rest-bundle/src/Controller/BaseController.php" />
+        <option value="$PROJECT_DIR$/src/ApiBundle/Controller/BattleFieldController~.php" />
+        <option value="$PROJECT_DIR$/src/CoreBundle/Handler/BattleFieldHandler~.php" />
+        <option value="$PROJECT_DIR$/src/ApiBundle/Resources/config/routing.yml" />
+        <option value="$PROJECT_DIR$/src/CoreBundle/Resources/config/services.yml" />
+        <option value="$PROJECT_DIR$/src/CoreBundle/Resources/config/BattleServices.yml" />
+        <option value="$PROJECT_DIR$/src/ApiBundle/Controller/BattleFieldController.php" />
+        <option value="$PROJECT_DIR$/src/CoreBundle/Model/Handler/BattleFieldProcessorInterface~.php" />
+        <option value="$PROJECT_DIR$/src/CoreBundle/Model/Handler/BattleFieldProcessorInterface.php" />
+        <option value="$PROJECT_DIR$/src/CoreBundle/Model/Handler/BattleProcessorInterface.php" />
+        <option value="$PROJECT_DIR$/src/CoreBundle/Model/Handler/UserProcessorInterface.php" />
+        <option value="$PROJECT_DIR$/src/CoreBundle/Model/Request/BattleField/BattleFieldSingleRequestTrait.php" />
+        <option value="$PROJECT_DIR$/src/CoreBundle/Model/Request/BattleField/BattleFieldSingleRequestInterface.php" />
+        <option value="$PROJECT_DIR$/src/CoreBundle/Handler/BattleFieldHandler.php" />
+        <option value="$PROJECT_DIR$/src/CoreBundle/Entity/BattleField.php" />
+        <option value="$PROJECT_DIR$/src/CoreBundle/Resources/config/BattleFieldServices.yml" />
+        <option value="$PROJECT_DIR$/src/CoreBundle/Exception/BattleField/YouAreNotOwnerOfThisBattleFieldException.php" />
+        <option value="$PROJECT_DIR$/src/CoreBundle/Model/Handler/ShotProcessorInterface.php" />
+        <option value="$PROJECT_DIR$/src/CoreBundle/Handler/ShotHandler.php" />
+        <option value="$PROJECT_DIR$/src/ApiBundle/Controller/ShotController.php" />
+        <option value="$PROJECT_DIR$/src/CoreBundle/Service/Shot/ShotService.php" />
+        <option value="$PROJECT_DIR$/src/CoreBundle/Resources/config/ShipServices.yml" />
+        <option value="$PROJECT_DIR$/src/CoreBundle/Exception/Battle/BattleIsNotInOpenOrPreparationStatusException.php" />
+        <option value="$PROJECT_DIR$/src/ApiBundle/Controller/ShipController.php" />
+        <option value="$PROJECT_DIR$/src/CoreBundle/Model/Handler/ShipProcessorInterface.php" />
+        <option value="$PROJECT_DIR$/src/CoreBundle/Service/Ship/ShipService.php" />
+        <option value="$PROJECT_DIR$/src/CoreBundle/Handler/ShipHandler.php" />
+        <option value="$PROJECT_DIR$/src/CoreBundle/Exception/Battle/YouAreNotOwnerOfThisBattleException.php" />
+        <option value="$PROJECT_DIR$/src/CoreBundle/Service/BattleField/BattleFieldService.php" />
+        <option value="$PROJECT_DIR$/src/CoreBundle/Handler/BattleHandler.php" />
+        <option value="$PROJECT_DIR$/src/CoreBundle/Service/Battle/BattleService.php" />
       </list>
     </option>
   </component>
@@ -365,20 +643,6 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="var" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Battle" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Battle" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="src" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
@@ -415,6 +679,172 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="CoreBundle" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Service" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Battle" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Battle" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CoreBundle" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Service" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Shot" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Battle" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Battle" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CoreBundle" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Service" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Ship" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Battle" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Battle" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CoreBundle" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Service" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BattleField" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Battle" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Battle" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CoreBundle" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Resources" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Battle" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Battle" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CoreBundle" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Handler" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Battle" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Battle" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CoreBundle" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Exception" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Battle" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Battle" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="ApiBundle" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
@@ -429,7 +859,15 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ApiBundle" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Controller" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -446,10 +884,6 @@
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="config" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
@@ -459,18 +893,18 @@
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../skiforbundet-backend-api" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php.debug" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="js-jscs-nodeInterpreter" value="/usr/local/bin/node" />
     <property name="com.intellij.database.dataSource.DataSourceTemplate" value="MySQL" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/app/Resources" />
-      <recent name="$PROJECT_DIR$/src/CoreBundle/Model/Request/User" />
-      <recent name="$PROJECT_DIR$/src/CoreBundle/Exception/User" />
-      <recent name="$PROJECT_DIR$/src/CoreBundle/Form/User" />
-      <recent name="$PROJECT_DIR$/src/CoreBundle/Security/User" />
+      <recent name="$PROJECT_DIR$/src/CoreBundle/Handler" />
+      <recent name="$PROJECT_DIR$/src/CoreBundle/Model/Handler" />
+      <recent name="$PROJECT_DIR$/src/CoreBundle/Model/Request/BattleField" />
+      <recent name="$PROJECT_DIR$/src/CoreBundle/Form/BattleField" />
+      <recent name="$PROJECT_DIR$/src/CoreBundle/Exception/BattleStatus" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/app/Resources/translations" />
@@ -553,35 +987,35 @@
       <workItem from="1483535151450" duration="964000" />
       <workItem from="1483537397490" duration="631000" />
       <workItem from="1483606915566" duration="3926000" />
-      <workItem from="1483610855893" duration="45348000" />
+      <workItem from="1483610855893" duration="158336000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="296322000" />
+    <option name="totallyTimeSpent" value="409310000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1855" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2841349" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15754561" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Command Line Tools Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38064516" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.48387095" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32985386" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Command Line Tools Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6967742" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.53118277" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.60860217" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26533997" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16196793" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.102266446" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.48387095" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24959569" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.42258066" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.57741934" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40860215" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -598,228 +1032,358 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="12" />
+      <option name="time" value="16" />
     </breakpoint-manager>
-    <watches-manager>
-      <configuration name="app_dev.php">
-        <watch expression="$form-&gt;getErrors()" language="PHP" />
-        <watch expression="$form-&gt;get('password')" />
-      </configuration>
-    </watches-manager>
+    <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/com/jetbrains/php/lang/psi/stubs/data/SPL.php">
+    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Handler/BattleFieldHandler1.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="61" column="6" selection-start-line="61" selection-start-column="6" selection-end-line="61" selection-end-column="6" />
+        <state relative-caret-position="540">
+          <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Exception/User/UnauthorizedException.php">
+    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Form/BattleField/BattleFieldReadType1.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+        <state relative-caret-position="225">
+          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Security/AbstractBaseAuthenticator.php">
+    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Resources/config/BattleFieldServices1.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1020">
-          <caret line="68" column="7" selection-start-line="68" selection-start-column="7" selection-end-line="68" selection-end-column="7" />
-          <folding>
-            <element signature="e#39#84#0#PHP" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/InvalidCsrfTokenException.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="285">
+          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/InsufficientAuthenticationException.php">
+    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Form/BattleField/BattleFieldAllTypeTrait.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="28" column="55" selection-start-line="28" selection-start-column="16" selection-end-line="28" selection-end-column="55" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/AccessDeniedException.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/CustomUserMessageAuthenticationException.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="22" column="66" selection-start-line="22" selection-start-column="66" selection-end-line="22" selection-end-column="66" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/AuthenticationException.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="21" column="29" selection-start-line="21" selection-start-column="6" selection-end-line="21" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/UsernameNotFoundException.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="19" column="31" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/config/config.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
+        <state relative-caret-position="135">
           <caret line="16" column="11" selection-start-line="16" selection-start-column="11" selection-end-line="16" selection-end-column="11" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/symfony/symfony/src/Symfony/Component/Security/Core/Exception/TokenNotFoundException.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="19" column="6" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Service/Ship/ShipService.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="114" column="5" selection-start-line="114" selection-start-column="5" selection-end-line="114" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Security/PasswordAuthenticator.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="705">
-          <caret line="47" column="78" selection-start-line="47" selection-start-column="78" selection-end-line="47" selection-end-column="78" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Security/TokenAuthenticator.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="945">
-          <caret line="63" column="7" selection-start-line="63" selection-start-column="7" selection-end-line="63" selection-end-column="7" />
-          <folding>
-            <element signature="e#39#84#0#PHP" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/symfony/symfony/src/Symfony/Component/DependencyInjection/ContainerAwareTrait.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="32" column="38" selection-start-line="32" selection-start-column="38" selection-end-line="32" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ApiBundle/Controller/BattleController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="195" column="31" selection-start-line="195" selection-start-column="31" selection-end-line="195" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ApiBundle/Controller/DefaultController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ApiBundle/Controller/UserController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="31" column="23" selection-start-line="31" selection-start-column="23" selection-end-line="31" selection-end-column="23" />
-          <folding>
-            <element signature="e#40#79#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ApiBundle/Controller/ShipController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="29">
-          <caret line="4" column="4" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
-          <folding>
-            <element signature="e#40#78#0#PHP" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Model/Handler/UserProcessorInterface.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="7" selection-start-line="14" selection-start-column="7" selection-end-line="14" selection-end-column="7" />
-          <folding>
-            <element signature="e#44#71#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/CoreBundle/Handler/UserHandler.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="590">
-          <caret line="70" column="5" selection-start-line="70" selection-start-column="5" selection-end-line="70" selection-end-column="5" />
+        <state relative-caret-position="210">
+          <caret line="14" column="51" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="51" />
           <folding>
             <element signature="e#38#65#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Security/WebserviceUserProvider.php">
+    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Model/Handler/UserProcessorInterface.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="36" column="45" selection-start-line="36" selection-start-column="45" selection-end-line="36" selection-end-column="45" />
+        <state relative-caret-position="165">
+          <caret line="11" column="3" selection-start-line="11" selection-start-column="3" selection-end-line="11" selection-end-column="3" />
           <folding>
-            <element signature="e#1005#1022#1#PHP" expanded="true" />
+            <element signature="e#44#71#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Entity/User.php">
+    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Model/Handler/BattleProcessorInterface.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="139" column="6" selection-start-line="139" selection-start-column="6" selection-end-line="139" selection-end-column="6" />
+        <state relative-caret-position="210">
+          <caret line="14" column="3" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
           <folding>
-            <element signature="e#115#147#0#PHP" expanded="true" />
+            <element signature="e#44#73#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/config/services.yml">
+    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Model/Handler/BattleFieldProcessorInterface.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+        <state relative-caret-position="30">
+          <caret line="2" column="10" selection-start-line="2" selection-start-column="10" selection-end-line="2" selection-end-column="34" />
+          <folding>
+            <element signature="e#44#78#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Form/BattleField/BattleFieldReadType.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="4" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
+          <folding>
+            <element signature="e#47#111#0#PHP" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Form/BattleField/BattleFieldSingleTypeTrait.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#47#81#0#PHP" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Model/Request/BattleField/BattleFieldAllRequestInterface.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="19" column="20" selection-start-line="19" selection-start-column="20" selection-end-line="19" selection-end-column="20" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Service/User/UserService.php">
+    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Model/Request/BattleField/BattleFieldAllRequestTrait.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1170">
-          <caret line="91" column="6" selection-start-line="91" selection-start-column="6" selection-end-line="91" selection-end-column="6" />
+        <state relative-caret-position="135">
+          <caret line="13" column="14" selection-start-line="13" selection-start-column="14" selection-end-line="13" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ApiBundle/Controller/BattleFieldController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="366">
+          <caret line="26" column="22" selection-start-line="26" selection-start-column="22" selection-end-line="26" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Entity/Shot.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="645">
+          <caret line="60" column="1" selection-start-line="60" selection-start-column="1" selection-end-line="60" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Entity/BattleField.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="51" column="21" selection-start-line="51" selection-start-column="21" selection-end-line="51" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Model/Request/BattleField/BattleFieldSingleRequestInterface.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Model/Request/BattleField/BattleFieldSingleRequestTrait.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="34" column="7" selection-start-line="34" selection-start-column="7" selection-end-line="34" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Resources/config/ShotServices.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="35" selection-start-line="16" selection-start-column="35" selection-end-line="18" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Exception/BattleField/YouAreNotOwnerOfThisBattleFieldException.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="9" column="24" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Form/Shot/ShotAllTypeTrait.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="12" column="22" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Form/Shot/ShotCreateType.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="13" column="24" selection-start-line="13" selection-start-column="8" selection-end-line="13" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ApiBundle/Controller/ShotController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="40" selection-start-line="4" selection-start-column="40" selection-end-line="4" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Model/Handler/ShotProcessorInterface.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="27" selection-start-line="4" selection-start-column="27" selection-end-line="4" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/nd-symfony/rest-bundle/src/Request/ListRequestTrait.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="10" column="6" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Model/Request/Shot/ShotListRequest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Model/Request/Shot/ShotAllRequestTrait.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="11" column="6" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Model/Request/Shot/ShotCreateRequest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Handler/ShotHandler.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="27" selection-start-line="4" selection-start-column="27" selection-end-line="4" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Resources/config/BattleFieldServices.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="27" selection-start-line="17" selection-start-column="27" selection-end-line="18" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Resources/config/ShipServices.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="25" column="33" selection-start-line="25" selection-start-column="33" selection-end-line="25" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Handler/BattleFieldHandler.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="660">
+          <caret line="44" column="50" selection-start-line="44" selection-start-column="50" selection-end-line="44" selection-end-column="50" />
+          <folding>
+            <element signature="e#38#72#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Service/Shot/ShotService.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="465">
+          <caret line="64" column="46" selection-start-line="64" selection-start-column="46" selection-end-line="65" selection-end-column="44" />
+          <folding>
+            <element signature="e#43#77#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="dbDummy://dbtable:/bf2daca7/cbef89db-3269-4e1f-bd62-ac37a4d68c62/battle.battle_field_status">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ApiBundle/Controller/ShipController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="22" column="1" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Model/Handler/ShipProcessorInterface.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <folding>
+            <element signature="e#44#71#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Service/Ship/ShipDefaultValuesTrait.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="19" column="5" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Service/BattleStatus/BattleStatusService.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="21" column="6" selection-start-line="21" selection-start-column="6" selection-end-line="21" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Exception/Battle/BattleIsNotInOpenOrPreparationStatusException.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="11" column="87" selection-start-line="11" selection-start-column="87" selection-end-line="11" selection-end-column="87" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Exception/Battle/YouAreNotParticipantInThisBattleException.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="16" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Exception/Battle/YouAreNotOwnerOfThisBattleException.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="9" column="22" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Handler/ShipHandler.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="651">
+          <caret line="87" column="7" selection-start-line="87" selection-start-column="7" selection-end-line="87" selection-end-column="7" />
           <folding />
         </state>
       </provider>
@@ -837,123 +1401,52 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Form/Battle/BattleSingleTypeTrait.php">
+    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Service/Ship/ShipService.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="11" column="6" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Form/Battle/BattleUpdateType.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="14" column="20" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Form/User/UserLoginType.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="28" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/nd-symfony/rest-bundle/src/Form/TextType.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="11" column="6" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Form/Battle/BattleAllTypeTrait.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="6" selection-start-line="13" selection-start-column="6" selection-end-line="13" selection-end-column="6" />
+        <state relative-caret-position="64">
+          <caret line="142" column="44" selection-start-line="142" selection-start-column="44" selection-end-line="142" selection-end-column="44" />
           <folding>
-            <element signature="e#42#90#0#PHP" expanded="true" />
+            <element signature="e#43#95#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Model/Request/Battle/BattleCreateRequest.php">
+    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Service/BattleField/BattleFieldService.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="6" selection-start-line="13" selection-start-column="6" selection-end-line="13" selection-end-column="6" />
+        <state relative-caret-position="681">
+          <caret line="80" column="20" selection-start-line="80" selection-start-column="20" selection-end-line="80" selection-end-column="20" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/composer.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="32" column="42" selection-start-line="32" selection-start-column="42" selection-end-line="32" selection-end-column="42" />
+    <entry file="dbDummy://dbtable:/bf2daca7/cbef89db-3269-4e1f-bd62-ac37a4d68c62/battle.battle_field">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Form/Battle/BattleCreateType.php">
+    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Handler/BattleHandler.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+        <state relative-caret-position="60">
+          <caret line="4" column="29" selection-start-line="4" selection-start-column="29" selection-end-line="4" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Service/Battle/BattleService.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="506">
+          <caret line="209" column="9" selection-start-line="209" selection-start-column="9" selection-end-line="209" selection-end-column="9" />
           <folding>
-            <element signature="e#42#72#0#PHP" expanded="true" />
+            <element signature="e#45#74#0#PHP" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="dbDummy://dbtable:/bf2daca7/cbef89db-3269-4e1f-bd62-ac37a4d68c62/battle.shot_type">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="dbDummy://dbtable:/bf2daca7/cbef89db-3269-4e1f-bd62-ac37a4d68c62/battle.shot_status">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="dbDummy://dbtable:/bf2daca7/cbef89db-3269-4e1f-bd62-ac37a4d68c62/battle.shot">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="dbDummy://dbtable:/bf2daca7/cbef89db-3269-4e1f-bd62-ac37a4d68c62/battle.ship_type">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -983,46 +1476,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="dbDummy://dbtable:/bf2daca7/cbef89db-3269-4e1f-bd62-ac37a4d68c62/battle.migration_versions">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="dbDummy://dbtable:/bf2daca7/cbef89db-3269-4e1f-bd62-ac37a4d68c62/battle.map_type">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="dbDummy://dbtable:/bf2daca7/cbef89db-3269-4e1f-bd62-ac37a4d68c62/battle.map">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="dbDummy://dbtable:/bf2daca7/cbef89db-3269-4e1f-bd62-ac37a4d68c62/battle.count_ships">
+    <entry file="dbDummy://dbtable:/bf2daca7/cbef89db-3269-4e1f-bd62-ac37a4d68c62/battle.shot">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
           <filtering enabled="true" />
@@ -1044,64 +1498,6 @@
       <provider editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="dbDummy://dbtable:/bf2daca7/cbef89db-3269-4e1f-bd62-ac37a4d68c62/battle.battle_field">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="dbDummy://dbtable:/bf2daca7/cbef89db-3269-4e1f-bd62-ac37a4d68c62/battle.battle_status">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/CoreBundle/Service/Battle/BattleService.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="765">
-          <caret line="170" column="39" selection-start-line="170" selection-start-column="39" selection-end-line="170" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/var/SymfonyRequirements.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="22" column="40" selection-start-line="22" selection-start-column="40" selection-end-line="22" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/config/security.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="28" column="31" selection-start-line="28" selection-start-column="31" selection-end-line="28" selection-end-column="31" />
           <folding />
         </state>
       </provider>

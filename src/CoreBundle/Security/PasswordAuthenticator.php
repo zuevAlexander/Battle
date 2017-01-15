@@ -31,7 +31,7 @@ class PasswordAuthenticator extends AbstractBaseAuthenticator
      */
     public function getCredentials(Request $request)
     {
-        if ($request->getPathInfo() != '/login' || !$request->isMethod('POST')) {
+        if ($request->getPathInfo() != '/login.json' || !$request->isMethod('POST')) {
             return null;
         }
         return [

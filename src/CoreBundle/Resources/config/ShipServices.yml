@@ -22,3 +22,5 @@ services:
       - '@core.service.map'
       - '@core.service.battle'
       - '@core.service.battle_status'
+      - '@core.service.battle_field'
+      - '@security.token_storage'

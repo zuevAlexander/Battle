@@ -1,14 +1,7 @@
 parameters:
-  core.handler.ship_type.class: CoreBundle\Handler\ShipTypeHandler
   core.entity.ship_type.class: CoreBundle\Entity\ShipType
   core.service.ship_type.class: CoreBundle\Service\ShipType\ShipTypeService
 services:
-  core.handler.ship_type:
-    class: '%core.handler.ship_type.class%'
-    arguments:
-      - '@service_container'
-      - '@event_dispatcher'
-      - '@core.service.ship_type'
   core.service.ship_type:
     class: '%core.service.ship_type.class%'
     tags:

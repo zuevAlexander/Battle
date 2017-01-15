@@ -1,14 +1,7 @@
 parameters:
-  core.handler.shot_status.class: CoreBundle\Handler\ShotStatusHandler
   core.entity.shot_status.class: CoreBundle\Entity\ShotStatus
   core.service.shot_status.class: CoreBundle\Service\ShotStatus\ShotStatusService
 services:
-  core.handler.shot_status:
-    class: '%core.handler.shot_status.class%'
-    arguments:
-      - '@service_container'
-      - '@event_dispatcher'
-      - '@core.service.shot_status'
   core.service.shot_status:
     class: '%core.service.shot_status.class%'
     tags:

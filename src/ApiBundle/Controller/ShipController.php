@@ -25,32 +25,6 @@ class ShipController extends BaseController
      * @ApiDoc(
      *  resource=true,
      *  section="Ship",
-     *  description="Get a list of Ship",
-     *  input={
-     *       "class" = "CoreBundle\Form\Ship\Ship",
-     *       "name" = ""
-     *  },
-     *  statusCodes={
-     *      200 = "Ok",
-     *      204 = "Positions not found",
-     *      400 = "Bad format",
-     *      403 = "Forbidden"
-     *  }
-     * )
-     *
-     * @param Request $request
-     *
-     * @return Response
-     */
-    public function cgetAction(Request $request) : Response
-    {
-        return $this->process($request, ShipListType::class);
-    }
-
-    /**
-     * @ApiDoc(
-     *  resource=true,
-     *  section="Ship",
      *  description="Create new Ship",
      *  input={
      *       "class" = "CoreBundle\Form\Ship\ShipCreateType",

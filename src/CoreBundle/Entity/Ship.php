@@ -49,6 +49,7 @@ class Ship implements EntityInterface
      * @var BattleField
      *
      * @JMS\Type("CoreBundle\Entity\BattleField")
+     * @JMS\Exclude()
      *
      * @ORM\ManyToOne(targetEntity="BattleField", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="battle_field_id", referencedColumnName="id", nullable=false)
@@ -59,7 +60,6 @@ class Ship implements EntityInterface
      * @var ArrayCollection|ShipLocation[]
      *
      * @JMS\Type("array<CoreBundle\Entity\ShipLocation>")
-     * @JMS\Exclude()
      *
      * @ORM\OneToMany(targetEntity="ShipLocation", mappedBy="ship", cascade={"all"})
      */

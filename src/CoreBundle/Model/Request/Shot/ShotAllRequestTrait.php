@@ -2,7 +2,6 @@
 
 namespace CoreBundle\Model\Request\Shot;
 
-use CoreBundle\Entity\User;
 use CoreBundle\Entity\Map;
 use CoreBundle\Entity\ShotStatus;
 use CoreBundle\Entity\BattleField;
@@ -12,11 +11,6 @@ use CoreBundle\Entity\BattleField;
  */
 trait ShotAllRequestTrait
 {
-    /**
-     * @var User
-     */
-    protected $user;
-
     /**
      * @var Map
      */
@@ -34,22 +28,6 @@ trait ShotAllRequestTrait
 
     public function __construct()
     {
-    }
-
-    /**
-     * @return User
-     */
-    public function getUser(): User
-    {
-        return $this->user;
-    }
-
-    /**
-     * @param User $user
-     */
-    public function setUser(User $user)
-    {
-        $this->user = $user;
     }
 
     /**

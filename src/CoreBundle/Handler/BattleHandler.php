@@ -8,13 +8,13 @@ use CoreBundle\Model\Request\Battle\BattleCreateRequest;
 use CoreBundle\Model\Request\Battle\BattleReadRequest;
 use CoreBundle\Model\Request\Battle\BattleUpdateRequest;
 use CoreBundle\Model\Request\Battle\BattleDeleteRequest;
+use CoreBundle\Service\BattleStatus\BattleStatusService;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use CoreBundle\Model\Handler\BattleProcessorInterface;
 use CoreBundle\Service\Battle\BattleService;
-use CoreBundle\Exception\Battle\YouCanCreateOnlyOpenBattleException;
+use CoreBundle\Exception\Battle\YouCanChangeOnlyOpenBattleException;
 
 /**
  * Class BattleHandler
@@ -22,13 +22,6 @@ use CoreBundle\Exception\Battle\YouCanCreateOnlyOpenBattleException;
 class BattleHandler implements ContainerAwareInterface, BattleProcessorInterface
 {
     use ContainerAwareTrait;
-
-    const OPEN_BATTLE = 'Open';
-
-    /**
-     * @var EventDispatcherInterface
-     */
-    private $eventDispatcher;
 
     /**
      * @var BattleService
@@ -38,48 +31,19 @@ class BattleHandler implements ContainerAwareInterface, BattleProcessorInterface
     /**
      * BattleHandler constructor.
      * @param ContainerInterface $container
-     * @param EventDispatcherInterface $eventDispatcher
      * @param BattleService $battleService
      */
     public function __construct(
         ContainerInterface $container,
-        EventDispatcherInterface $eventDispatcher,
         BattleService $battleService
     ) {
         $this->setContainer($container);
-        $this->eventDispatcher = $eventDispatcher;
         $this->battleService = $battleService;
     }
 
     /**
-     * @inheritdoc
-     */
-    public function processGetOwn(BattleListRequest $request): array
-    {
-        return $this->battleService->getOwnBattles();
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function processGetOpen(BattleListRequest $request): array
-    {
-        return $this->battleService->getOpenBattles();
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function processPost(BattleCreateRequest $request): Battle
-    {
-        if ($request->getBattleStatus() && $request->getBattleStatus()->getStatusName() != self::OPEN_BATTLE) {
-            throw new YouCanCreateOnlyOpenBattleException();
-        }
-        return $this->battleService->updatePost($request);
-    }
-
-    /**
-     * @inheritdoc
+     * @param BattleReadRequest $request
+     * @return Battle
      */
     public function processGet(BattleReadRequest $request): Battle
     {
@@ -87,26 +51,50 @@ class BattleHandler implements ContainerAwareInterface, BattleProcessorInterface
     }
 
     /**
-     * @inheritdoc
+     * @param BattleListRequest $request
+     * @return array
      */
-    public function processPut(BattleUpdateRequest $request): Battle
+    public function processGetCOwn(BattleListRequest $request): array
     {
-        return $this->battleService->updatePut($request);
+        return $this->battleService->getOwnBattles();
     }
 
     /**
-     * @inheritdoc
+     * @param BattleListRequest $request
+     * @return array
+     */
+    public function processGetCOpen(BattleListRequest $request): array
+    {
+        return $this->battleService->getOpenBattles($request);
+    }
+
+    /**
+     * @param BattleCreateRequest $request
+     * @return Battle
+     */
+    public function processPost(BattleCreateRequest $request): Battle
+    {
+        return $this->battleService->updatePost($request);
+    }
+
+    /**
+     * @param BattleUpdateRequest $request
+     * @return Battle
      */
     public function processPatch(BattleUpdateRequest $request): Battle
     {
+        if ($request->getBattle()->getBattleStatus()->getStatusName() != BattleStatusService::OPEN_BATTLE) {
+        throw new YouCanChangeOnlyOpenBattleException();
+        }
         return $this->battleService->updatePatch($request);
     }
 
     /**
-     * @inheritdoc
+     * @param BattleDeleteRequest $request
+     * @return Battle
      */
     public function processDelete(BattleDeleteRequest $request): Battle
     {
-        return $this->battleService->deleteEntity($request->getBattle());
+        return $this->battleService->deleteBattle($request);
     }
 }

@@ -3,9 +3,6 @@
 namespace CoreBundle\Service\Map;
 
 use CoreBundle\Entity\Map;
-use CoreBundle\Model\Request\Map\MapAllRequestInterface;
-use CoreBundle\Model\Request\Map\MapCreateRequest;
-use CoreBundle\Model\Request\Map\MapUpdateRequest;
 use NorseDigital\Symfony\RestBundle\Service\AbstractService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -22,10 +19,8 @@ use NorseDigital\Symfony\RestBundle\Entity\EntityInterface;
  * @method Map getEntityBy(array $criteria)
  * @method Map deleteEntity(EntityInterface $entity, bool $flush = true)
  */
-class MapService extends AbstractService implements EventSubscriberInterface, MapDefaultValuesInterface
+class MapService extends AbstractService implements EventSubscriberInterface
 {
-    use MapDefaultValuesTrait;
-
     /**
      * @var EventDispatcherInterface
      */
@@ -53,63 +48,5 @@ class MapService extends AbstractService implements EventSubscriberInterface, Ma
     public static function getSubscribedEvents()
     {
         return [];
-    }
-
-    /**
-     * @param MapCreateRequest $request
-     * @return Map
-     */
-    public function updatePost(MapCreateRequest $request): Map
-    {
-        $map = $this->createEntity();
-        $this->setGeneralFields($request, $map, true);
-        $this->saveEntity($map);
-        return $map;
-    }
-
-    /**
-     * @param MapUpdateRequest $request
-     * @return Map
-     */
-    public function updatePut(MapUpdateRequest $request): Map
-    {
-        $map = $request->getMap();
-        $this->setGeneralFields($request, $map, true);
-        $this->saveEntity($map);
-        return $map;
-    }
-
-    /**
-     * @param MapUpdateRequest $request
-     * @return Map
-     */
-    public function updatePatch(MapUpdateRequest $request): Map
-    {
-        $map = $request->getMap();
-        $this->setGeneralFields($request, $map);
-        $this->saveEntity($map);
-        return $map;
-    }
-
-    /**
-     * @param MapAllRequestInterface $request
-     * @param Map $map
-     * @param bool $fullUpdate
-     * @return Map
-     */
-    public function setGeneralFields(MapAllRequestInterface $request, Map $map, $fullUpdate = false)
-    {
-        if ($request->hasLatitude()) {
-            $map->setLatitude($request->getLatitude());
-        } elseif ($fullUpdate) {
-            $map->setLatitude($this->getDefaultLatitude());
-        }
-
-        if ($request->hasLongitude()) {
-            $map->setLongitude($request->getLongitude());
-        } elseif ($fullUpdate) {
-            $map->setLongitude($this->getDefaultLongitude());
-        }
-        return $map;
     }
 }

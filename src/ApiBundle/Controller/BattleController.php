@@ -21,6 +21,7 @@ use FOS\RestBundle\Controller\Annotations\RouteResource;
  */
 class BattleController extends BaseController
 {
+
     /**
      * @ApiDoc(
      *  resource=true,
@@ -42,7 +43,7 @@ class BattleController extends BaseController
      *
      * @return Response
      */
-    public function getOwnAction(Request $request) : Response
+    public function cgetOwnAction(Request $request) : Response
     {
         return $this->process($request, BattleListType::class);
     }
@@ -69,7 +70,7 @@ class BattleController extends BaseController
      *
      * @return Response
      */
-    public function getOpenAction(Request $request) : Response
+    public function cgetOpenAction(Request $request) : Response
     {
         return $this->process($request, BattleListType::class);
     }
@@ -125,33 +126,6 @@ class BattleController extends BaseController
     public function getAction(Request $request, int $battle) : Response
     {
         return $this->process($request, BattleReadType::class);
-    }
-
-    /**
-     * @ApiDoc(
-     *  resource=true,
-     *  section="Battle",
-     *  description="Update all fields in Battle",
-     *  input={
-     *       "class" = "CoreBundle\Form\Battle\BattleUpdateType",
-     *       "name" = ""
-     *  },
-     *  statusCodes={
-     *      200 = "Ok",
-     *      204 = "Positions not found",
-     *      400 = "Bad format",
-     *      403 = "Forbidden"
-     *  }
-     *)
-     *
-     * @param Request $request
-     * @param int $battle
-     *
-     * @return Response
-     */
-    public function putAction(Request $request, int $battle) : Response
-    {
-        return $this->process($request, BattleUpdateType::class);
     }
 
     /**

@@ -1,18 +1,14 @@
 <?php
 namespace CoreBundle\Service\User;
 use CoreBundle\Entity\User;
-use CoreBundle\Model\Request\User\UserAllRequestInterface;
 use CoreBundle\Model\Request\User\UserRegisterRequest;
-use CoreBundle\Model\Request\User\UserUpdateRequest;
 use NorseDigital\Symfony\RestBundle\Service\AbstractService;
-use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use NorseDigital\Symfony\RestBundle\Entity\EntityInterface;
 use CoreBundle\Exception\User\UserAlreadyExistsException;
 use Doctrine\ORM\EntityNotFoundException;
-use CoreBundle\Exception\User\EmptyUsernameException;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /** @noinspection PhpHierarchyChecksInspection */
@@ -24,10 +20,8 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
  * @method User getEntityBy(array $criteria)
  * @method User deleteEntity(EntityInterface $entity, bool $flush = true)
  */
-class UserService extends AbstractService implements EventSubscriberInterface, UserDefaultValuesInterface
+class UserService extends AbstractService implements EventSubscriberInterface
 {
-    use UserDefaultValuesTrait;
-
     /**
      * @var UserPasswordEncoderInterface
      */
@@ -67,6 +61,7 @@ class UserService extends AbstractService implements EventSubscriberInterface, U
 
     /**
      * @param UserRegisterRequest $request
+     *
      * @return User
      */
     public function createUser(UserRegisterRequest $request): User

@@ -8,6 +8,7 @@ use CoreBundle\Model\Request\Ship\ShipCreateRequest;
 use CoreBundle\Model\Request\Ship\ShipReadRequest;
 use CoreBundle\Model\Request\Ship\ShipUpdateRequest;
 use CoreBundle\Model\Request\Ship\ShipDeleteRequest;
+use CoreBundle\Service\BattleStatus\BattleStatusService;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -49,35 +50,26 @@ class ShipHandler implements ContainerAwareInterface, ShipProcessorInterface
     }
 
     /**
-     * @inheritdoc
-     */
-    public function processGetC(ShipListRequest $request): array
-    {
-        return $this->shipService->getEntitiesByWithListRequestAndTotal(
-            [],
-            $request
-        );
-    }
-
-    /**
-     * @inheritdoc
+     * @param ShipCreateRequest $request
+     * @return Ship
      */
     public function processPost(ShipCreateRequest $request): Ship
     {
-//        return $this->shipService->updatePost($request);
-        return $this->shipService->createShip($request, $this->shipService->createEntity());
+        return $this->shipService->createShip($request);
     }
 
     /**
-     * @inheritdoc
+     * @param ShipReadRequest $request
+     * @return Ship
      */
     public function processGet(ShipReadRequest $request): Ship
     {
-        return $request->getShip();
+        return $this->shipService->getShip($request);
     }
 
     /**
-     * @inheritdoc
+     * @param ShipUpdateRequest $request
+     * @return Ship
      */
     public function processPut(ShipUpdateRequest $request): Ship
     {
@@ -85,7 +77,8 @@ class ShipHandler implements ContainerAwareInterface, ShipProcessorInterface
     }
 
     /**
-     * @inheritdoc
+     * @param ShipUpdateRequest $request
+     * @return Ship
      */
     public function processPatch(ShipUpdateRequest $request): Ship
     {
@@ -93,10 +86,11 @@ class ShipHandler implements ContainerAwareInterface, ShipProcessorInterface
     }
 
     /**
-     * @inheritdoc
+     * @param ShipDeleteRequest $request
+     * @return Ship
      */
     public function processDelete(ShipDeleteRequest $request): Ship
     {
-        return $this->shipService->deleteEntity($request->getShip());
+        return $this->shipService->deleteShip($request);
     }
 }

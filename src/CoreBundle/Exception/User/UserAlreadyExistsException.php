@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: stas
- * Date: 04.10.16
- * Time: 23:51.
- */
+
 namespace CoreBundle\Exception\User;
 
 use Exception;

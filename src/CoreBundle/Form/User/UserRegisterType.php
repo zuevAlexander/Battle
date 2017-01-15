@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: stas
- * Date: 04.10.16
- * Time: 23:43.
- */
+
 namespace CoreBundle\Form\User;
 
 use CoreBundle\Model\Request\User\UserRegisterRequest;

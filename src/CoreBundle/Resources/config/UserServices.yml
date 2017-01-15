@@ -6,9 +6,8 @@ services:
   core.handler.user:
     class: '%core.handler.user.class%'
     arguments:
-      - '@service_container'
-      - '@event_dispatcher'
       - '@core.service.user'
+      - '@security.token_storage'
   core.service.user:
     class: '%core.service.user.class%'
     tags:

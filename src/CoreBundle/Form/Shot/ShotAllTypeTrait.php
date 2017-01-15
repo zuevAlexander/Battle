@@ -4,9 +4,7 @@ namespace CoreBundle\Form\Shot;
 
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use CoreBundle\Entity\User;
 use CoreBundle\Entity\Map;
-use CoreBundle\Entity\ShotStatus;
 use CoreBundle\Entity\BattleField;
 
 /**
