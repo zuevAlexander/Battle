@@ -16,12 +16,6 @@ use NorseDigital\Symfony\RestBundle\Handler\ProcessorInterface;
 interface BattleProcessorInterface extends ProcessorInterface
 {
     /**
-     * @param BattleListRequest $request
-     * @return array
-     */
-    public function processGetCOwn(BattleListRequest $request): array;
-
-    /**
      * @param BattleCreateRequest $request
      * @return Battle
      */
@@ -37,7 +31,7 @@ interface BattleProcessorInterface extends ProcessorInterface
      * @param BattleListRequest $request
      * @return array
      */
-    public function processGetCOpen(BattleListRequest $request): array;
+    public function processGetC(BattleListRequest $request): array;
 
     /**
      * @param BattleUpdateRequest $request

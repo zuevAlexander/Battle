@@ -1,0 +1,22 @@
+[
+    {
+        "referenceName": "battle_status-0",
+        "statusName": "Open"
+    },
+    {
+        "referenceName": "battle_status-1",
+        "statusName": "Preparation"
+    },
+    {
+        "referenceName": "battle_status-2",
+        "statusName": "Process"
+    },
+    {
+        "referenceName": "battle_status-3",
+        "statusName": "Finished"
+    },
+    {
+        "referenceName": "battle_status-4",
+        "statusName": "Closed"
+    }
+]

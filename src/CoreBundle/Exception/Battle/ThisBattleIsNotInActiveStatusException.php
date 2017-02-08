@@ -7,9 +7,9 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Class CandidateNotFoundException.
  */
-class ThisBattleIsNotInProcessStatusException extends \RuntimeException
+class ThisBattleIsNotInActiveStatusException extends \RuntimeException
 {
-    public function __construct($message = 'This battle is not in process status', $code = Response::HTTP_FORBIDDEN, Exception $previous = null)
+    public function __construct($message = 'This battle is not in active status', $code = Response::HTTP_FORBIDDEN, Exception $previous = null)
     {
         parent::__construct($message, $code, $previous);
     }

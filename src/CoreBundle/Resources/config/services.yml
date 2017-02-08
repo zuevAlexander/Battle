@@ -25,18 +25,3 @@ imports:
     resource: UserServices.yml
   -
     resource: BattleFieldServices.yml
-services:
-  core.webservice_user_provider:
-    class: CoreBundle\Security\WebserviceUserProvider
-    arguments:
-      - '@doctrine'
-  core.token_authenticator:
-    class: CoreBundle\Security\TokenAuthenticator
-    arguments:
-      - '@translator'
-      - '%authenticate_token_name%'
-  core.password_authenticator:
-    class: CoreBundle\Security\PasswordAuthenticator
-    arguments:
-      - '@translator'
-      - '@security.password_encoder'

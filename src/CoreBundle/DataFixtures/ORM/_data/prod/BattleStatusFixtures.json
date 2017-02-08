@@ -9,14 +9,14 @@
     },
     {
         "referenceName": "battle_status-2",
-        "statusName": "Process"
+        "statusName": "Active"
     },
     {
-        "referenceName": "battle_status-2",
+        "referenceName": "battle_status-3",
         "statusName": "Finished"
     },
     {
-        "referenceName": "battle_status-2",
+        "referenceName": "battle_status-4",
         "statusName": "Closed"
     }
 ]

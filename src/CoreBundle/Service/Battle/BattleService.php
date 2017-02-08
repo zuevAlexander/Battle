@@ -5,7 +5,7 @@ namespace CoreBundle\Service\Battle;
 use CoreBundle\Entity\Battle;
 use CoreBundle\Entity\BattleField;
 use CoreBundle\Exception\Battle\BattleIsNotInOpenOrPreparationStatusException;
-use CoreBundle\Exception\Battle\ThisBattleIsNotInProcessStatusException;
+use CoreBundle\Exception\Battle\ThisBattleIsNotInActiveStatusException;
 use CoreBundle\Exception\Battle\YouAreNotOwnerOfThisBattleException;
 use CoreBundle\Exception\Battle\YouCanDelereOnlyOpenOrClosedBattleException;
 use CoreBundle\Model\Request\Battle\BattleCreateRequest;
@@ -113,6 +113,35 @@ class BattleService extends AbstractService implements EventSubscriberInterface
     }
 
     /**
+     * @param BattleListRequest $request
+     * @return array
+     */
+    public function getCBattles(BattleListRequest $request): array
+    {
+        $battles = $this->getEntitiesByWithListRequestAndTotal(
+            ['battleStatus' => $request->getBattleStatus()],
+            $request
+        );
+
+        $preparedBattles = [];
+        foreach ($battles['items'] as $battle) {
+            /** @var Battle $battle */
+            $battleFields = $battle->getBattleFields();
+            foreach ($battleFields as $battleField) {
+                if ($battle->getBattleStatus()->getStatusName() == BattleStatusService::OPEN_BATTLE ||
+                    $battleField->getUser() == $this->tokenStorage->getToken()->getUser()) {
+                    $preparedBattles[] = $this->prepareBattleToResponse($battleField->getBattle());
+                }
+            }
+        }
+
+        $battles['total'] = count($preparedBattles);
+        $battles['items'] = $preparedBattles;
+
+        return $battles;
+    }
+
+    /**
      * @param BattleDeleteRequest $request
      * @return Battle
      */
@@ -127,45 +156,6 @@ class BattleService extends AbstractService implements EventSubscriberInterface
             throw new YouCanDelereOnlyOpenOrClosedBattleException();
         }
         return $this->deleteEntity($request->getBattle());
-    }
-
-    /**
-     * @param BattleListRequest $request
-     * @return array
-     */
-    public function getOpenBattles(BattleListRequest $request): array
-    {
-        $openBattleStatus = $this->battleStatusService->getEntityBy(['statusName' => BattleStatusService::OPEN_BATTLE]);
-
-        $originalBattles = $this->getEntitiesByWithListRequestAndTotal(
-            ['battleStatus' => $openBattleStatus],
-            $request
-        );
-
-        $battles = [];
-        foreach ($originalBattles['items'] as $battle) {
-            $battles[] = $this->prepareBattleToResponse($battle);
-        }
-
-        return $battles;
-    }
-
-    /**
-     * @return array
-     */
-    public function getOwnBattles(): array
-    {
-        $battles = [];
-
-        /** @var BattleField[] $battleFields */
-        $battleFields = $this->battleFieldService->getEntitiesBy(['user' => $this->tokenStorage->getToken()->getUser()]);
-        if ($battleFields) {
-            foreach ($battleFields as $battleField) {
-                $battles[] = $this->prepareBattleToResponse($battleField->getBattle());
-            }
-        }
-
-        return $battles;
     }
 
     /**
@@ -225,7 +215,7 @@ class BattleService extends AbstractService implements EventSubscriberInterface
             $battleField->setBattle($battle);
             $battleField->setUser($this->tokenStorage->getToken()->getUser());
 
-            $battleFieldStatus = $this->battleFieldStatusService->getEntityBy(['statusName' => BattleFieldStatusService::BATTLE_FIELD_BLOCKED]);
+            $battleFieldStatus = $this->battleFieldStatusService->getEntityBy(['statusName' => BattleFieldStatusService::BATTLE_FIELD_ACCESSIBLE]);
             $battleField->setBattleFieldStatus($battleFieldStatus);
             $this->battleFieldService->saveEntity($battleField);
         }
@@ -270,12 +260,12 @@ class BattleService extends AbstractService implements EventSubscriberInterface
     /**
      * @param Battle $battle
      *
-     * @throws ThisBattleIsNotInProcessStatusException
+     * @throws ThisBattleIsNotInActiveStatusException
      */
-    public function isBattleInProcessStatus(Battle $battle)
+    public function isBattleInActiveStatus(Battle $battle)
     {
-        if ($battle->getBattleStatus()->getStatusName() != BattleStatusService::PROCESS_BATTLE) {
-            throw new ThisBattleIsNotInProcessStatusException();
+        if ($battle->getBattleStatus()->getStatusName() != BattleStatusService::ACTIVE_BATTLE) {
+            throw new ThisBattleIsNotInActiveStatusException();
         }
     }
 

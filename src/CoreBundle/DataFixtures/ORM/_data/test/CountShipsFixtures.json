@@ -1,0 +1,26 @@
+[
+    {
+        "referenceName": "count_ships-0",
+        "shipType": "ship_type-0",
+        "mapType": "map_type-0",
+        "count": "4"
+    },
+    {
+        "referenceName": "count_ships-1",
+        "shipType": "ship_type-1",
+        "mapType": "map_type-0",
+        "count": "3"
+    },
+    {
+        "referenceName": "count_ships-2",
+        "shipType": "ship_type-2",
+        "mapType": "map_type-0",
+        "count": "2"
+    },
+    {
+        "referenceName": "count_ships-3",
+        "shipType": "ship_type-3",
+        "mapType": "map_type-0",
+        "count": "1"
+    }
+]

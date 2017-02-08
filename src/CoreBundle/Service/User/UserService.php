@@ -20,7 +20,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
  * @method User getEntityBy(array $criteria)
  * @method User deleteEntity(EntityInterface $entity, bool $flush = true)
  */
-class UserService extends AbstractService implements EventSubscriberInterface
+class UserService extends AbstractService
 {
     /**
      * @var UserPasswordEncoderInterface
@@ -28,35 +28,19 @@ class UserService extends AbstractService implements EventSubscriberInterface
     private $encoder;
 
     /**
-     * @var EventDispatcherInterface
-     */
-    private $eventDispatcher;
-
-    /**
      * UserHandler constructor.
      * @param ContainerInterface $container
      * @param string $entityClass
-     * @param EventDispatcherInterface $eventDispatcher
      * @param UserPasswordEncoderInterface $encoder
      */
     public function __construct(
         ContainerInterface $container,
         string $entityClass,
-        EventDispatcherInterface $eventDispatcher,
         UserPasswordEncoderInterface $encoder
     ) {
         parent::__construct($container, $entityClass);
         $this->setContainer($container);
-        $this->eventDispatcher = $eventDispatcher;
         $this->encoder = $encoder;
-    }
-
-    /**
-     * @return array
-     */
-    public static function getSubscribedEvents()
-    {
-        return [];
     }
 
     /**

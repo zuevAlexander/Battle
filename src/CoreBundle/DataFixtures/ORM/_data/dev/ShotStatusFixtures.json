@@ -1,0 +1,14 @@
+[
+    {
+        "referenceName": "shot_status-0",
+        "statusName": "Pass"
+    },
+    {
+        "referenceName": "shot_status-1",
+        "statusName": "Hit"
+    },
+    {
+        "referenceName": "shot_status-2",
+        "statusName": "Destroy"
+    }
+]

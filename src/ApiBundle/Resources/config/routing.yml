@@ -22,8 +22,8 @@ api_user:
   prefix: /
   defaults:
     _format: json
-api_battle_field:
-  resource: '@ApiBundle/Controller/BattleFieldController.php'
+api_count_ships:
+  resource: '@ApiBundle/Controller/CountShipsController.php'
   type: rest
   prefix: /
   defaults:

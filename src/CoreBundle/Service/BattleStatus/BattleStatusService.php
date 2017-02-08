@@ -24,7 +24,7 @@ class BattleStatusService extends AbstractService implements EventSubscriberInte
 
     const OPEN_BATTLE = 'Open';
     const PREPARATION_BATTLE = 'Preparation';
-    const PROCESS_BATTLE = 'Process';
+    const ACTIVE_BATTLE = 'Active';
     const FINISHED_BATTLE = 'Finished';
     const CLOSED_BATTLE = 'Closed';
 

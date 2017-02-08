@@ -14,6 +14,10 @@
         {
             "type": "vcs",
             "url": "https://support.norse.digital/gitlab/vits/rest-bundle.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/zuevAlexander/user-bundle.git"
         }
     ],
     "require": {
@@ -32,6 +36,7 @@
         "doctrine/doctrine-migrations-bundle": "^1.2",
         "nd-symfony/rest-bundle": "3.0.*",
         "nelmio/cors-bundle": "^1.4",
+        "nd-symfony/user-bundle": "dev-master",
         "stof/doctrine-extensions-bundle": "^1.2"
     },
     "require-dev": {

@@ -82,7 +82,7 @@ class ShotService extends AbstractService implements EventSubscriberInterface
     {
         $this->battleService->isUserParticipantInBattle($request->getBattleField()->getBattle());
 
-        $this->battleService->isBattleInProcessStatus($request->getBattleField()->getBattle());
+        $this->battleService->isBattleInActiveStatus($request->getBattleField()->getBattle());
 
         $this->isShotMakesInOwnBattleField($request->getBattleField()->getUser());
 

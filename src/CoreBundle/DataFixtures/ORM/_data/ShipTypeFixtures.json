@@ -1,0 +1,22 @@
+[
+    {
+        "referenceName": "ship_type-0",
+        "typeName": "Single-tier",
+        "descCount": "1"
+    },
+    {
+        "referenceName": "ship_type-1",
+        "typeName": "Two-tier",
+        "descCount": "2"
+    },
+    {
+        "referenceName": "ship_type-2",
+        "typeName": "Three-tier",
+        "descCount": "3"
+    },
+    {
+        "referenceName": "ship_type-3",
+        "typeName": "Four-tier",
+        "descCount": "4"
+    }
+]

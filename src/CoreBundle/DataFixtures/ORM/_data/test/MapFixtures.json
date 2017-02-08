@@ -1,0 +1,502 @@
+[
+    {
+        "referenceName": "location-0",
+        "latitude": "1",
+        "longitude": "1"
+    },
+    {
+        "referenceName": "location-1",
+        "latitude": "1",
+        "longitude": "2"
+    },
+    {
+        "referenceName": "location-2",
+        "latitude": "1",
+        "longitude": "3"
+    },
+    {
+        "referenceName": "location-3",
+        "latitude": "1",
+        "longitude": "4"
+    },
+    {
+        "referenceName": "location-4",
+        "latitude": "1",
+        "longitude": "5"
+    },
+    {
+        "referenceName": "location-5",
+        "latitude": "1",
+        "longitude": "6"
+    },
+    {
+        "referenceName": "location-6",
+        "latitude": "1",
+        "longitude": "7"
+    },
+    {
+        "referenceName": "location-7",
+        "latitude": "1",
+        "longitude": "8"
+    },
+    {
+        "referenceName": "location-8",
+        "latitude": "1",
+        "longitude": "9"
+    },
+    {
+        "referenceName": "location-9",
+        "latitude": "1",
+        "longitude": "10"
+    },
+    {
+        "referenceName": "location-10",
+        "latitude": "2",
+        "longitude": "1"
+    },
+    {
+        "referenceName": "location-11",
+        "latitude": "2",
+        "longitude": "2"
+    },
+    {
+        "referenceName": "location-12",
+        "latitude": "2",
+        "longitude": "3"
+    },
+    {
+        "referenceName": "location-13",
+        "latitude": "2",
+        "longitude": "4"
+    },
+    {
+        "referenceName": "location-14",
+        "latitude": "2",
+        "longitude": "5"
+    },
+    {
+        "referenceName": "location-15",
+        "latitude": "2",
+        "longitude": "6"
+    },
+    {
+        "referenceName": "location-16",
+        "latitude": "2",
+        "longitude": "7"
+    },
+    {
+        "referenceName": "location-17",
+        "latitude": "2",
+        "longitude": "8"
+    },
+    {
+        "referenceName": "location-18",
+        "latitude": "2",
+        "longitude": "9"
+    },
+    {
+        "referenceName": "location-19",
+        "latitude": "2",
+        "longitude": "10"
+    },
+    {
+        "referenceName": "location-20",
+        "latitude": "3",
+        "longitude": "1"
+    },
+    {
+        "referenceName": "location-21",
+        "latitude": "3",
+        "longitude": "2"
+    },
+    {
+        "referenceName": "location-22",
+        "latitude": "3",
+        "longitude": "3"
+    },
+    {
+        "referenceName": "location-23",
+        "latitude": "3",
+        "longitude": "4"
+    },
+    {
+        "referenceName": "location-24",
+        "latitude": "3",
+        "longitude": "5"
+    },
+    {
+        "referenceName": "location-25",
+        "latitude": "3",
+        "longitude": "6"
+    },
+    {
+        "referenceName": "location-26",
+        "latitude": "3",
+        "longitude": "7"
+    },
+    {
+        "referenceName": "location-27",
+        "latitude": "3",
+        "longitude": "8"
+    },
+    {
+        "referenceName": "location-28",
+        "latitude": "3",
+        "longitude": "9"
+    },
+    {
+        "referenceName": "location-29",
+        "latitude": "3",
+        "longitude": "10"
+    },
+    {
+        "referenceName": "location-30",
+        "latitude": "4",
+        "longitude": "1"
+    },
+    {
+        "referenceName": "location-31",
+        "latitude": "4",
+        "longitude": "2"
+    },
+    {
+        "referenceName": "location-32",
+        "latitude": "4",
+        "longitude": "3"
+    },
+    {
+        "referenceName": "location-33",
+        "latitude": "4",
+        "longitude": "4"
+    },
+    {
+        "referenceName": "location-34",
+        "latitude": "4",
+        "longitude": "5"
+    },
+    {
+        "referenceName": "location-35",
+        "latitude": "4",
+        "longitude": "6"
+    },
+    {
+        "referenceName": "location-36",
+        "latitude": "4",
+        "longitude": "7"
+    },
+    {
+        "referenceName": "location-37",
+        "latitude": "4",
+        "longitude": "8"
+    },
+    {
+        "referenceName": "location-38",
+        "latitude": "4",
+        "longitude": "9"
+    },
+    {
+        "referenceName": "location-39",
+        "latitude": "4",
+        "longitude": "10"
+    },
+    {
+        "referenceName": "location-40",
+        "latitude": "5",
+        "longitude": "1"
+    },
+    {
+        "referenceName": "location-41",
+        "latitude": "5",
+        "longitude": "2"
+    },
+    {
+        "referenceName": "location-42",
+        "latitude": "5",
+        "longitude": "3"
+    },
+    {
+        "referenceName": "location-43",
+        "latitude": "5",
+        "longitude": "4"
+    },
+    {
+        "referenceName": "location-44",
+        "latitude": "5",
+        "longitude": "5"
+    },
+    {
+        "referenceName": "location-45",
+        "latitude": "5",
+        "longitude": "6"
+    },
+    {
+        "referenceName": "location-46",
+        "latitude": "5",
+        "longitude": "7"
+    },
+    {
+        "referenceName": "location-47",
+        "latitude": "5",
+        "longitude": "8"
+    },
+    {
+        "referenceName": "location-48",
+        "latitude": "5",
+        "longitude": "9"
+    },
+    {
+        "referenceName": "location-49",
+        "latitude": "5",
+        "longitude": "10"
+    },
+    {
+        "referenceName": "location-50",
+        "latitude": "6",
+        "longitude": "1"
+    },
+    {
+        "referenceName": "location-51",
+        "latitude": "6",
+        "longitude": "2"
+    },
+    {
+        "referenceName": "location-52",
+        "latitude": "6",
+        "longitude": "3"
+    },
+    {
+        "referenceName": "location-53",
+        "latitude": "6",
+        "longitude": "4"
+    },
+    {
+        "referenceName": "location-54",
+        "latitude": "6",
+        "longitude": "5"
+    },
+    {
+        "referenceName": "location-55",
+        "latitude": "6",
+        "longitude": "6"
+    },
+    {
+        "referenceName": "location-56",
+        "latitude": "6",
+        "longitude": "7"
+    },
+    {
+        "referenceName": "location-57",
+        "latitude": "6",
+        "longitude": "8"
+    },
+    {
+        "referenceName": "location-58",
+        "latitude": "6",
+        "longitude": "9"
+    },
+    {
+        "referenceName": "location-59",
+        "latitude": "6",
+        "longitude": "10"
+    },
+    {
+        "referenceName": "location-60",
+        "latitude": "7",
+        "longitude": "1"
+    },
+    {
+        "referenceName": "location-61",
+        "latitude": "7",
+        "longitude": "2"
+    },
+    {
+        "referenceName": "location-62",
+        "latitude": "7",
+        "longitude": "3"
+    },
+    {
+        "referenceName": "location-63",
+        "latitude": "7",
+        "longitude": "4"
+    },
+    {
+        "referenceName": "location-64",
+        "latitude": "7",
+        "longitude": "5"
+    },
+    {
+        "referenceName": "location-65",
+        "latitude": "7",
+        "longitude": "6"
+    },
+    {
+        "referenceName": "location-66",
+        "latitude": "7",
+        "longitude": "7"
+    },
+    {
+        "referenceName": "location-67",
+        "latitude": "7",
+        "longitude": "8"
+    },
+    {
+        "referenceName": "location-68",
+        "latitude": "7",
+        "longitude": "9"
+    },
+    {
+        "referenceName": "location-69",
+        "latitude": "7",
+        "longitude": "10"
+    },
+    {
+        "referenceName": "location-70",
+        "latitude": "8",
+        "longitude": "1"
+    },
+    {
+        "referenceName": "location-71",
+        "latitude": "8",
+        "longitude": "2"
+    },
+    {
+        "referenceName": "location-72",
+        "latitude": "8",
+        "longitude": "3"
+    },
+    {
+        "referenceName": "location-73",
+        "latitude": "8",
+        "longitude": "4"
+    },
+    {
+        "referenceName": "location-74",
+        "latitude": "8",
+        "longitude": "5"
+    },
+    {
+        "referenceName": "location-75",
+        "latitude": "8",
+        "longitude": "6"
+    },
+    {
+        "referenceName": "location-76",
+        "latitude": "8",
+        "longitude": "7"
+    },
+    {
+        "referenceName": "location-77",
+        "latitude": "8",
+        "longitude": "8"
+    },
+    {
+        "referenceName": "location-78",
+        "latitude": "8",
+        "longitude": "9"
+    },
+    {
+        "referenceName": "location-79",
+        "latitude": "8",
+        "longitude": "10"
+    },
+    {
+        "referenceName": "location-80",
+        "latitude": "9",
+        "longitude": "1"
+    },
+    {
+        "referenceName": "location-81",
+        "latitude": "9",
+        "longitude": "2"
+    },
+    {
+        "referenceName": "location-82",
+        "latitude": "9",
+        "longitude": "3"
+    },
+    {
+        "referenceName": "location-83",
+        "latitude": "9",
+        "longitude": "4"
+    },
+    {
+        "referenceName": "location-84",
+        "latitude": "9",
+        "longitude": "5"
+    },
+    {
+        "referenceName": "location-85",
+        "latitude": "9",
+        "longitude": "6"
+    },
+    {
+        "referenceName": "location-86",
+        "latitude": "9",
+        "longitude": "7"
+    },
+    {
+        "referenceName": "location-87",
+        "latitude": "9",
+        "longitude": "8"
+    },
+    {
+        "referenceName": "location-88",
+        "latitude": "9",
+        "longitude": "9"
+    },
+    {
+        "referenceName": "location-89",
+        "latitude": "9",
+        "longitude": "10"
+    },
+    {
+        "referenceName": "location-90",
+        "latitude": "10",
+        "longitude": "1"
+    },
+    {
+        "referenceName": "location-91",
+        "latitude": "10",
+        "longitude": "2"
+    },
+    {
+        "referenceName": "location-92",
+        "latitude": "10",
+        "longitude": "3"
+    },
+    {
+        "referenceName": "location-93",
+        "latitude": "10",
+        "longitude": "4"
+    },
+    {
+        "referenceName": "location-94",
+        "latitude": "10",
+        "longitude": "5"
+    },
+    {
+        "referenceName": "location-95",
+        "latitude": "10",
+        "longitude": "6"
+    },
+    {
+        "referenceName": "location-96",
+        "latitude": "10",
+        "longitude": "7"
+    },
+    {
+        "referenceName": "location-97",
+        "latitude": "10",
+        "longitude": "8"
+    },
+    {
+        "referenceName": "location-98",
+        "latitude": "10",
+        "longitude": "9"
+    },
+    {
+        "referenceName": "location-99",
+        "latitude": "10",
+        "longitude": "10"
+    }
+]

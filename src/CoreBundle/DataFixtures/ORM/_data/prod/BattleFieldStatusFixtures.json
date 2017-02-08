@@ -1,0 +1,10 @@
+[
+    {
+        "referenceName": "battle_field_status-0",
+        "statusName": "Accessible"
+    },
+    {
+        "referenceName": "battle_field_status-1",
+        "statusName": "Blocked"
+    }
+]

@@ -43,8 +43,6 @@ class User implements  UserInterface, NDUserInterface
      * )
      * @Assert\NotBlank()
      *
-     * @JMS\Exclude()
-     *
      * @ORM\Column(name="name", type="string", unique=true)
      */
     private $username;

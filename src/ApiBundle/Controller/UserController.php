@@ -4,6 +4,7 @@ namespace ApiBundle\Controller;
 
 use CoreBundle\Form\User\UserLoginType;
 use CoreBundle\Form\User\UserRegisterType;
+use CoreBundle\Form\User\UserReadType;
 use NorseDigital\Symfony\RestBundle\Controller\BaseController;
 use NorseDigital\Symfony\RestBundle\Handler\ProcessorInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -72,6 +73,33 @@ class UserController extends BaseController
     public function postRegisterAction(Request $request) : Response
     {
         return $this->process($request, UserRegisterType::class, Response::HTTP_CREATED);
+    }
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  section="Profile",
+     *  description="Get user",
+     *  input={
+     *       "class" = "CoreBundle\Form\User\UserReadType",
+     *       "name" = ""
+     *  },
+     *  statusCodes={
+     *      200 = "Ok",
+     *      400 = "Bad format",
+     *      403 = "Access denied"
+     *  }
+     *)
+     *
+     * @param Request $request
+     *
+     * @return Response
+     *
+     * @throws \Exception
+     */
+    public function getAction(Request $request) : Response
+    {
+        return $this->process($request, UserReadType::class);
     }
 
     /**

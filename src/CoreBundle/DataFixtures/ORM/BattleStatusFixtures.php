@@ -6,7 +6,7 @@ use NorseDigital\Symfony\RestBundle\Entity\EntityInterface;
 use NorseDigital\Symfony\RestBundle\Service\AbstractService;
 
 /**
- * Class CandidateStatusFixtures.
+ * Class BattleStatusFixtures.
  */
 class BattleStatusFixtures extends BattleFixtures
 {

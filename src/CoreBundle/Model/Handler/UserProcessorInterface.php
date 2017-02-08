@@ -4,6 +4,7 @@ namespace CoreBundle\Model\Handler;
 
 use CoreBundle\Entity\User;
 use CoreBundle\Model\Request\User\UserLoginRequest;
+use CoreBundle\Model\Request\User\UserReadRequest;
 use CoreBundle\Model\Request\User\UserRegisterRequest;
 use NorseDigital\Symfony\RestBundle\Handler\ProcessorInterface;
 
@@ -23,4 +24,11 @@ interface UserProcessorInterface extends ProcessorInterface
      * @return User
      */
     public function processPostLogin(UserLoginRequest $request): User;
+
+    /**
+     * @param UserReadRequest $request
+     *
+     * @return User
+     */
+    public function processGet(UserReadRequest $request): User;
 }

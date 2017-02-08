@@ -14,9 +14,7 @@ use CoreBundle\Entity\BattleField;
 use CoreBundle\Entity\CountShips;
 use CoreBundle\Entity\Map;
 use CoreBundle\Entity\Ship;
-use CoreBundle\Entity\ShipLocation;
 use CoreBundle\Entity\Battle;
-use CoreBundle\Entity\User;
 use CoreBundle\Model\Request\Ship\ShipAllRequestInterface;
 use CoreBundle\Model\Request\Ship\ShipCreateRequest;
 use CoreBundle\Model\Request\Ship\ShipUpdateRequest;
@@ -33,8 +31,6 @@ use CoreBundle\Exception\Ship\ExhaustedLimitOfThisTypeOfShips;
 use CoreBundle\Exception\Ship\ShipLocatedOnOccupiedCellsException;
 use CoreBundle\Exception\Ship\IncorrectShipLocationException;
 use CoreBundle\Exception\Ship\YourBattleFieldIsReadyException;
-use CoreBundle\Exception\BattleField\YouAreNotOwnerOfThisBattleFieldException;
-use \CoreBundle\Exception\Battle\BattleIsNotInOpenOrPreparationStatusException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 /** @noinspection PhpHierarchyChecksInspection */
@@ -281,6 +277,8 @@ class ShipService extends AbstractService implements EventSubscriberInterface
             $map[$cell->getLatitude()][$cell->getLongitude()] = $cell;
         }
 
+        //TODO: validate locations if cells = [9, 10, 11]
+
         $prohibitedMap = [];
         $maxCells = count($map);
         $shipLocations = $request->getLocation();
@@ -473,7 +471,7 @@ class ShipService extends AbstractService implements EventSubscriberInterface
         if ($battleReady) {
             $battleUpdateRequest = new BattleUpdateRequest();
             $battleUpdateRequest->setBattle($battle);
-            $battleStatus = $this->battleStatusService->getEntityBy(['statusName' => BattleStatusService::PROCESS_BATTLE]);
+            $battleStatus = $this->battleStatusService->getEntityBy(['statusName' => BattleStatusService::ACTIVE_BATTLE]);
             $battleUpdateRequest->setBattleStatus($battleStatus);
             $this->battleService->updatePatch($battleUpdateRequest);
         }

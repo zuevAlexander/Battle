@@ -2,7 +2,7 @@
 
 namespace ApiBundle\Controller;
 
-use CoreBundle\Form\BattleField\BattleFieldReadType;
+use CoreBundle\Form\CountShips\CountShipsListType;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use NorseDigital\Symfony\RestBundle\Controller\BaseController;
 use NorseDigital\Symfony\RestBundle\Handler\ProcessorInterface;
@@ -11,19 +11,19 @@ use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\Controller\Annotations\RouteResource;
 
 /**
- * Class BattleFieldController
+ * Class CountShipsController
  *
- * @RouteResource("BattleField")
+ * @RouteResource("CountShips")
  */
-class BattleFieldController extends BaseController
+class CountShipsController extends BaseController
 {
     /**
      * @ApiDoc(
      *  resource=true,
-     *  section="BattleField",
-     *  description="Get BattleField",
+     *  section="CountShips",
+     *  description="Get a list of CountShips",
      *  input={
-     *       "class" = "CoreBundle\Form\BattleField\BattleFieldReadType",
+     *       "class" = "CoreBundle\Form\CountShips\CountShipsListType",
      *       "name" = ""
      *  },
      *  statusCodes={
@@ -32,16 +32,15 @@ class BattleFieldController extends BaseController
      *      400 = "Bad format",
      *      403 = "Forbidden"
      *  }
-     *)
+     * )
      *
      * @param Request $request
-     * @param int $battleField
      *
      * @return Response
      */
-    public function getAction(Request $request, int $battleField) : Response
+    public function cgetAction(Request $request) : Response
     {
-        return $this->process($request, BattleFieldReadType::class);
+        return $this->process($request, CountShipsListType::class);
     }
 
     /**
@@ -49,6 +48,6 @@ class BattleFieldController extends BaseController
      */
     protected function getProcessor() : ProcessorInterface
     {
-        return $this->get('core.handler.battle_field');
+        return $this->get('core.handler.count_ships');
     }
 }

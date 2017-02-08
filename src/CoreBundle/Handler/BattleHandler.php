@@ -8,13 +8,11 @@ use CoreBundle\Model\Request\Battle\BattleCreateRequest;
 use CoreBundle\Model\Request\Battle\BattleReadRequest;
 use CoreBundle\Model\Request\Battle\BattleUpdateRequest;
 use CoreBundle\Model\Request\Battle\BattleDeleteRequest;
-use CoreBundle\Service\BattleStatus\BattleStatusService;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use CoreBundle\Model\Handler\BattleProcessorInterface;
 use CoreBundle\Service\Battle\BattleService;
-use CoreBundle\Exception\Battle\YouCanChangeOnlyOpenBattleException;
 
 /**
  * Class BattleHandler
@@ -54,18 +52,9 @@ class BattleHandler implements ContainerAwareInterface, BattleProcessorInterface
      * @param BattleListRequest $request
      * @return array
      */
-    public function processGetCOwn(BattleListRequest $request): array
+    public function processGetC(BattleListRequest $request): array
     {
-        return $this->battleService->getOwnBattles();
-    }
-
-    /**
-     * @param BattleListRequest $request
-     * @return array
-     */
-    public function processGetCOpen(BattleListRequest $request): array
-    {
-        return $this->battleService->getOpenBattles($request);
+        return $this->battleService->getCBattles($request);
     }
 
     /**
@@ -83,9 +72,6 @@ class BattleHandler implements ContainerAwareInterface, BattleProcessorInterface
      */
     public function processPatch(BattleUpdateRequest $request): Battle
     {
-        if ($request->getBattle()->getBattleStatus()->getStatusName() != BattleStatusService::OPEN_BATTLE) {
-        throw new YouCanChangeOnlyOpenBattleException();
-        }
         return $this->battleService->updatePatch($request);
     }
 

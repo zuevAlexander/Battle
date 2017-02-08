@@ -1,7 +1,13 @@
 parameters:
+  core.handler.count_ships.class: CoreBundle\Handler\CountShipsHandler
   core.entity.count_ships.class: CoreBundle\Entity\CountShips
   core.service.count_ships.class: CoreBundle\Service\CountShips\CountShipsService
 services:
+  core.handler.count_ships:
+    class: '%core.handler.count_ships.class%'
+    arguments:
+      - '@service_container'
+      - '@core.service.count_ships'
   core.service.count_ships:
     class: '%core.service.count_ships.class%'
     tags:

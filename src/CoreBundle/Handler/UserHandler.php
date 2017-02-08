@@ -5,6 +5,7 @@ namespace CoreBundle\Handler;
 use CoreBundle\Entity\User;
 use CoreBundle\Model\Request\User\UserLoginRequest;
 use CoreBundle\Model\Request\User\UserRegisterRequest;
+use CoreBundle\Model\Request\User\UserReadRequest;
 use CoreBundle\Model\Handler\UserProcessorInterface;
 use CoreBundle\Service\User\UserService;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
@@ -55,5 +56,10 @@ class UserHandler implements UserProcessorInterface
     public function processPostRegister(UserRegisterRequest $request) : User
     {
         return $this->userService->createUser($request);
+    }
+
+    public function processGet(UserReadRequest $request): User
+    {
+        return $this->tokenStorage->getToken()->getUser();
     }
 }
