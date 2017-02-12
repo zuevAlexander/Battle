@@ -277,8 +277,6 @@ class ShipService extends AbstractService implements EventSubscriberInterface
             $map[$cell->getLatitude()][$cell->getLongitude()] = $cell;
         }
 
-        //TODO: validate locations if cells = [9, 10, 11]
-
         $prohibitedMap = [];
         $maxCells = count($map);
         $shipLocations = $request->getLocation();

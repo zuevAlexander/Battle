@@ -25,3 +25,11 @@ imports:
     resource: UserServices.yml
   -
     resource: BattleFieldServices.yml
+
+services:
+    acme_hello.topic_sample_service:
+        class: CoreBundle\Socket\AcmeTopic
+        tags:
+            - { name: gos_web_socket.topic }
+        arguments:
+            - '@core.service.battle'

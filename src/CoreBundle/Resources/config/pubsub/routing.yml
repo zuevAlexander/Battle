@@ -1,0 +1,9 @@
+acme_topic_battle:
+    channel: battle/{room}/{battle_id}
+    handler:
+        callback: 'acme.topic'
+    requirements:
+        room:
+            pattern: "[a-z]+"
+        battle_id:
+            pattern: "[0-9]+"

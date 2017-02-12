@@ -102,3 +102,11 @@ nelmio_cors:
             allow_headers: ['*']
             allow_methods: ['POST', 'PUT', 'GET', 'DELETE', 'PATCH']
             max_age: 3600
+
+gos_web_socket:
+    server:
+        host: 127.0.0.1
+        port: 8080
+        router:
+            resources:
+                - "@CoreBundle/Resources/config/pubsub/routing.yml"

@@ -37,7 +37,8 @@
         "nd-symfony/rest-bundle": "3.0.*",
         "nelmio/cors-bundle": "^1.4",
         "nd-symfony/user-bundle": "dev-master",
-        "stof/doctrine-extensions-bundle": "^1.2"
+        "stof/doctrine-extensions-bundle": "^1.2",
+        "gos/web-socket-bundle": "^1.8"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

@@ -12,6 +12,7 @@
 /composer.phar
 .idea
 /var/
-/var/
+/web/
 /Tests/ApiBundle/Controller/last_failed.log
 /web/uploads/
+src/CoreBundle/DataFixtures/ORM/_data/config/

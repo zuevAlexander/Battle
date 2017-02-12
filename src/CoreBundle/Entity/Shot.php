@@ -58,7 +58,6 @@ class Shot implements EntityInterface
      * @var BattleField
      *
      * @JMS\Type("CoreBundle\Entity\BattleField")
-     * @JMS\Exclude()
      *
      * @ORM\ManyToOne(targetEntity="BattleField", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="battle_field_id", referencedColumnName="id", nullable=false)
